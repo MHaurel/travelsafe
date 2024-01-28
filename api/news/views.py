@@ -19,7 +19,6 @@ class NewsForCountry(generics.ListAPIView):
 
     def get_queryset(self):
         country_pk = self.kwargs.get('pk')
-        print(len(News.objects.filter(country=1)))
         return News.objects.filter(country=country_pk).order_by("-date")
 
     # TODO: to define

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'countries',
-    'news'
+    'news',
+    'conversation'
 ]
 
 MIDDLEWARE = [

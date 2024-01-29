@@ -24,5 +24,7 @@ urlpatterns = [
 
     path('api/', include('countries.urls')),
     path('api/', include('news.urls')),
-    path('api/', include('conversation.urls'))
+    path('api/', include('conversation.urls')),
+    path('api/', include('subs.urls')),
+    path('api/', include('accounts.urls'))
 ]

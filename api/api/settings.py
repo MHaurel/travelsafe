@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
 
@@ -40,10 +48,13 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'rest_framework',
+    'rest_framework.authtoken',
 
     'countries',
     'news',
-    'conversation'
+    'conversation',
+    'subs',
+    'accounts'
 ]
 
 MIDDLEWARE = [

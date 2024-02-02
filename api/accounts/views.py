@@ -1,6 +1,8 @@
 from accounts.serializers import UserSerializer
-from rest_framework import generics, status, response
+from rest_framework import generics, status, response, authentication, permissions
 from rest_framework.authtoken.models import Token
+
+from accounts.permissions import IsOwner
 
 from django.contrib.auth import get_user_model, login, logout
 
@@ -12,8 +14,8 @@ class RetrieveUpdateDestroyUser(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     lookup_field = 'pk'  # Specify the lookup field
 
-    # permission_classes = []
-    # authentication_classes = []
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
 class CreateUser(generics.CreateAPIView):

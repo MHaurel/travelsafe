@@ -6,6 +6,8 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import get_user_model
 
+from subs.permissions import IsOwner
+
 User = get_user_model()
 
 
@@ -39,7 +41,7 @@ class DeleteSubscription(generics.DestroyAPIView):
     serializer_class = SubscriptionSerializer
 
     authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
 class ListSubscription(generics.ListAPIView):
@@ -49,8 +51,6 @@ class ListSubscription(generics.ListAPIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    # def get_queryset(self):
-    # FIXME: get the user from the request once the authentication has been realized
-    # user = User.objects.get(pk=self.request.data.get('user'))
-    # return Subscription.objects.filter(user=user)
-    # return super().get_queryset(self)
+    def get_queryset(self):
+        user = self.request.user
+        return Subscription.objects.filter(user=user)

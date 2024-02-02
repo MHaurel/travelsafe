@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'accounts.CustomUser'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
@@ -34,7 +36,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Application definition
 

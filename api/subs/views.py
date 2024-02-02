@@ -1,7 +1,8 @@
 from countries.models import Country
 from subs.serializers import SubscriptionSerializer
 from subs.models import Subscription
-from rest_framework import generics
+from rest_framework import generics, authentication, permissions, status, response
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import get_user_model
 
@@ -12,33 +13,41 @@ class CreateSubscription(generics.CreateAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    # permission_classes = []
-    # authentication_classes = []
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer):
-        user_pk = self.request.data.get('user')
+    def create(self, request, *args, **kwargs):
         country_pk = self.kwargs.get('pk')
+        country = get_object_or_404(Country, pk=country_pk)
 
-        user = User.objects.get(pk=user_pk)
-        country = Country.objects.get(pk=country_pk)
+        user = self.request.user
 
-        serializer.save(user=user, country=country)
+        data = {
+            "user": user.id, 'country': country.pk
+        }
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+
+        self.perform_create(serializer)
+
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class DeleteSubscription(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    # permission_classes = []
-    # authentication_classes = []
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class ListSubscription(generics.ListAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    # permission_classes = []
-    # authentication_classes = []
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     # def get_queryset(self):
     # FIXME: get the user from the request once the authentication has been realized

@@ -53,7 +53,7 @@ class CustomUser(AbstractBaseUser):
     time_stamp = models.TimeField(auto_now_add=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [first_name, last_name]
+    REQUIRED_FIELDS = []
 
     def get_first_name(self):
         return self.email

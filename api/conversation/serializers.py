@@ -7,18 +7,18 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = "__all__"
-        depth = 1
+        # depth = 1
 
 
 class EmojiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emoji
         fields = "__all__"
-        depth = 1
+        # depth = 1
 
 
 class ReactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reaction
         fields = "__all__"
-        depth = 1
+        # depth = 1

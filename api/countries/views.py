@@ -1,6 +1,6 @@
 from rest_framework import generics
 
-from countries.models import Country, Risk, RiskLevel
+from countries.models import Country
 from countries.serializers import CountrySerializer
 
 

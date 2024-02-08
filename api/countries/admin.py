@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from countries.models import Country, Risk, RiskLevel
+from countries.models import Country
 # Register your models here.
 admin.site.register(Country)
-admin.site.register(Risk)
-admin.site.register(RiskLevel)
+# admin.site.register(Risk)
+# admin.site.register(RiskLevel)

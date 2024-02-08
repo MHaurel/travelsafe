@@ -28,13 +28,17 @@ class Country(models.Model):
     risk_sociopolitical = models.ForeignKey(
         Risk, on_delete=models.CASCADE, related_name="country_risk_sociopolitical", null=True)
 
-    # Risques sanitaires dans le pays visité
+    # Risques sanitaires dans le pays visité (Médical)
     risk_sanitary = models.ForeignKey(
         Risk, on_delete=models.CASCADE, related_name="country_risk_sanitary", null=True)
 
     # Sécurité du pays visité
     risk_security = models.ForeignKey(
         Risk, on_delete=models.CASCADE, related_name="country_risk_security", null=True)
+
+    # Nourriture
+    risk_food = models.ForeignKey(
+        Risk, on_delete=models.CASCADE, related_name="country_risk_food", null=True)
 
     def __str__(self) -> str:
         return self.name

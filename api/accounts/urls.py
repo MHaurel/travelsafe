@@ -9,6 +9,8 @@ urlpatterns = [
          name="user-retrieve-update-destroy"),
 
     path("accounts", views.CreateUser.as_view(), name="user-create"),
+    path("accounts/criteria",
+         views.AddCriteriaView.as_view(), name="add-criteria"),
 
     path("login", views.LoginView.as_view(), name='login'),
     path("logout", views.LogoutView.as_view(), name='logout'),

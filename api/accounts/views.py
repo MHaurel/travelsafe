@@ -1,3 +1,4 @@
+from criteria.serializers import CriteriaSerializer
 from accounts.serializers import UserSerializer
 from rest_framework import generics, status, response, authentication, permissions
 from rest_framework.authtoken.models import Token
@@ -54,3 +55,45 @@ class LogoutView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         logout(request)
         return response.Response({'detail': 'Successfully logged out.'})
+
+
+class AddCriteriaView(generics.CreateAPIView):
+    serializer_class = CriteriaSerializer
+
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def post(self, request, *args, **kwargs):
+        # create the criteria
+        print(request.data)
+
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_criteria = serializer.save()
+
+        # assign the criteria to the user
+        if request.data.get("name") == "Sécurité du pays":
+            request.user.criteria_security = new_criteria
+        elif request.data.get("name") == "Respect du droit des femmes et des enfants":
+            request.user.criteria_women_children = new_criteria
+        elif request.data.get("name") == "Risques sanitaires du pays":
+            request.user.criteria_sanitary = new_criteria
+        elif request.data.get("name") == "Climat sociopolitique du pays":
+            request.user.criteria_sociopolitical = new_criteria
+        elif request.data.get("name") == "Conséquences liées au changement climatique dans le pays visité":
+            request.user.criteria_climate = new_criteria
+        elif request.data.get("name") == "Us et coutumes du pays":
+            request.user.criteria_customs = new_criteria
+        elif request.data.get("name") == "Respect des droits LGBTQ+":
+            request.user.criteria_lgbt = new_criteria
+        elif request.data.get("name") == "Allergies alimentaires dans le pays":
+            request.user.criteria_allergy = new_criteria
+        else:
+            print("Not existing")
+
+        try:
+            request.user.save()
+            return response.Response({}, status=status.HTTP_201_CREATED)
+        except:
+            print("Error")
+            return response.Response({}, status=status.HTTP_400_BAD_REQUEST)

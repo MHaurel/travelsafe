@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'conversation',
     'subs',
     'accounts',
-    "risks"
+    'risks',
+    'criteria'
 ]
 
 MIDDLEWARE = [

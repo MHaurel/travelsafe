@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.hashers import make_password
 
+from criteria.models import Criteria
+
 
 class UsersManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -52,6 +54,39 @@ class CustomUser(AbstractBaseUser):
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
     time_stamp = models.TimeField(auto_now_add=True)
+
+    # Criteria
+    # Femmes et enfants
+    criteria_women_children = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_women_children")
+
+    # Sécurité
+    criteria_security = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_security")
+
+    # Sanitaires
+    criteria_sanitary = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_sanitary")
+
+    # Climat sociopolitique
+    criteria_sociopolitical = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_sociopolitical")
+
+    # Conséquences liées au changement politique du pays
+    criteria_climate = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_climate")
+
+    # Us et coutumes
+    criteria_customs = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_customs")
+
+    # LGBTQ+
+    criteria_lgbt = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_lgbt")
+
+    # Allergies alimentaires
+    criteria_allergy = models.ForeignKey(
+        Criteria, on_delete=models.CASCADE, blank=True, null=True, related_name="criteria_allergy")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

@@ -6,6 +6,7 @@ from risks.models import Risk, RiskLevel
 
 class Country(models.Model):
     name = models.CharField(max_length=255)
+    last_edition = models.DateTimeField(auto_now=True)
 
     # Ajouter un champ par section
     # Condition des femmes et des enfants

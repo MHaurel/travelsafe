@@ -1,5 +1,8 @@
 import 'package:flutter_frontend/models/risk.dart';
 
+// ignore: constant_identifier_names
+const INDEF = "Risque indéfini";
+
 class Country {
   int id;
   String name;
@@ -71,6 +74,62 @@ class Country {
     if (notNullNb == 0) notNullNb++;
 
     return (sum / notNullNb).round();
+  }
+
+  String get womenChildrenDescription {
+    if (riskWomenChildren == null) {
+      return INDEF;
+    }
+    return riskWomenChildren!.description;
+  }
+
+  String get lgbtDescription {
+    if (riskLgbt == null) {
+      return INDEF;
+    }
+    return riskLgbt!.description;
+  }
+
+  String get customsDescription {
+    if (riskCustoms == null) {
+      return INDEF;
+    }
+    return riskCustoms!.description;
+  }
+
+  String get climateDescription {
+    if (riskClimate == null) {
+      return INDEF;
+    }
+    return riskClimate!.description;
+  }
+
+  String get socipoliticalDescription {
+    if (riskSociopolitical == null) {
+      return INDEF;
+    }
+    return riskSociopolitical!.description;
+  }
+
+  String get sanitaryDescription {
+    if (riskSanitary == null) {
+      return INDEF;
+    }
+    return riskSanitary!.description;
+  }
+
+  String get securityDescription {
+    if (riskSecurity == null) {
+      return INDEF;
+    }
+    return riskSecurity!.description;
+  }
+
+  String get foodDescription {
+    if (riskFood == null) {
+      return INDEF;
+    }
+    return riskFood!.description;
   }
 
   @override

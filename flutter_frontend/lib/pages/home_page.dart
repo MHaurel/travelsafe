@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
+import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Country> _countries = [];
+  List<Country> _visibleCountries = [];
   TextEditingController _searchController = TextEditingController();
 
   @override
@@ -31,11 +33,17 @@ class _HomePageState extends State<HomePage> {
     response.data.forEach((c) => countries.add(Country.fromJson(c)));
     setState(() {
       _countries = countries;
+      _visibleCountries = countries;
     });
   }
 
   void _onSearchChanged(String s) {
-    print(s);
+    List<Country> searchCountries = _countries
+        .where((e) => e.name.toLowerCase().contains(s.toLowerCase()))
+        .toList();
+    setState(() {
+      _visibleCountries = searchCountries;
+    });
   }
 
   @override
@@ -56,11 +64,19 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Accueil"),
+                  const Text("Accueil"),
                   SearchField(
                       onChanged: _onSearchChanged,
                       controller: _searchController),
-                  CountryList(countries: _countries)
+                  const Text("Dernières informations"),
+                  Row(
+                    children: [
+                      const Text("Utiliser mes critères"),
+                      const SizedBox(width: 30),
+                      CriteriaSwitch(onChanged: ((a) => print(a)))
+                    ],
+                  ),
+                  CountryList(countries: _visibleCountries)
                 ],
               ),
             ),

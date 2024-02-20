@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
@@ -14,9 +16,8 @@ class CountryCard extends StatelessWidget {
   }
 
   void _onDownloadCountrySheet() async {
-    print("Asking to download country sheet");
-    // TODO: obtain the proper way to pass the isMobile parameter
-    await downloadCountrySheet(country, false);
+    bool isMobile = Platform.isAndroid || Platform.isIOS;
+    await downloadCountrySheet(country, isMobile);
   }
 
   void _goToCountry() {

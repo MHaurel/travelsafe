@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/widgets/country_card.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 enum SortType {
   none,
@@ -108,19 +109,33 @@ class _CountryListState extends State<CountryList> {
         ),
         SizedBox(
           height: 600,
-          child: ListView.builder(
-            itemCount: widget.countries.length,
-            itemBuilder: (context, index) {
-              if (index != (0)) {
-                return Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          top: BorderSide(color: Colors.black, width: 1))),
-                  child: CountryCard(country: widget.countries[index]),
-                );
-              }
-              return CountryCard(country: widget.countries[index]);
-            },
+          child: AnimationLimiter(
+            child: ListView.builder(
+              itemCount: widget.countries.length,
+              itemBuilder: (context, index) {
+                return AnimationConfiguration.staggeredList(
+                    position: index,
+                    duration: const Duration(milliseconds: 375),
+                    child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                          child: CountryCard(
+                        country: widget.countries[index],
+                      )),
+                    ));
+
+                // ! manage that
+                // if (index != (0)) {
+                //   return Container(
+                //     decoration: const BoxDecoration(
+                //         border: Border(
+                //             top: BorderSide(color: Colors.black, width: 1))),
+                //     child: CountryCard(country: widget.countries[index]),
+                //   );
+                // }
+                // return CountryCard(country: widget.countries[index]);
+              },
+            ),
           ),
         )
       ],

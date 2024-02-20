@@ -3,14 +3,33 @@ import 'dart:io';
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'package:flutter_frontend/models/country.dart';
 
+/**
+ * ! See the documentation and example: https://davbfr.github.io/dart_pdf/#/
+ */
+
 Future<void> downloadCountrySheet(Country country, bool isMobile) async {
+  Future<pw.Image> makeLogo(bool isMobile) async {
+    late Uint8List imageBytes;
+    if (isMobile) {
+      imageBytes = File('assets/images/logo.png').readAsBytesSync();
+    } else {
+      final logo = await rootBundle.load("assets/images/logo.png");
+      imageBytes = logo.buffer.asUint8List();
+    }
+    return pw.Image(pw.MemoryImage(imageBytes));
+  }
+
   print("downloadCountrySheet");
   final pdf = pw.Document();
+
+  final pw.Image logoImage =
+      await makeLogo(isMobile); // ? taking too long -> reduce image size
 
   pdf.addPage(pw.Page(
     pageFormat: PdfPageFormat.a4,
@@ -19,7 +38,7 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
           child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          // pw.Image(pw.ImageProvider()),
+          logoImage,
           pw.Text(country.name, style: pw.TextStyle(fontSize: 25)),
           pw.Text(DateTime.now().toLocal().toString()),
           pw.Text("Conditions des femmes et des enfants",

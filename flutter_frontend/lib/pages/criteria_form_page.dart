@@ -91,24 +91,6 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
           });
     }
 
-    // void _onStepPrevious() {
-    //   setState(() {
-    //     if (step > 0) {
-    //       step--;
-    //       _showStepperDialog();
-    //     }
-    //   });
-    // }
-
-    // void _onStepNext() {
-    //   setState(() {
-    //     if (step < (steps.length - 1)) {
-    //       step++;
-    //       _showStepperDialog();
-    //     }
-    //   });
-    // }
-
     return Scaffold(
       body: Center(
         child: ElevatedButton(

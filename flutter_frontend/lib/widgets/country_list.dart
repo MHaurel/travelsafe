@@ -11,9 +11,11 @@ enum SortType {
 }
 
 class CountryList extends StatefulWidget {
-  const CountryList({super.key, required this.countries});
+  const CountryList(
+      {super.key, required this.countries, required this.onOrderChanged});
 
   final List<Country> countries;
+  final Function(SortType st) onOrderChanged;
 
   @override
   State<CountryList> createState() => _CountryListState();
@@ -21,6 +23,14 @@ class CountryList extends StatefulWidget {
 
 class _CountryListState extends State<CountryList> {
   SortType sort = SortType.none;
+  late List<Country> _countries;
+
+  @override
+  void initState() {
+    _countries = widget.countries;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +49,7 @@ class _CountryListState extends State<CountryList> {
                       setState(() {
                         sort = SortType.countryAscending;
                       });
+                      widget.onOrderChanged(sort);
                     },
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -51,6 +62,7 @@ class _CountryListState extends State<CountryList> {
                       setState(() {
                         sort = SortType.countryDescending;
                       });
+                      widget.onOrderChanged(sort);
                     },
                     icon: Icon(
                       Icons.arrow_drop_down,
@@ -68,6 +80,7 @@ class _CountryListState extends State<CountryList> {
                       setState(() {
                         sort = SortType.lastUpdateAscending;
                       });
+                      widget.onOrderChanged(sort);
                     },
                     icon: Icon(
                       Icons.arrow_drop_up,
@@ -80,6 +93,7 @@ class _CountryListState extends State<CountryList> {
                       setState(() {
                         sort = SortType.lastUpdateDescending;
                       });
+                      widget.onOrderChanged(sort);
                     },
                     icon: Icon(
                       Icons.arrow_drop_down,

@@ -104,7 +104,7 @@ class _CountryListState extends State<CountryList> {
                     )),
               ],
             ),
-            SizedBox()
+            const SizedBox()
           ],
         ),
         SizedBox(

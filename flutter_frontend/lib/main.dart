@@ -16,6 +16,21 @@ class MainApp extends StatelessWidget {
       title: 'TravelSafe',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF478B85)),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
+      )),
+          )
+        ),
+        sliderTheme: const SliderThemeData(
+          valueIndicatorColor: Color(0xFFA8D6AC),
+          valueIndicatorTextStyle: TextStyle(color: Color(0xFFFFFFFF)),
+          valueIndicatorShape: RectangularSliderValueIndicatorShape(),
+          thumbColor: Color(0xFF575757),
+          activeTrackColor: Color(0xFFA8D6AC),
+          
+        ),
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,

@@ -3,6 +3,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/pages/country_page.dart';
 
 class CountryCard extends StatelessWidget {
   const CountryCard({super.key, required this.country});
@@ -20,15 +21,17 @@ class CountryCard extends StatelessWidget {
     await downloadCountrySheet(country, isMobile);
   }
 
-  void _goToCountry() {
-    // TODO: push to named route
-    print("Asking to go to country $country");
+  void _goToCountry(BuildContext context, int index) {
+    // Navigator.of(context).pushNamed("/country");
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => CountryPage(countryIndex: index),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _goToCountry,
+      onTap: () => _goToCountry(context, country.id),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

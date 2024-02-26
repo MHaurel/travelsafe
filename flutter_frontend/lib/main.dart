@@ -38,7 +38,7 @@ class MainApp extends StatelessWidget {
         // home: const HomePage(),
         initialRoute: "/",
         routes: {
-          "/": (context) => const CountryPage(countryIndex: 1),
+          "/": (context) => const HomePage(),
           "/country": (context) => const CountryPage(
                 countryIndex: 1,
               ),

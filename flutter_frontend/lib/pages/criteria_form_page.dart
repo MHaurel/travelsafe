@@ -64,7 +64,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text("Bienvenue sur TravelSafe"),
+              title: Text("Bienvenue sur TravelSafe !"),
               actions: [
                 Center(
                   child: Column(

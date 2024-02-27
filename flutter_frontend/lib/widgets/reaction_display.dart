@@ -8,11 +8,17 @@ class ReactionDisplay extends StatelessWidget {
       required this.onTap});
 
   final Widget leading;
-  final IconData icon;
+  final dynamic icon;
   final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
+    List<IconData> possibleIcons = [
+      Icons.thumb_up,
+      Icons.thumb_down,
+      Icons.beach_access
+    ];
+
     return Padding(
       padding: const EdgeInsets.only(right: 5.0, top: 10.0),
       child: InkWell(
@@ -34,7 +40,7 @@ class ReactionDisplay extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Icon(icon)
+                  icon is int ? Icon(possibleIcons[icon]) : Icon(icon)
                 ],
               ),
             ),

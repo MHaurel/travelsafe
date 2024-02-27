@@ -7,6 +7,9 @@ import 'package:flutter_frontend/models/message.dart';
 import 'package:flutter_frontend/models/risk.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
+import 'package:flutter_frontend/widgets/base/custom_text_field.dart';
+import 'package:flutter_frontend/widgets/base/primary_button.dart';
+import 'package:flutter_frontend/widgets/base/secondary_button.dart';
 import 'package:flutter_frontend/widgets/messages_list.dart';
 
 class CollaborativeSpace extends StatefulWidget {
@@ -38,9 +41,48 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
     super.initState();
   }
 
-  void _addMessage() {
+  void _addMessage(String? content, int? userId, int? countryId) {
     // TODO: code function
-    print("Asking to add message");
+    print("Content of the message: $content");
+  }
+
+  void _showAddMessageDialog(BuildContext context) {
+    TextEditingController controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actions: [
+            SecondaryButton(
+                onPressed: () => Navigator.of(context).pop(), text: "Annuler"),
+            PrimaryButton(
+                onPressed: () => _addMessage(controller.text, null, null),
+                text: "Poster un message")
+          ],
+          content: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Contenu de votre message",
+                    style: Theme.of(context).textTheme.titleMedium),
+                const SizedBox(
+                  height: 10,
+                ),
+                CustomTextField(
+                  label: "Message",
+                  hintText: "Lorem ipsum dolor sit amet...",
+                  controller: controller,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 8,
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -60,7 +102,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                         Text("Espace collaboratif",
                             style: Theme.of(context).textTheme.headlineMedium),
                         CustomIconButton(
-                            onPressed: _addMessage,
+                            onPressed: () => _showAddMessageDialog(context),
                             text: "Ajouter un message",
                             icon: Icons.add),
                         MessagesList(messages: snapshot.data!)

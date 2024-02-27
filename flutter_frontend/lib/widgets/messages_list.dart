@@ -10,7 +10,7 @@ class MessagesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400,
+      height: MediaQuery.of(context).size.height * 0.8,
       // child: Text(messages.length.toString()),
       child: ListView.builder(
         itemCount: messages.length,

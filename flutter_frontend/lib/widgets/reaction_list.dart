@@ -32,6 +32,7 @@ class _ReactionListState extends State<ReactionList> {
 
   void _onReactionTapped(Reaction reaction) {
     print("tapped on ${reaction.emoji.name}");
+    print(Icons.thumb_up);
   }
 
   void _onReactionAdd() {
@@ -43,10 +44,10 @@ class _ReactionListState extends State<ReactionList> {
     Map<dynamic, dynamic> reactionsMapCount = {};
 
     reactions.forEach((element) {
-      if (!reactionsMapCount.keys.contains(element.emoji.name)) {
-        reactionsMapCount[element.emoji.name] = 0;
+      if (!reactionsMapCount.keys.contains(element.emoji.icon)) {
+        reactionsMapCount[element.emoji.icon] = 0;
       }
-      reactionsMapCount[element.emoji.name] += 1;
+      reactionsMapCount[element.emoji.icon] += 1;
     });
 
     return reactionsMapCount;
@@ -88,8 +89,7 @@ class _ReactionListState extends State<ReactionList> {
                               leading: Text(_reactionsMapCount[
                                       _reactionsMapCount.keys.toList()[index]]
                                   .toString()), // FIXME:
-                              // icon: Icons.snapshot.data![index].emoji.icon,
-                              icon: Icons.thumb_up,
+                              icon: _reactionsMapCount.keys.toList()[index],
                               onTap: () =>
                                   _onReactionTapped(snapshot.data![index]));
                         },

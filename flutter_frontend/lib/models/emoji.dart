@@ -1,7 +1,7 @@
 class Emoji {
   int id;
   String name;
-  String icon;
+  int icon;
 
   Emoji(this.id, this.name, this.icon);
 

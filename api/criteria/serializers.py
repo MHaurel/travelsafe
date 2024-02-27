@@ -10,7 +10,7 @@ class TypeCriteriaSerializer(serializers.ModelSerializer):
 
 
 class CriteriaSerializer(serializers.ModelSerializer):
-    types = TypeCriteriaSerializer(many=True)
+    types = TypeCriteriaSerializer(many=True, read_only=True)
 
     class Meta:
         model = Criteria

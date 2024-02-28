@@ -24,3 +24,17 @@ class CriteriaSerializer(serializers.ModelSerializer):
             type_obj, _ = TypeCriteria.objects.get_or_create(**type_data)
             criteria.types.add(type_obj)
         return criteria
+
+    def update(self, instance, validated_data):
+        # Update the grade field if it's present in the validated data
+        instance.grade = validated_data.get('grade', instance.grade)
+
+        # Update the types field if it's present in the validated data
+        types_data = validated_data.get('types')
+        if types_data:
+            for type_data in types_data:
+                type_obj, _ = TypeCriteria.objects.get_or_create(**type_data)
+                instance.types.add(type_obj)
+
+        instance.save()
+        return instance

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
+import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 
 class HomeMaster extends StatefulWidget {
@@ -72,6 +74,12 @@ class _HomeMasterState extends State<HomeMaster> {
 
   @override
   Widget build(BuildContext context) {
+    Country country = Country(1, "Afghanistan", DateTime.now(), null, null, null, null, null, null, null, null);
+
+    LastInfo lastInfo1 = LastInfo(1, "L'Afghanistan n'est plus", "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.", DateTime.now(), country);
+    LastInfo lastInfo2 = LastInfo(1, "L'Afghanistan n'est plus", "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.", DateTime.now(), country);
+
+
     return Row(
       children: [
         // Left col with legend
@@ -90,11 +98,11 @@ class _HomeMasterState extends State<HomeMaster> {
                   onChanged: _onSearchChanged, controller: _searchController),
               HomeFilterButton(onPressed: _onFilterPressed),
               const Text("Dernières informations"),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Dernière information 1"),
-                  Text("Dernière information 2"),
+                  LastInfoCardSmall(lastInfo: lastInfo1),
+                  LastInfoCardSmall(lastInfo: lastInfo2,)
                 ],
               ),
               Row(

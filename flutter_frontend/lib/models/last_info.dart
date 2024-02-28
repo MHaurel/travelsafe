@@ -11,6 +11,6 @@ class LastInfo {
 
   factory LastInfo.fromJson(Map<String, dynamic> json) {
     return LastInfo(json['id'], json['title'], json['content'],
-        json['createdAt'], Country.fromJson(json['country']));
+        DateTime.parse(json['date']), Country.fromJson(json['country']));
   }
 }

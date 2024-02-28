@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/widgets/allergia_input_list.dart';
 
 class CriteriaFormPage extends StatefulWidget {
@@ -13,47 +15,49 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
   Widget build(BuildContext context) {
     String? errorText;
 
-    int step = 7;
+    int step = 0;
     List<Step> steps = const [
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants.",
+          isAllergy: false,
+          criteriaName: "Respect du droit des femmes et des enfants"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance de la sécurité du pays.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance de la sécurité du pays.",
+          isAllergy: false,
+          criteriaName: "Sécurité du pays"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance des risques sanitaires du pays.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance des risques sanitaires du pays.",
+          isAllergy: false,
+          criteriaName: "Risques sanitaires du pays"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance du climat sociopolitique du pays.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance du climat sociopolitique du pays.",
+          isAllergy: false,
+          criteriaName: "Climat sociopolitique du pays"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance des conséquences liées au changement climatique dans le pays visité.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance des conséquences liées au changement climatique dans le pays visité.",
+          isAllergy: false,
+          criteriaName:
+              "Conséquences liées au changement climatique dans le pays visité"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance des us et coutumes dy pays.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance des us et coutumes du pays.",
+          isAllergy: false,
+          criteriaName: "Us et coutumes du pays"),
       Step(
-        title:
-            "Vous allez maintenant renseigner l'importance du respect des droits LGBTQ+.",
-        isAllergy: false,
-      ),
+          title:
+              "Vous allez maintenant renseigner l'importance du respect des droits LGBTQ+.",
+          isAllergy: false,
+          criteriaName: "Respect des droits LGBTQ+"),
       Step(
           title:
               "Vous allez maintenant renseigner l'importance des allergies alimentaires dans le pays.",
-          isAllergy: true),
+          isAllergy: true,
+          criteriaName: "Allergies alimentaires dans le pays"),
     ];
 
     void _goToNextStep() {}
@@ -65,6 +69,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.6,
             child: AlertDialog(
+              actionsAlignment: MainAxisAlignment.center,
               actions: [
                 ElevatedButton(
                     onPressed: () {
@@ -79,8 +84,24 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                     child: const Text("Précédent")),
                 StepperIndicator(stepIndex: step),
                 ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // call the api to update (or to create it)
+                      int userId =
+                          14; // FIXME: recuperate it dynamically when registration will be done
+                      print(steps[step].criteriaName);
+
+                      // Dio dio = Dio();
+                      // dio.options.headers['content-type'] = "application/json";
+                      // dio.options.headers['Authorization'] =
+                      //     "Token c29ec1e733d7fd6283fab3b94a18984d95a390b8";
+                      // final response = await dio
+                      //     .post("$baseUrl/accounts/criteria", data: {
+                      //   "name": steps[step].criteriaName,
+                      //   "grade": 1,
+                      //   "types": []
+                      // }); // FIXME: types is static here, wont work for allergias (also, get the grade properly)
+
+                      // print(response.statusCode);
 
                       // if successful
                       setState(() {
@@ -92,11 +113,11 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                         }
                       });
 
-                      // else
-                      setState(() {
-                        errorText =
-                            "Une erreur est survenue, merci de remplir vos critères plus tard.";
-                      });
+                      // // else
+                      // setState(() {
+                      //   errorText =
+                      //       "Une erreur est survenue, merci de remplir vos critères plus tard.";
+                      // });
                     },
                     child: const Text("Suivant"))
               ],
@@ -125,7 +146,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                           },
                           child: const Text("Commencer")), // !
                       TextButton(
-                          onPressed: () {}, // !
+                          onPressed: () {}, // ! dispose ?
                           child: const Text("Remplir plus tard"))
                     ],
                   ),
@@ -151,10 +172,15 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
 }
 
 class Step extends StatefulWidget {
-  const Step({super.key, required this.title, required this.isAllergy});
+  const Step(
+      {super.key,
+      required this.title,
+      required this.isAllergy,
+      required this.criteriaName});
 
   final String title;
   final bool isAllergy;
+  final String criteriaName;
 
   @override
   State<Step> createState() => _StepState();

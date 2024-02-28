@@ -5,7 +5,7 @@ class AllergiaInputList extends StatelessWidget {
       {super.key, required this.count, required this.controllers});
 
   final int count;
-  final List<TextEditingController>? controllers;
+  final List<TextEditingController> controllers;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,8 @@ class AllergiaInputList extends StatelessWidget {
       child: ListView.builder(
         itemCount: count,
         itemBuilder: (context, index) => TextField(
-            // controller: controllers[index],
-            ),
+          controller: controllers[index],
+        ), // TODO: replace w/ custom text field
       ),
     ));
   }

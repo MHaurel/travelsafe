@@ -4,8 +4,7 @@ class Risk {
   int id;
   String name;
   String description;
-  // RiskLevel riskLevel; // FIXME:
-  int riskLevel;
+  RiskLevel riskLevel;
 
   Risk(this.id, this.name, this.description, this.riskLevel);
 
@@ -21,12 +20,16 @@ class Risk {
       json['id'],
       json['name'],
       json['description'],
-      json['risk_level'],
+      RiskLevel.fromJson(json['risk_level']),
     );
   }
 
   int get level {
-    // return riskLevel.level; // FIXME:
-    return riskLevel;
+    return riskLevel.level;
+  }
+
+  @override
+  String toString() {
+    return "$name - $level";
   }
 }

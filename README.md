@@ -24,7 +24,7 @@ source ./venv/bin/activate
 
 Install the dependencies **(only needed the first time)**
 ```
-pip install Django djangorestframework django-extensions
+pip install Django djangorestframework django-extensions django-cors-headers
 ```
 
 Run the server

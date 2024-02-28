@@ -8,3 +8,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         model = Subscription
         fields = "__all__"
         # depth = 1
+
+        def create(self, validated_data):
+            print(validated_data)
+            return super().create(validated_data)

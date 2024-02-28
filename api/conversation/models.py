@@ -22,7 +22,7 @@ class Message(models.Model):
 
 class Emoji(models.Model):
     name = models.CharField(max_length=255)
-    icon = models.CharField(max_length=255)
+    icon = models.IntegerField()
 
     def __str__(self) -> str:
         return self.name

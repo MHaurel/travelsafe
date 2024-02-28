@@ -7,4 +7,4 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = '__all__'
-        depth = 1
+        depth = 2

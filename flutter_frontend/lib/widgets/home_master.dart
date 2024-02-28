@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
+import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 
 class HomeMaster extends StatefulWidget {
@@ -64,6 +65,11 @@ class _HomeMasterState extends State<HomeMaster> {
     });
   }
 
+  void _onFilterPressed() {
+    // TODO:
+    print("Filter pressed");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -82,7 +88,15 @@ class _HomeMasterState extends State<HomeMaster> {
               const Text("Accueil"),
               SearchField(
                   onChanged: _onSearchChanged, controller: _searchController),
+              HomeFilterButton(onPressed: _onFilterPressed),
               const Text("Dernières informations"),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Dernière information 1"),
+                  Text("Dernière information 2"),
+                ],
+              ),
               Row(
                 children: [
                   const Text("Utiliser mes critères"),

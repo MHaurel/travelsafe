@@ -12,11 +12,13 @@ class SearchField extends StatelessWidget {
     return SizedBox(
       height: 50,
       width: MediaQuery.of(context).size.width * .3,
-      child: TextField(
+      child: TextFormField(
+        style: TextStyle(color: Color(0xFF49454F)),
         decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: "France",
-            icon: Icon(Icons.search)),
+            labelStyle: TextStyle(color: Color(0xFF000000)),
+            prefixIcon: Icon(Icons.search, color: Color(0xFF49454F),)),
         controller: controller,
         keyboardType: TextInputType.text,
         onChanged: onChanged,

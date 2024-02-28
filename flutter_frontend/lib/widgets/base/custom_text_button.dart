@@ -9,6 +9,11 @@ class CustomTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: onPressed, child: Text(text, style: TextStyle(color: textColor),));
+    return TextButton(onPressed: onPressed, child: Text(text, style: TextStyle(
+      color: textColor,
+      fontFamily: Theme.of(context).textTheme.bodyMedium!.fontFamily,
+      fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+      fontWeight: Theme.of(context).textTheme.bodyMedium!.fontWeight
+    ),));
   }
 }

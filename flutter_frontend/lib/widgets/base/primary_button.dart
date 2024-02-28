@@ -14,7 +14,12 @@ class PrimaryButton extends StatelessWidget {
     
     ), child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Text(text, style:  const TextStyle( color: Color(0xFF07020D))),
+      child: Text(text, style: TextStyle(
+        color: const Color(0xFF07020D),
+        fontFamily: Theme.of(context).textTheme.bodyMedium!.fontFamily,
+        fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+        fontWeight: Theme.of(context).textTheme.bodyMedium!.fontWeight
+      )),
     ),);
   }
 }

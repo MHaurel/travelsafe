@@ -66,7 +66,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Contenu de votre message",
-                    style: Theme.of(context).textTheme.titleMedium),
+                    style: Theme.of(context).textTheme.bodyLarge),
                 const SizedBox(
                   height: 10,
                 ),
@@ -108,7 +108,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                         MessagesList(messages: snapshot.data!)
                       ],
                     )
-                  : const Text("Aucun message n'a encore été publié.");
+                  : Text("Aucun message n'a encore été publié.", style: Theme.of(context).textTheme.bodyLarge );
             }
           } else {
             return const Center(

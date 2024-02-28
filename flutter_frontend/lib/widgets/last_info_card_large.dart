@@ -24,7 +24,10 @@ class LastInfoCardLarge extends StatelessWidget {
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(lastInfo.country.name),
+                  Text(lastInfo.country.name, style: TextStyle(
+                    fontFamily: Theme.of(context).textTheme.bodyLarge!.fontFamily,
+                    fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                    fontWeight: FontWeight.bold),),
                   Row(
                     children: [
                       const Icon(Icons.access_time_outlined, size: 18,),
@@ -34,7 +37,7 @@ class LastInfoCardLarge extends StatelessWidget {
                   )
                 ],
               ),
-              Text(lastInfo.title)
+              Text(lastInfo.title, style: Theme.of(context).textTheme.bodyLarge)
             ],
           ),
         )

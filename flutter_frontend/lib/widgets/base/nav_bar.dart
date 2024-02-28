@@ -10,9 +10,15 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
     // TODO:
   }
 
-  void onPressed(){
-    // TODO:
+  void _goToHome(BuildContext context){
+    Navigator.of(context).pushNamed("/");
   }
+
+  void _goToLastInfo(BuildContext context) {
+    Navigator.of(context).pushNamed("/news");
+  }
+
+  void _onPressed() {}
 
 
   @override
@@ -29,19 +35,19 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Accueil", textColor: Color(0xFF07020D), onPressed: onPressed),
+            child: CustomTextButton(text: "Accueil", textColor: Color(0xFF07020D), onPressed: () => _goToHome(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Dernières Informations", textColor: Color(0xFF07020D), onPressed: onPressed),
+            child: CustomTextButton(text: "Dernières Informations", textColor: Color(0xFF07020D), onPressed: () => _goToLastInfo(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Contact", textColor: Color(0xFF07020D), onPressed: onPressed),
+            child: CustomTextButton(text: "Contact", textColor: Color(0xFF07020D), onPressed: _onPressed),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Aide", textColor: Color(0xFF07020D), onPressed: onPressed),
+            child: CustomTextButton(text: "Aide", textColor: Color(0xFF07020D), onPressed: _onPressed),
           ),
         ],
       ),

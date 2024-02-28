@@ -81,6 +81,7 @@ class _HomeMasterState extends State<HomeMaster> {
 
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Left col with legend
         SizedBox(
@@ -93,11 +94,14 @@ class _HomeMasterState extends State<HomeMaster> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Accueil"),
+              Text("Accueil", style: Theme.of(context).textTheme.headlineMedium),
               SearchField(
                   onChanged: _onSearchChanged, controller: _searchController),
               HomeFilterButton(onPressed: _onFilterPressed),
-              const Text("Dernières informations"),
+               Text("Dernières informations", style : TextStyle(
+                fontFamily: Theme.of(context).textTheme.titleMedium!.fontFamily,
+                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+                fontWeight: FontWeight.bold),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -107,7 +111,7 @@ class _HomeMasterState extends State<HomeMaster> {
               ),
               Row(
                 children: [
-                  const Text("Utiliser mes critères"),
+                  Text("Utiliser mes critères", style: Theme.of(context).textTheme.bodyMedium),
                   const SizedBox(width: 30),
                   CriteriaSwitch(onChanged: ((a) => print(a)))
                 ],

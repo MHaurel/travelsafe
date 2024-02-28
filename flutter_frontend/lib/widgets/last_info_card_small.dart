@@ -22,12 +22,12 @@ class LastInfoCardSmall extends StatelessWidget {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(lastInfo.country.name),
+                Text(lastInfo.country.name, style: Theme.of(context).textTheme.bodyLarge),
                 Row(
                   children: [
                     const Icon(Icons.access_time_outlined, size: 18,),
                     const SizedBox(width: 5,),
-                    Text(lastInfo.createdAt.toLocal().toString())
+                    Text(lastInfo.createdAt.toLocal().toString(), style: Theme.of(context).textTheme.bodyMedium)
                   ],
                 )
               ],
@@ -40,7 +40,7 @@ class LastInfoCardSmall extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(lastInfo.title),
+                child: Text(lastInfo.title, style: Theme.of(context).textTheme.bodyMedium),
               ),
             )
           ],

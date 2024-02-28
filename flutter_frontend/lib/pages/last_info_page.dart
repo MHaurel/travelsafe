@@ -41,62 +41,74 @@ class _LastInfoPageState extends State<LastInfoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(appBar: AppBar()),
-      body: Center(
-        widthFactor: MediaQuery.of(context).size.width * 0.6,
-        
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Last information'),
-              const Text("Sur cette page, vous pourrez suivre l'actualité de différents pays en temps réel. Elle regroupe les dernières informations et permet de vous informer quant à la situation du pays, notamment concernant les déclarations de guerre, les maladies, les catastrophes naturelles, les événements politiques et économiques, etc. "),
-              const Text("Vous pouvez également choisir d’utiliser vos abonnements afin de ne voir que les pays qui répondent à vos attentes."),
-              Row(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SizedBox(
+          width: MediaQuery.of(context).size.width * 0.2,
+          height: double.infinity,
+        ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Utiliser mes abonnements'),
-                  CriteriaSwitch(onChanged: _onChanged),
+                  Text('Dernières informations', style: Theme.of(context).textTheme.headlineMedium),
+                  Text("Sur cette page, vous pourrez suivre l'actualité de différents pays en temps réel. Elle regroupe les dernières informations et permet de vous informer quant à la situation du pays, notamment concernant les déclarations de guerre, les maladies, les catastrophes naturelles, les événements politiques et économiques, etc. ", style: Theme.of(context).textTheme.bodyLarge),
+                  Text("Vous pouvez également choisir d’utiliser vos abonnements afin de ne voir que les pays qui répondent à vos attentes.", style: Theme.of(context).textTheme.bodyLarge),
+                  Row(
+                    children: [
+                      Text('Utiliser mes abonnements', style: Theme.of(context).textTheme.bodyMedium),
+                      CriteriaSwitch(onChanged: _onChanged),
+                    ],
+                  ),
+                  FutureBuilder(
+                    future: _lastInfos, 
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          print(snapshot.error);
+                          // TODO: re-design the error widget
+                          return ErrorWidget("Could not fetch last information");
+                        } else {
+                          return LastInfoList(lastInfos: snapshot.data!);
+                        }
+                      } else {
+                        return const Center(
+                          child: Column(children: [
+                            SizedBox(
+                              width: 60,
+                              height: 60,
+                              child: CircularProgressIndicator(),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 16),
+                              child: Text('Awaiting result...'),
+                            ),
+                          ]),
+                        );
+                      }
+                    }
+                  )
+                  // ListView.builder(
+                  //   scrollDirection: Axis.vertical,
+                  //   padding: const EdgeInsets.all(8.0),
+              
+                  // )
+                  
+              
+                  
                 ],
               ),
-              FutureBuilder(
-                future: _lastInfos, 
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasError) {
-                      print(snapshot.error);
-                      // TODO: re-design the error widget
-                      return ErrorWidget("Could not fetch last information");
-                    } else {
-                      return LastInfoList(lastInfos: snapshot.data!);
-                    }
-                  } else {
-                    return const Center(
-                      child: Column(children: [
-                        SizedBox(
-                          width: 60,
-                          height: 60,
-                          child: CircularProgressIndicator(),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: Text('Awaiting result...'),
-                        ),
-                      ]),
-                    );
-                  }
-                }
-              )
-              // ListView.builder(
-              //   scrollDirection: Axis.vertical,
-              //   padding: const EdgeInsets.all(8.0),
-          
-              // )
-              
-          
-              
-            ],
+            ),
           ),
+          SizedBox(
+          width: MediaQuery.of(context).size.width * 0.2,
+          height: double.infinity,
         ),
+        ],
       ),
     );
   }

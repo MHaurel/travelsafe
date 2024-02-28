@@ -38,13 +38,17 @@ class _CountryListState extends State<CountryList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Liste des pays"),
+        Text("Liste des pays", style : TextStyle(
+          fontFamily: Theme.of(context).textTheme.titleMedium!.fontFamily,
+          fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+          fontWeight: FontWeight.bold),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                const Text("Destination"),
+                Text("Destination", style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
                     onPressed: () {
                       setState(() {
@@ -75,7 +79,7 @@ class _CountryListState extends State<CountryList> {
             ),
             Row(
               children: [
-                Text("Dernière mise à jour"),
+                Text("Dernière mise à jour", style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
                     onPressed: () {
                       setState(() {

@@ -19,7 +19,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
     List<Step> steps = const [
       Step(
           title:
-              "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants.",
+              "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants." ,
           isAllergy: false,
           criteriaName: "Respect du droit des femmes et des enfants"),
       Step(
@@ -81,7 +81,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                         }
                       });
                     },
-                    child: const Text("Précédent")),
+                    child: Text("Précédent", style: Theme.of(context).textTheme.bodyMedium)),
                 StepperIndicator(stepIndex: step),
                 ElevatedButton(
                     onPressed: () async {
@@ -119,7 +119,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                       //       "Une erreur est survenue, merci de remplir vos critères plus tard.";
                       // });
                     },
-                    child: const Text("Suivant"))
+                    child: Text("Suivant", style: Theme.of(context).textTheme.bodyMedium))
               ],
               content: SingleChildScrollView(
                   scrollDirection: Axis.vertical, child: steps[step]),
@@ -134,7 +134,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text("Bienvenue sur TravelSafe !"),
+              title: Text("Bienvenue sur TravelSafe !", style: Theme.of(context).textTheme.headlineMedium),
               actions: [
                 Center(
                   child: Column(
@@ -144,18 +144,18 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                             Navigator.of(context).pop();
                             _showStepperDialog();
                           },
-                          child: const Text("Commencer")), // !
+                          child: Text("Commencer", style: Theme.of(context).textTheme.bodyMedium)), // !
                       TextButton(
                           onPressed: () {}, // ! dispose ?
-                          child: const Text("Remplir plus tard"))
+                          child: Text("Remplir plus tard", style: Theme.of(context).textTheme.bodyMedium))
                     ],
                   ),
                 )
               ],
               content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.4,
-                child: const Text(
-                    "Merci d'avoir créé votre compte sur TravelSafe.\nAfin d'optimiser vos recherches de destinatons, nous vous proposons de remplir vos critères de voyage. Ainsi, vous pourrez trouver une destination qui respecte vos contraintes en toute simplicité."),
+                child: Text(
+                    "Merci d'avoir créé votre compte sur TravelSafe.\nAfin d'optimiser vos recherches de destinatons, nous vous proposons de remplir vos critères de voyage. Ainsi, vous pourrez trouver une destination qui respecte vos contraintes en toute simplicité.", style: Theme.of(context).textTheme.bodyLarge),
               ),
             );
           });
@@ -165,7 +165,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
       body: Center(
         child: ElevatedButton(
             onPressed: _showBaseDialog,
-            child: const Text("Renseigner les critères")),
+            child: Text("Renseigner les critères", style: Theme.of(context).textTheme.bodyMedium)),
       ),
     );
   }
@@ -237,7 +237,7 @@ class _StepState extends State<Step> {
                 widget.isAllergy
                     ? ElevatedButton(
                         onPressed: _addAllergiaType,
-                        child: Text("Ajouter une allergie"),
+                        child: Text("Ajouter une allergie", style: Theme.of(context).textTheme.bodyMedium),
                       )
                     : const SizedBox(),
               ],

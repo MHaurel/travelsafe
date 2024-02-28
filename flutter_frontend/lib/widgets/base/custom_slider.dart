@@ -12,7 +12,7 @@ class CustomSlider extends StatefulWidget {
 class _CustomSliderState extends State<CustomSlider> {
   double _value = 3;
   List<String> tooltips = [
-    "Pas important", "Peu important", "Neutre", "Important", "Très important"
+    "Pas important", "Peu important", "Neutre", "Important", "Très important", 
   ];
   
   @override

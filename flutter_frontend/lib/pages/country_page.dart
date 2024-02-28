@@ -50,7 +50,7 @@ class _CountryPageState extends State<CountryPage> {
               } else {
                 return Column(
                   children: [
-                    Text("Country: ${snapshot.data!.name}"),
+                    Hero(tag: "countryName", child: Text("${snapshot.data!.name}")),
                     CollaborativeSpace(
                       countryIndex: snapshot.data!.id,
                     )

@@ -50,7 +50,7 @@ class _CountryPageState extends State<CountryPage> {
               } else {
                 return Column(
                   children: [
-                    Text("Country: ${snapshot.data!.name}"),
+                    Text("${snapshot.data!.name}"),
                     CollaborativeSpace(
                       countryIndex: snapshot.data!.id,
                     )
@@ -58,16 +58,19 @@ class _CountryPageState extends State<CountryPage> {
                 );
               }
             } else {
-              return const Center(
+              return Center(
                 child: Column(children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 60,
                     height: 60,
                     child: CircularProgressIndicator(),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 16),
-                    child: Text('Awaiting result...'),
+                    child: Text(
+                      'Awaiting result...',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                   ),
                 ]),
               );

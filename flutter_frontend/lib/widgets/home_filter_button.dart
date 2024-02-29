@@ -12,10 +12,10 @@ class HomeFilterButton extends StatelessWidget {
       child: FittedBox(
         child: OutlinedButton(
             onPressed: onPressed,
-            child: const Row(
+            child: Row(
               children: [
-                Text("Filtrer"),
-                SizedBox(
+                Text("Filtrer", style: Theme.of(context).textTheme.bodyMedium),
+                const SizedBox(
                   width: 10,
                 ),
                 Icon(Icons.keyboard_arrow_down)

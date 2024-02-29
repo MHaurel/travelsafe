@@ -26,7 +26,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
             border: const OutlineInputBorder(),
             hintText: hintText,
-            label: Text(label)),
+            label: Text(label, style: Theme.of(context).textTheme.bodyMedium)),
       ),
     );
   }

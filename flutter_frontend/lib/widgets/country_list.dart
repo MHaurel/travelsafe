@@ -38,13 +38,20 @@ class _CountryListState extends State<CountryList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Liste des pays"),
+        Text(
+          "Liste des pays",
+          style: TextStyle(
+              fontFamily: Theme.of(context).textTheme.titleMedium!.fontFamily,
+              fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+              fontWeight: FontWeight.bold),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                const Text("Destination"),
+                Text("Destination",
+                    style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
                     onPressed: () {
                       setState(() {
@@ -75,7 +82,8 @@ class _CountryListState extends State<CountryList> {
             ),
             Row(
               children: [
-                Text("Dernière mise à jour"),
+                Text("Dernière mise à jour",
+                    style: Theme.of(context).textTheme.bodyLarge),
                 IconButton(
                     onPressed: () {
                       setState(() {
@@ -107,35 +115,33 @@ class _CountryListState extends State<CountryList> {
             const SizedBox()
           ],
         ),
-        SizedBox(
-          height: 600,
-          child: AnimationLimiter(
-            child: ListView.builder(
-              itemCount: widget.countries.length,
-              itemBuilder: (context, index) {
-                return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 375),
-                    child: SlideAnimation(
-                      verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                          child: CountryCard(
-                        country: widget.countries[index],
-                      )),
-                    ));
+        AnimationLimiter(
+          child: ListView.builder(
+            shrinkWrap: true, // ? this solved the issue !
+            itemCount: widget.countries.length,
+            itemBuilder: (context, index) {
+              return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 375),
+                  child: SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: FadeInAnimation(
+                        child: CountryCard(
+                      country: widget.countries[index],
+                    )),
+                  ));
 
-                // ! manage that
-                // if (index != (0)) {
-                //   return Container(
-                //     decoration: const BoxDecoration(
-                //         border: Border(
-                //             top: BorderSide(color: Colors.black, width: 1))),
-                //     child: CountryCard(country: widget.countries[index]),
-                //   );
-                // }
-                // return CountryCard(country: widget.countries[index]);
-              },
-            ),
+              // ! manage that
+              // if (index != (0)) {
+              //   return Container(
+              //     decoration: const BoxDecoration(
+              //         border: Border(
+              //             top: BorderSide(color: Colors.black, width: 1))),
+              //     child: CountryCard(country: widget.countries[index]),
+              //   );
+              // }
+              // return CountryCard(country: widget.countries[index]);
+            },
           ),
         )
       ],

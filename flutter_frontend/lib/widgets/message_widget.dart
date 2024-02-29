@@ -45,13 +45,13 @@ class _MessageWidgetState extends State<MessageWidget> {
                             width: 20,
                           ),
                           Text(
-                              "${widget.message.user.firstName} ${widget.message.user.lastName}")
+                              "${widget.message.user.firstName} ${widget.message.user.lastName}", style: Theme.of(context).textTheme.bodyMedium)
                         ],
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(widget.message.content)
+                      Text(widget.message.content, style: Theme.of(context).textTheme.bodyMedium)
                     ],
                   ),
                 ),
@@ -62,7 +62,7 @@ class _MessageWidgetState extends State<MessageWidget> {
           Row(
             children: [
               Text(
-                  "${widget.message.dateCreated.day}/${widget.message.dateCreated.month}/${widget.message.dateCreated.year}"),
+                  "${widget.message.dateCreated.day}/${widget.message.dateCreated.month}/${widget.message.dateCreated.year}", style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(
                 width: 20,
               ),

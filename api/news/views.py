@@ -24,3 +24,8 @@ class NewsForCountry(generics.ListAPIView):
     # TODO: to define
     # authentication_classes = []
     # permission_classes = []
+
+
+class LastNews(generics.ListAPIView):
+    queryset = News.objects.all().order_by('-date')[:2]
+    serializer_class = NewsSerializer

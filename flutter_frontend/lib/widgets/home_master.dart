@@ -5,6 +5,7 @@ import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
+import 'package:flutter_frontend/widgets/last_news_preview.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 
 class HomeMaster extends StatefulWidget {
@@ -74,22 +75,6 @@ class _HomeMasterState extends State<HomeMaster> {
 
   @override
   Widget build(BuildContext context) {
-    Country country = Country(1, "Afghanistan", DateTime.now(), null, null,
-        null, null, null, null, null, null);
-
-    LastInfo lastInfo1 = LastInfo(
-        1,
-        "L'Afghanistan n'est plus",
-        "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.",
-        DateTime.now(),
-        country);
-    LastInfo lastInfo2 = LastInfo(
-        1,
-        "L'Afghanistan n'est plus",
-        "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.",
-        DateTime.now(),
-        country);
-
     return SingleChildScrollView(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,15 +109,7 @@ class _HomeMasterState extends State<HomeMaster> {
                             Theme.of(context).textTheme.titleMedium!.fontSize,
                         fontWeight: FontWeight.bold),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      LastInfoCardSmall(lastInfo: lastInfo1),
-                      LastInfoCardSmall(
-                        lastInfo: lastInfo2,
-                      )
-                    ],
-                  ),
+                  LastNewsPreview(),
                   Row(
                     children: [
                       Text("Utiliser mes critères",

@@ -161,44 +161,53 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                 0.4, // FIXME: check if this works
             child: AlertDialog(
               surfaceTintColor: Colors.white,
-              content: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("Inscription",
-                      style: Theme.of(context).textTheme.headlineMedium),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32.0),
-                    child: Container(
-                      height: 5,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                  ),
-                  // TODO: create a form widget
-                  SignUpForm(
-                      onSignup: () => _onSignup(context),
-                      lastNameController: _lastNameController,
-                      firstNameController: _firstNameController,
-                      mailController: _mailController,
-                      passwordController: _passwordController,
-                      confirmPasswordController: _confirmPasswordController),
+              content: Stack(alignment: Alignment.topRight, children: [
+                Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Inscription",
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32.0),
+                        child: Container(
+                          height: 5,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      // TODO: create a form widget
+                      SignUpForm(
+                          onSignup: () => _onSignup(context),
+                          lastNameController: _lastNameController,
+                          firstNameController: _firstNameController,
+                          mailController: _mailController,
+                          passwordController: _passwordController,
+                          confirmPasswordController:
+                              _confirmPasswordController),
 
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32.0),
-                    child: Container(
-                      height: 5,
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32.0),
+                        child: Container(
+                          height: 5,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      CustomTextButton(
+                          text: "Déjà un compte ?",
+                          textColor: Colors.black54,
+                          onPressed: _displayLogin)
+                    ],
                   ),
-                  CustomTextButton(
-                      text: "Déjà un compte ?",
-                      textColor: Colors.black54,
-                      onPressed: _displayLogin)
-                ],
-              ),
+                ),
+                IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close))
+              ]),
             ),
           );
         });

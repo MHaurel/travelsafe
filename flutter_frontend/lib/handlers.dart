@@ -4,6 +4,7 @@ import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
@@ -40,7 +41,8 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
         children: [
           logoImage,
           pw.Text(country.name, style: pw.TextStyle(fontSize: 25)),
-          pw.Text(DateTime.now().toLocal().toString()),
+          pw.Text(
+              DateFormat("dd/MM/yyyy hh:mm").format(DateTime.now()).toString()),
           pw.Text("Conditions des femmes et des enfants",
               style: pw.TextStyle(fontSize: 20)),
           pw.Text(country.womenChildrenDescription),

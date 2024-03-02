@@ -17,8 +17,8 @@ class CountryCard extends StatelessWidget {
   }
 
   void _onDownloadCountrySheet() async {
-    bool isMobile = Platform.isAndroid || Platform.isIOS;
-    await downloadCountrySheet(country, isMobile);
+    // bool isMobile = Platform.isAndroid || Platform.isIOS;
+    await downloadCountrySheet(country, false);
   }
 
   void _goToCountry(BuildContext context, int index) {
@@ -41,7 +41,9 @@ class CountryCard extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(width: 100, child: Hero(tag: "countryName", child: Text(country.name)))
+              SizedBox(
+                  width: 100,
+                  child: Hero(tag: "countryName", child: Text(country.name)))
             ],
           ),
           SizedBox(

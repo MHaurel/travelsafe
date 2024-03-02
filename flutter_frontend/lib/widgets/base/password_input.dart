@@ -32,7 +32,8 @@ class _PasswordInputState extends State<PasswordInput> {
       obscureText: _hidden,
       decoration: InputDecoration(
           border: const OutlineInputBorder(),
-          labelText: widget.label,
+          label:
+              Text(widget.label, style: Theme.of(context).textTheme.bodyMedium),
           suffixIcon: IconButton(
               onPressed: _onToggleVisibility,
               icon: Icon(_hidden ? Icons.visibility : Icons.visibility_off))),

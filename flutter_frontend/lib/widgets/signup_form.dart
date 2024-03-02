@@ -128,8 +128,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 children: [
                   PrimaryButton(
                       onPressed: () {
-                        // if (_formKey.currentState!.validate()) {
-                        if (true) {
+                        if (_formKey.currentState!.validate()) {
                           widget.onSignup();
                         }
                       },

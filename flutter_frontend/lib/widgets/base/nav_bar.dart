@@ -129,7 +129,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           await dio.post("$baseUrl/accounts", data: jsonEncode(params));
       final data = response.data;
 
-      if (response.statusCode == 210) {
+      if (response.statusCode == 201) {
         // update the user provider from the data obtained
         User user = Provider.of<User>(context,
             listen: false); // ? listen: false solved the issue
@@ -138,6 +138,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         // Navigate to profile FIXME: show criteria filling modal
         _goToProfile(context);
       } else {
+        // TODO: Manage cases (account already exists, no connection, ...)
         print("An error happened when trying so register the user.");
       }
     }

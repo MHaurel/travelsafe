@@ -10,6 +10,7 @@ import 'package:flutter_frontend/models/risk.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_field.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
 import 'package:flutter_frontend/widgets/base/primary_button.dart';
 import 'package:flutter_frontend/widgets/base/secondary_button.dart';
@@ -109,6 +110,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                                 hintText: "Ecrire votre commentaire...",
                                 controller: _newMessageController,
                                 onTap: _onNewMessageSubmit,
+                                hide: _toggleInputMessageShown,
                               )
                             : CustomIconButton(
                                 onPressed: _toggleInputMessageShown,
@@ -121,19 +123,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                       style: Theme.of(context).textTheme.bodyLarge);
             }
           } else {
-            return const Center(
-              child: Column(children: [
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: CircularProgressIndicator(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Awaiting result...'),
-                ),
-              ]),
-            );
+            return const Loader();
           }
         }));
   }

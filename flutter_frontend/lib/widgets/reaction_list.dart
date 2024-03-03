@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/reaction.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/message_widget.dart';
 import 'package:flutter_frontend/widgets/reaction_display.dart';
 
@@ -104,21 +105,8 @@ class _ReactionListState extends State<ReactionList> {
               );
             }
           } else {
-            // ? Do nothing, just wait by displaying nothing.
-            // return SizedBox();
-            return const Center(
-              child: Column(children: [
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Awaiting result...'),
-                ),
-              ]),
-            );
+            // TODO: Determine ? Should we keep the loader or do nothing, just wait by displaying nothing ?
+            return const Loader();
           }
         }));
   }

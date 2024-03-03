@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
 
 class CountryPage extends StatefulWidget {
@@ -58,22 +59,7 @@ class _CountryPageState extends State<CountryPage> {
                 );
               }
             } else {
-              return Center(
-                child: Column(children: [
-                  const SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text(
-                      'Awaiting result...',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                ]),
-              );
+              return const Loader();
             }
           })),
     ));

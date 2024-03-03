@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 
 class LastNewsPreview extends StatefulWidget {
@@ -53,19 +54,7 @@ class _LastNewsPreviewState extends State<LastNewsPreview> {
             );
           }
         } else {
-          return const Center(
-            child: Column(children: [
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              ),
-            ]),
-          );
+          return const Loader();
         }
       },
     );

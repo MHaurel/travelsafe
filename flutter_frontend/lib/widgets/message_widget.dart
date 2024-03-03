@@ -14,6 +14,7 @@ class MessageWidget extends StatefulWidget {
 
 class _MessageWidgetState extends State<MessageWidget> {
   void _onMessageAnswer() {
+    // TODO: code the function
     print("Asking to answer message");
   }
 
@@ -38,8 +39,12 @@ class _MessageWidgetState extends State<MessageWidget> {
                     children: [
                       Row(
                         children: [
-                          const CircleAvatar(
-                            child: Icon(Icons.person_2),
+                          CircleAvatar(
+                            backgroundColor: const Color(0xFF575757),
+                            child: Icon(
+                              Icons.person_2,
+                              color: Theme.of(context).colorScheme.surface,
+                            ),
                           ),
                           const SizedBox(
                             width: 20,

@@ -7,9 +7,12 @@ import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
 import 'package:flutter_frontend/pages/test_page.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  initializeDateFormatting('fr_FR', null);
+
   runApp(const MainApp());
 }
 
@@ -25,6 +28,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
           title: 'TravelSafe',
           theme: ThemeData(
+            dialogTheme: const DialogTheme(surfaceTintColor: Colors.white),
             textTheme: TextTheme(
               headlineLarge: GoogleFonts.oswald(
                   color: Color(0xFF07020D),
@@ -77,7 +81,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/",
+          initialRoute: "/country",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

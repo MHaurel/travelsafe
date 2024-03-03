@@ -74,7 +74,6 @@ class _SignUpFormState extends State<SignUpForm> {
               child: CustomTextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: regex mail
                     return "L'adresse e-mail ne peut être vide";
                   } else if (!isEmailValid(value)) {
                     return "Vous devez entrer une adresse mail valide";
@@ -92,7 +91,6 @@ class _SignUpFormState extends State<SignUpForm> {
               child: PasswordInput(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: regex mail
                     return "Le mot de passe ne peut être vide.";
                   } else if (value != widget.confirmPasswordController.text &&
                       (widget.confirmPasswordController.text.isNotEmpty)) {
@@ -109,7 +107,6 @@ class _SignUpFormState extends State<SignUpForm> {
               child: PasswordInput(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    // TODO: regex mail
                     return "Le mot de passe de confirmation ne peut être vide.";
                   } else if (value != widget.passwordController.text &&
                       (widget.passwordController.text.isNotEmpty)) {

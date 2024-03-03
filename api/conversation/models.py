@@ -8,7 +8,7 @@ User = get_user_model()
 class Message(models.Model):
     # ! : a message cannot exceed 255 characters
     content = models.CharField(max_length=255)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
     # ! previous = models.ForeignKey(self, blank=True)
 
     country = models.ForeignKey(

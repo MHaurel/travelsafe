@@ -178,7 +178,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                               borderRadius: BorderRadius.circular(8)),
                         ),
                       ),
-                      // TODO: create a form widget
                       SignUpForm(
                           onSignup: () => _onSignup(context),
                           lastNameController: _lastNameController,
@@ -187,7 +186,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                           passwordController: _passwordController,
                           confirmPasswordController:
                               _confirmPasswordController),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 32.0),
                         child: Container(

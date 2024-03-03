@@ -60,6 +60,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
     };
 
     Dio dio = Dio();
+    dio.options.headers["Authorization"] =
+        "Token c29ec1e733d7fd6283fab3b94a18984d95a390b8";
     final response =
         await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
 
@@ -84,6 +86,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   }
 
   void _toggleInputMessageShown() {
+    // TODO: redirect user to connection/register if not logged in
     setState(() {
       _isInputNewMessageShown = !_isInputNewMessageShown;
     });

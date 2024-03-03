@@ -5,10 +5,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 from accounts import views
 
 urlpatterns = [
-    path("accounts/<int:pk>", views.RetrieveUpdateDestroyUser.as_view(),
-         name="user-retrieve-update-destroy"),
+    path("accounts/<int:pk>", views.UpdateDestroyUser.as_view(),
+         name="user-update-destroy"),
 
-    path("accounts", views.CreateUser.as_view(), name="user-create"),
+    path("accounts", views.RetrieveUser.as_view(),
+         name="user-retrieve"),
+
+    path("accounts/create", views.CreateUser.as_view(), name="user-create"),
     path("accounts/criteria",
          views.AddCriteriaView.as_view(), name="add-criteria"),
 

@@ -24,6 +24,9 @@ class ListMessagesForCountry(generics.ListAPIView):
 
 
 class MessageCreateAPIView(views.APIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():

@@ -24,42 +24,42 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => User(null, null, null, null, null, null, null, null,
-          null, null, null, null),
+          null, null, null, null, null),
       child: MaterialApp(
           title: 'TravelSafe',
           theme: ThemeData(
             dialogTheme: const DialogTheme(surfaceTintColor: Colors.white),
             textTheme: TextTheme(
               headlineLarge: GoogleFonts.oswald(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 64,
                   fontWeight: FontWeight.w400),
               headlineMedium: GoogleFonts.oswald(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 32,
                   fontWeight: FontWeight.w400),
               titleLarge: GoogleFonts.poppins(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 32,
                   fontWeight: FontWeight.w400),
               titleMedium: GoogleFonts.poppins(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 16,
                   fontWeight: FontWeight.w400),
               titleSmall: GoogleFonts.poppins(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 12,
                   fontWeight: FontWeight.w400),
               bodyLarge: GoogleFonts.montserrat(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 16,
                   fontWeight: FontWeight.w400),
               bodyMedium: GoogleFonts.montserrat(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 12,
                   fontWeight: FontWeight.w400),
               bodySmall: GoogleFonts.montserrat(
-                  color: Color(0xFF07020D),
+                  color: const Color(0xFF07020D),
                   fontSize: 10,
                   fontWeight: FontWeight.w400),
             ),
@@ -81,7 +81,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/country",
+          initialRoute: "/profile",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

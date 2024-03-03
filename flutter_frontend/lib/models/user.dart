@@ -17,6 +17,8 @@ class User extends ChangeNotifier {
   Criteria? criteriaSecurity;
   Criteria? criteriaFood;
 
+  String? token;
+
   User(
       this.id,
       this.email,
@@ -29,23 +31,24 @@ class User extends ChangeNotifier {
       this.criteriaSociopolitical,
       this.criteriaSanitary,
       this.criteriaSecurity,
-      this.criteriaFood);
+      this.criteriaFood,
+      this.token);
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      json['id'],
-      json['email'],
-      json['first_name'],
-      json['last_name'],
-      Criteria.fromJsonOrNull(json['criteria_women_children']),
-      Criteria.fromJsonOrNull(json['criteria_lgbt']),
-      Criteria.fromJsonOrNull(json['criteria_customs']),
-      Criteria.fromJsonOrNull(json['criteria_climate']),
-      Criteria.fromJsonOrNull(json['criteria_sociopolitical']),
-      Criteria.fromJsonOrNull(json['criteria_sanitary']),
-      Criteria.fromJsonOrNull(json['criteria_security']),
-      Criteria.fromJsonOrNull(json['criteria_allergy']),
-    );
+        json['id'],
+        json['email'],
+        json['first_name'],
+        json['last_name'],
+        Criteria.fromJsonOrNull(json['criteria_women_children']),
+        Criteria.fromJsonOrNull(json['criteria_lgbt']),
+        Criteria.fromJsonOrNull(json['criteria_customs']),
+        Criteria.fromJsonOrNull(json['criteria_climate']),
+        Criteria.fromJsonOrNull(json['criteria_sociopolitical']),
+        Criteria.fromJsonOrNull(json['criteria_sanitary']),
+        Criteria.fromJsonOrNull(json['criteria_security']),
+        Criteria.fromJsonOrNull(json['criteria_allergy']),
+        json['token']);
   }
 
   @override
@@ -70,8 +73,35 @@ class User extends ChangeNotifier {
     criteriaSanitary = Criteria.fromJsonOrNull(json['criteria_sanitary']);
     criteriaSecurity = Criteria.fromJsonOrNull(json['criteria_security']);
     criteriaFood = Criteria.fromJsonOrNull(json['criteria_allergy']);
+    null;
 
     // update the widgets using the provider of this model.
+    notifyListeners();
+  }
+
+  set token_(String newToken) {
+    token = newToken;
+
+    notifyListeners();
+  }
+
+  void nullify() {
+    id = null;
+    email = null;
+    firstName = null;
+    lastName = null;
+
+    criteriaWomenChildren = null;
+    criteriaLgbt = null;
+    criteriaCustoms = null;
+    criteriaClimate = null;
+    criteriaSociopolitical = null;
+    criteriaSanitary = null;
+    criteriaSecurity = null;
+    criteriaFood = null;
+
+    token = null;
+
     notifyListeners();
   }
 

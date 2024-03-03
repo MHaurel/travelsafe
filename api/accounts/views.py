@@ -42,7 +42,9 @@ class CreateUser(generics.CreateAPIView):
         print("create user")
         user = CustomUser.objects.create_user(
             email=serializer.validated_data['email'],
-            password=serializer.validated_data['password']
+            password=serializer.validated_data['password'],
+            first_name=serializer.validated_data['first_name'],
+            last_name=serializer.validated_data['last_name'],
         )
         Token.objects.create(user=user)
 

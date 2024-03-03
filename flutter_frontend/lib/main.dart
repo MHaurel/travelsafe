@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/pages/country_page.dart';
 import 'package:flutter_frontend/pages/home_page.dart';
-import 'package:flutter_frontend/pages/criteria_form_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
-import 'package:flutter_frontend/pages/test_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
@@ -67,7 +65,7 @@ class MainApp extends StatelessWidget {
                 ColorScheme.fromSeed(seedColor: const Color(0xFF478B85)),
             outlinedButtonTheme: OutlinedButtonThemeData(
                 style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              shape: MaterialStateProperty.all(const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               )),
             )),
@@ -81,7 +79,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/profile",
+          initialRoute: "/",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

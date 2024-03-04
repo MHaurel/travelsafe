@@ -1,7 +1,15 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
+import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/widgets/allergia_input_list.dart';
+import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
+import 'package:flutter_frontend/widgets/base/custom_slider.dart';
+import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
+import 'package:flutter_frontend/widgets/base/primary_button.dart';
+import 'package:provider/provider.dart';
 
 class CriteriaFormPage extends StatefulWidget {
   const CriteriaFormPage({super.key});
@@ -13,113 +21,157 @@ class CriteriaFormPage extends StatefulWidget {
 class _CriteriaFormPageState extends State<CriteriaFormPage> {
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<User>(context);
     String? errorText;
 
-    int step = 0;
-    List<Step> steps = const [
+    int step = 7;
+    List<int> grades = [3, 3, 3, 3, 3, 3, 3, 3];
+    List<String> allergiaTypes = [];
+
+    void _onGradeChanged(double grade) {
+      grades[step] = grade as int;
+    }
+
+    List<Step> steps = [
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
-              "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants." ,
+              "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants.",
           isAllergy: false,
           criteriaName: "Respect du droit des femmes et des enfants"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance de la sécurité du pays.",
           isAllergy: false,
           criteriaName: "Sécurité du pays"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des risques sanitaires du pays.",
           isAllergy: false,
           criteriaName: "Risques sanitaires du pays"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance du climat sociopolitique du pays.",
           isAllergy: false,
           criteriaName: "Climat sociopolitique du pays"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des conséquences liées au changement climatique dans le pays visité.",
           isAllergy: false,
           criteriaName:
               "Conséquences liées au changement climatique dans le pays visité"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des us et coutumes du pays.",
           isAllergy: false,
           criteriaName: "Us et coutumes du pays"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance du respect des droits LGBTQ+.",
           isAllergy: false,
           criteriaName: "Respect des droits LGBTQ+"),
       Step(
+          onGradeChanged: _onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des allergies alimentaires dans le pays.",
           isAllergy: true,
           criteriaName: "Allergies alimentaires dans le pays"),
     ];
 
-    void _goToNextStep() {}
-
     void _showStepperDialog() {
       showDialog(
         context: context,
         builder: (context) {
           return SizedBox(
-            width: MediaQuery.of(context).size.width * 0.6,
+            // width: MediaQuery.of(context).size.width * 0.6,
             child: AlertDialog(
               actionsAlignment: MainAxisAlignment.center,
               actions: [
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        if (step > 0) {
-                          step--;
-                          Navigator.of(context).pop();
-                          _showStepperDialog();
-                        }
-                      });
-                    },
-                    child: Text("Précédent", style: Theme.of(context).textTheme.bodyMedium)),
+                PrimaryButton(
+                  onPressed: () {
+                    setState(() {
+                      if (step > 0) {
+                        step--;
+                        Navigator.of(context).pop();
+                        _showStepperDialog();
+                      }
+                    });
+                  },
+                  text: "Précédent",
+                ),
                 StepperIndicator(stepIndex: step),
-                ElevatedButton(
-                    onPressed: () async {
-                      // call the api to update (or to create it)
-                      int userId =
-                          14; // FIXME: recuperate it dynamically when registration will be done
-                      print(steps[step].criteriaName);
+                PrimaryButton(
+                  onPressed: () async {
+                    // call the api to update (or to create it)
+                    int userId =
+                        14; // FIXME: recuperate it dynamically when registration will be done
+                    // print(
+                    //     "${steps[step].criteriaName} with grade: ${grades[step]}");
 
-                      // Dio dio = Dio();
-                      // dio.options.headers['content-type'] = "application/json";
-                      // dio.options.headers['Authorization'] =
-                      //     "Token c29ec1e733d7fd6283fab3b94a18984d95a390b8";
-                      // final response = await dio
-                      //     .post("$baseUrl/accounts/criteria", data: {
-                      //   "name": steps[step].criteriaName,
-                      //   "grade": 1,
-                      //   "types": []
-                      // }); // FIXME: types is static here, wont work for allergias (also, get the grade properly)
+                    String token =
+                        "c29ec1e733d7fd6283fab3b94a18984d95a390b8"; // TODO: fetch the real token
 
-                      // print(response.statusCode);
+                    Dio dio = Dio();
+                    dio.options.headers['content-type'] = "application/json";
+                    dio.options.headers['Authorization'] = "Token $token";
 
-                      // if successful
-                      setState(() {
-                        errorText = null;
-                        if (step < (steps.length - 1)) {
-                          step++;
-                          Navigator.of(context).pop();
-                          _showStepperDialog();
+                    Map<String, dynamic> body = {
+                      "name": steps[step].criteriaName,
+                      "grade": grades[step],
+                      "types": [] // TODO: will be different for allergy dialog
+                    };
+                    print(body);
+                    final response = await dio.post(
+                        "$baseUrl/accounts/criteria",
+                        data: jsonEncode(body));
+
+                    print(response.statusCode);
+
+                    // if successful
+                    if (response.statusCode == 201) {
+                      errorText = null;
+                      if (step < (steps.length - 1)) {
+                        step++;
+                        Navigator.of(context).pop();
+                        _showStepperDialog();
+                      } else {
+                        Navigator.of(context).pop();
+
+                        Dio dio = Dio();
+                        dio.options.headers['Authorization'] = "Token $token";
+                        final response = await dio.get("$baseUrl/accounts");
+                        if (response.statusCode == 200) {
+                          user.user = response.data;
+                          user.token_ = token;
+                          // return true;
+                        } else {
+                          // TODO: deal with the error (display the message)
+                          print(
+                              "An error ocurred when trying to retrieve the user");
+                          // return false;
                         }
-                      });
 
-                      // // else
-                      // setState(() {
-                      //   errorText =
-                      //       "Une erreur est survenue, merci de remplir vos critères plus tard.";
-                      // });
-                    },
-                    child: Text("Suivant", style: Theme.of(context).textTheme.bodyMedium))
+                        Navigator.of(context).pushReplacementNamed("/profile");
+                      }
+                      setState(() {});
+                    } else {
+                      setState(() {
+                        errorText =
+                            "Une erreur est survenue, merci de remplir vos critères plus tard.";
+                      });
+                      // TODO: find another way to do that
+                    }
+
+                    // // else
+                  },
+                  text: "Suivant",
+                )
               ],
               content: SingleChildScrollView(
                   scrollDirection: Axis.vertical, child: steps[step]),
@@ -131,23 +183,30 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
 
     void _showBaseDialog() {
       showDialog(
+          barrierDismissible: false,
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: Text("Bienvenue sur TravelSafe !", style: Theme.of(context).textTheme.headlineMedium),
+              title: Text("Bienvenue sur TravelSafe !",
+                  style: Theme.of(context).textTheme.headlineMedium),
               actions: [
                 Center(
                   child: Column(
                     children: [
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            _showStepperDialog();
-                          },
-                          child: Text("Commencer", style: Theme.of(context).textTheme.bodyMedium)), // !
-                      TextButton(
-                          onPressed: () {}, // ! dispose ?
-                          child: Text("Remplir plus tard", style: Theme.of(context).textTheme.bodyMedium))
+                      PrimaryButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          _showStepperDialog();
+                        },
+                        text: "Commencer",
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      CustomTextButton(
+                          textColor: const Color(0xFF326B69),
+                          onPressed: () => Navigator.of(context).pop(),
+                          text: "Remplir plus tard")
                     ],
                   ),
                 )
@@ -155,7 +214,8 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
               content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: Text(
-                    "Merci d'avoir créé votre compte sur TravelSafe.\nAfin d'optimiser vos recherches de destinatons, nous vous proposons de remplir vos critères de voyage. Ainsi, vous pourrez trouver une destination qui respecte vos contraintes en toute simplicité.", style: Theme.of(context).textTheme.bodyLarge),
+                    "Merci d'avoir créé votre compte sur TravelSafe.\nAfin d'optimiser vos recherches de destinatons, nous vous proposons de remplir vos critères de voyage. Ainsi, vous pourrez trouver une destination qui respecte vos contraintes en toute simplicité.",
+                    style: Theme.of(context).textTheme.bodyLarge),
               ),
             );
           });
@@ -164,8 +224,9 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-            onPressed: _showBaseDialog,
-            child: Text("Renseigner les critères", style: Theme.of(context).textTheme.bodyMedium)),
+            onPressed: _showStepperDialog,
+            child: Text("Renseigner les critères",
+                style: Theme.of(context).textTheme.bodyMedium)),
       ),
     );
   }
@@ -176,11 +237,13 @@ class Step extends StatefulWidget {
       {super.key,
       required this.title,
       required this.isAllergy,
-      required this.criteriaName});
+      required this.criteriaName,
+      required this.onGradeChanged});
 
   final String title;
   final bool isAllergy;
   final String criteriaName;
+  final Function(double grade) onGradeChanged;
 
   @override
   State<Step> createState() => _StepState();
@@ -196,50 +259,68 @@ class _StepState extends State<Step> {
     setState(() {
       _value = value;
     });
+    widget.onGradeChanged(value);
+  }
+
+  bool _isOneControllerEmpty(List<TextEditingController> controllers) {
+    for (int i = 0; i <= controllers.length; i++) {
+      if (controllers[i].text == "") {
+        return true;
+      }
+    }
+    return false;
   }
 
   void _addAllergiaType() {
-    // TODO:
+    // if (!_isOneControllerEmpty(_controllers)) {
+
+    // } else {
+    //   print("Une allergie ne peut être vide.");
+    // }
     setState(() {
-      _controllers.add(TextEditingController());
       _allergiaCount++;
+      _controllers.add(TextEditingController());
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.height * 0.6,
+      // width: MediaQuery.of(context).size.width * 0.4,
+      // height: MediaQuery.of(context).size.height * 0.6,
       child: Stack(
         alignment: Alignment.topRight,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 32.0),
             child: Column(
               children: [
-                Text(widget.title),
+                Text(
+                  widget.title,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
                 widget.isAllergy
                     ? AllergiaInputList(
                         count: _allergiaCount, controllers: _controllers)
                     : const SizedBox(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: Slider(
-                    label: _value.toString(),
-                    divisions: 4,
-                    value: _value,
-                    onChanged: _onChanged,
-                    min: 1,
-                    max: 5,
-                  ),
-                ),
+                    padding:
+                        const EdgeInsets.only(top: 30.0, left: 64, right: 64),
+                    child: CustomSlider(onChanged: _onChanged)),
                 widget.isAllergy
-                    ? ElevatedButton(
-                        onPressed: _addAllergiaType,
-                        child: Text("Ajouter une allergie", style: Theme.of(context).textTheme.bodyMedium),
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 16.0, bottom: 32),
+                        child: Row(
+                          children: [
+                            CustomIconButton(
+                                icon: Icons.add,
+                                onPressed: _addAllergiaType,
+                                text: "Ajouter un type d'allergie"),
+                          ],
+                        ),
                       )
                     : const SizedBox(),
+                // Text() // FIXME: place the error text here
               ],
             ),
           ),

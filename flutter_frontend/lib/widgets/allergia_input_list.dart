@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/widgets/base/text_field_removable.dart';
 
 class AllergiaInputList extends StatelessWidget {
   const AllergiaInputList(
@@ -11,13 +12,16 @@ class AllergiaInputList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: SizedBox(
-      height: 350,
+      height: 150,
       width: 600,
       child: ListView.builder(
         itemCount: count,
-        itemBuilder: (context, index) => TextField(
-          controller: controllers[index],
-        ), // TODO: replace w/ custom text field
+        itemBuilder: (context, index) =>
+            TextField(controller: controllers[index]),
+        // itemBuilder: (context, index) => TextFieldRemovable(
+        //     controller: controllers[
+        //         index], // TODO: place the textfields in a form (wrap the listview perhaps)
+        //     onDelete: () {}), // TODO: code the onDelete function
       ),
     ));
   }

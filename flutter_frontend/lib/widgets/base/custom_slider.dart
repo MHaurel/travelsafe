@@ -12,17 +12,34 @@ class CustomSlider extends StatefulWidget {
 class _CustomSliderState extends State<CustomSlider> {
   double _value = 3;
   List<String> tooltips = [
-    "Pas important", "Peu important", "Neutre", "Important", "Très important", 
+    "Pas important",
+    "Peu important",
+    "Neutre",
+    "Important",
+    "Très important",
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-    return Slider(label: tooltips[(_value - 1) as int], divisions: 4, min: 1, max: 5, value: _value, onChanged: (v) {
-      widget.onChanged(v);
-      setState(() {
-        _value = v;
-      });
-      
-    });
+    return Column(
+      children: [
+        Slider(
+            label: tooltips[(_value - 1) as int],
+            divisions: 4,
+            min: 1,
+            max: 5,
+            value: _value,
+            onChanged: (v) {
+              widget.onChanged(v);
+              setState(() {
+                _value = v;
+              });
+            }),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [Text("Pas important"), Text("Très important")],
+        )
+      ],
+    );
   }
 }

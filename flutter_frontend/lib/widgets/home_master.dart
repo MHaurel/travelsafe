@@ -6,6 +6,7 @@ import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
+import 'package:flutter_frontend/widgets/risk_level_legend.dart';
 
 class HomeMaster extends StatefulWidget {
   const HomeMaster({
@@ -88,7 +89,6 @@ class _HomeMasterState extends State<HomeMaster> {
           width: MediaQuery.of(context).size.width * 0.2,
           height: double.infinity,
         ),
-
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
           child: Column(

@@ -17,7 +17,7 @@ class CustomIconButton extends StatelessWidget {
       child:  FittedBox(
         child: Row(
           children: [
-            Text("Icon button", style: TextStyle(
+            Text(text, style: TextStyle(
               color: Colors.white,
               fontFamily: Theme.of(context).textTheme.bodyMedium!.fontFamily,
               fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,

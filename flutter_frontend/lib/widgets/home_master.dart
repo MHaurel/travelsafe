@@ -3,6 +3,7 @@ import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
+import 'package:flutter_frontend/widgets/dialogs/dialog_filter.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 import 'package:flutter_frontend/widgets/last_news_preview.dart';
@@ -68,9 +69,22 @@ class _HomeMasterState extends State<HomeMaster> {
     });
   }
 
+  void _applyFilters(List<Map<String, dynamic>> filters) {
+    for (int i = 0; i <= filters.length - 1; i++) {
+      print(
+          "${filters[i]['name']} : ${filters[i]['controller'].text} - filtered ? ${filters[i]['filtered']}");
+    }
+
+    List<Country> countries = widget.countries;
+    // List<Country> filteredCountries = countries.where((element) => element.riskClimate!.level >= 1).toList(); // TODO: do it when scraping will be done
+  }
+
   void _onFilterPressed() {
-    // TODO:
-    print("Filter pressed");
+    showDialog(
+        context: context,
+        builder: (context) => DialogFilter(
+              applyFilters: _applyFilters,
+            ));
   }
 
   @override

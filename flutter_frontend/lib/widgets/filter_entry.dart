@@ -35,7 +35,7 @@ class _FilterEntryState extends State<FilterEntry> {
         Text(widget.name),
         Row(
           children: [
-            Text("Supérieur ou égal à"),
+            const Text("Supérieur ou égal à"),
             const SizedBox(
               width: 10,
             ),

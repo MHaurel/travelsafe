@@ -7,64 +7,56 @@ import 'package:flutter_frontend/widgets/filter_entry.dart';
 class DialogFilter extends StatefulWidget {
   const DialogFilter({super.key, required this.applyFilters});
 
-  final Function(List<Map<String, dynamic>> filters) applyFilters;
+  final Function(Map<String, dynamic> filters) applyFilters;
 
   @override
   State<DialogFilter> createState() => _DialogFilterState();
 }
 
 class _DialogFilterState extends State<DialogFilter> {
-  final List<Map<String, dynamic>> _filters = [
-    {
-      "name": "riskWomenChildren",
+  final Map<String, dynamic> _filters = {
+    "riskWomenChildren": {
       "label": "Importance du respect des droits des femmes et des enfants",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskLgbt",
+    "riskLgbt": {
       "label": "Importance du respect des droits LGBTQ+",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskCustoms",
+    "riskCustoms": {
       "label": "Importance des us et coutumes du pays",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskClimate",
+    "riskClimate": {
       "label":
           "Importance des conséquences liées au changement climatique dans le pays",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskSociopolitical",
+    "riskSociopolitical": {
       "label": "Importance du climat sociopolitique du pays",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskSanitary",
+    "riskSanitary": {
       "label": "Importance des risques sanitaires du pays",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskSecurity",
+    "riskSecurity": {
       "label": "Importance de la sécurité du pays",
       "filtered": false,
       "controller": TextEditingController()
     },
-    {
-      "name": "riskFood",
+    "riskFood": {
       "label": "Importance des risques alimentaires",
       "filtered": false,
       "controller": TextEditingController()
     },
-  ];
+  };
 
   void _filterCountries() {
     widget.applyFilters(_filters);
@@ -87,17 +79,19 @@ class _DialogFilterState extends State<DialogFilter> {
                     "Sélectionnez les filtres que vous souhaitez appliquer à la liste des pays.",
                     style: Theme.of(context).textTheme.bodyMedium),
                 ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemCount: _filters.length,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: FilterEntry(
-                        name: _filters[index]['label'],
-                        onChecked: (b) => _filters[index]['filtered'] = b,
-                        controller: _filters[index]['controller']),
-                  ),
-                ),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: _filters.length,
+                    itemBuilder: (context, index) {
+                      String key = _filters.keys.toList()[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: FilterEntry(
+                            name: _filters[key]['label'],
+                            onChecked: (b) => _filters[key]['filtered'] = b,
+                            controller: _filters[key]['controller']),
+                      );
+                    }),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: Row(

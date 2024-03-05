@@ -69,14 +69,84 @@ class _HomeMasterState extends State<HomeMaster> {
     });
   }
 
-  void _applyFilters(List<Map<String, dynamic>> filters) {
-    for (int i = 0; i <= filters.length - 1; i++) {
-      print(
-          "${filters[i]['name']} : ${filters[i]['controller'].text} - filtered ? ${filters[i]['filtered']}");
-    }
-
+  void _applyFilters(Map<String, dynamic> filters) {
     List<Country> countries = widget.countries;
-    // List<Country> filteredCountries = countries.where((element) => element.riskClimate!.level >= 1).toList(); // TODO: do it when scraping will be done
+    List<Country> filteredCountries = countries;
+    if (filters['riskWomenChildren']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskWomenChildren != null) {
+          return element.riskWomenChildren!.level >=
+              int.parse(filters['riskWomenChildren']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskLgbt']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskLgbt != null) {
+          return element.riskLgbt!.level >=
+              int.parse(filters['riskLgbt']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskCustoms']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskCustoms != null) {
+          return element.riskCustoms!.level >=
+              int.parse(filters['riskCustoms']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskClimate']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskClimate != null) {
+          return element.riskClimate!.level >=
+              int.parse(filters['riskClimate']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSociopolitical']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSociopolitical != null) {
+          return element.riskSociopolitical!.level >=
+              int.parse(filters['riskSociopolitical']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSanitary']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSanitary != null) {
+          return element.riskSanitary!.level >=
+              int.parse(filters['riskSanitary']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSecurity']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSecurity != null) {
+          return element.riskSecurity!.level >=
+              int.parse(filters['riskSecurity']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskFood']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskFood != null) {
+          return element.riskFood!.level >=
+              int.parse(filters['riskFood']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    setState(() {
+      _visibleCountries = filteredCountries;
+    });
   }
 
   void _onFilterPressed() {

@@ -18,7 +18,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ['id', 'content', 'date', 'country', 'user']
+        fields = ['id', 'content', 'date', 'country', 'user', 'parent']
         depth = 3
 
     def create(self, validated_data):

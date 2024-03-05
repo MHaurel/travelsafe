@@ -9,7 +9,8 @@ class Message(models.Model):
     # ! : a message cannot exceed 255 characters
     content = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now_add=True)
-    # ! previous = models.ForeignKey(self, blank=True)
+    parent = models.ForeignKey(
+        'self', on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
 
     country = models.ForeignKey(
         Country, on_delete=models.CASCADE, related_name="message_country")
@@ -17,7 +18,7 @@ class Message(models.Model):
         User, on_delete=models.CASCADE, related_name="message_user")
 
     def __str__(self) -> str:
-        return f"{self.user}: {self.content}"
+        return f"[ID:{self.pk}] {self.user}: {self.content}"
 
 
 class Emoji(models.Model):

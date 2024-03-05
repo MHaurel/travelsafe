@@ -7,13 +7,13 @@ class Loader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(children: [
-        SizedBox(
+        const SizedBox(
           width: 60,
           height: 60,
           child: CircularProgressIndicator(),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: 16),
           child: Text('Chargement des résultats...',
               style: Theme.of(context).textTheme.bodyLarge),
         ),

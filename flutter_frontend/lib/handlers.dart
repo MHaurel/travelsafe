@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:html' as html;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
@@ -26,7 +25,6 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
     return pw.Image(pw.MemoryImage(imageBytes));
   }
 
-  print("downloadCountrySheet");
   final pdf = pw.Document();
 
   final pw.Image logoImage =
@@ -40,26 +38,27 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           logoImage,
-          pw.Text(country.name, style: pw.TextStyle(fontSize: 25)),
+          pw.Text(country.name, style: const pw.TextStyle(fontSize: 25)),
           pw.Text(
               DateFormat("dd/MM/yyyy hh:mm").format(DateTime.now()).toString()),
           pw.Text("Conditions des femmes et des enfants",
-              style: pw.TextStyle(fontSize: 20)),
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.womenChildrenDescription),
-          pw.Text("Respect des droits LGBT", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Respect des droits LGBT",
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.lgbtDescription),
-          pw.Text("Us et coutumes", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Us et coutumes", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.customsDescription),
           pw.Text("Conditions météorologiques",
-              style: pw.TextStyle(fontSize: 20)),
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.climateDescription),
-          pw.Text("Sociopolitique", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Sociopolitique", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.socipoliticalDescription),
-          pw.Text("Sanitaires", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Sanitaires", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.sanitaryDescription),
-          pw.Text("Sécurité", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Sécurité", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.securityDescription),
-          pw.Text("Nourriture", style: pw.TextStyle(fontSize: 20)),
+          pw.Text("Nourriture", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.foodDescription),
         ],
       ));

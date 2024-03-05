@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/widgets/base/custom_text_form_field.dart';
 
 class TextFieldRemovable extends StatelessWidget {
   const TextFieldRemovable(

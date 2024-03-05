@@ -24,14 +24,6 @@ class CountryList extends StatefulWidget {
 
 class _CountryListState extends State<CountryList> {
   SortType sort = SortType.none;
-  late List<Country> _countries;
-
-  @override
-  void initState() {
-    _countries = widget.countries;
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

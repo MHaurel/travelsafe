@@ -12,16 +12,20 @@ class SearchField extends StatelessWidget {
     return SizedBox(
       height: 50,
       width: MediaQuery.of(context).size.width * .3,
-      child: TextFormField(style: TextStyle(
-        color: Color(0xFF49454F),
-        fontFamily: Theme.of(context).textTheme.bodyMedium!.fontFamily,
-        fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
-        fontWeight: FontWeight.bold),
+      child: TextFormField(
+        style: TextStyle(
+            color: const Color(0xFF49454F),
+            fontFamily: Theme.of(context).textTheme.bodyMedium!.fontFamily,
+            fontSize: Theme.of(context).textTheme.bodyMedium!.fontSize,
+            fontWeight: FontWeight.bold),
         decoration: const InputDecoration(
             border: OutlineInputBorder(),
             hintText: "France",
             labelStyle: TextStyle(color: Color(0xFF000000)),
-            prefixIcon: Icon(Icons.search, color: Color(0xFF49454F),)),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Color(0xFF49454F),
+            )),
         controller: controller,
         keyboardType: TextInputType.text,
         onChanged: onChanged,

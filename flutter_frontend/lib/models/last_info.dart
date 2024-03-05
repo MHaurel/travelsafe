@@ -1,5 +1,4 @@
 import 'package:flutter_frontend/models/country.dart';
-import 'package:intl/intl.dart';
 
 class LastInfo {
   int id;

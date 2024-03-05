@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
 
@@ -15,7 +16,6 @@ class CountryPage extends StatefulWidget {
 }
 
 class _CountryPageState extends State<CountryPage> {
-  late int _countryIndex;
   late Future<Country> _country;
 
   @override
@@ -45,13 +45,13 @@ class _CountryPageState extends State<CountryPage> {
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
-                // TODO: re-design the error widget
-                return ErrorWidget(
-                    "Could not fetch country with index: ${widget.countryIndex}");
+                return const CustomErrorWidget(
+                    text:
+                        "Une erreur est survenue lorsque nous avons essayé d'afficher le pays souhaité. Veuillez réessayer plus tard.");
               } else {
                 return Column(
                   children: [
-                    Text("${snapshot.data!.name}"),
+                    Text(snapshot.data!.name),
                     CollaborativeSpace(
                       countryIndex: snapshot.data!.id,
                     )

@@ -2,12 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
-import 'package:flutter_frontend/widgets/country_list.dart';
-import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/home_master.dart';
-import 'package:flutter_frontend/widgets/search_field.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,13 +15,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Country> _countries = [];
   late Future<List<Country>> _visibleCountries;
-  TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
-    _visibleCountries = _fetchCountries().then((value) => _countries = value);
+    _visibleCountries = _fetchCountries();
 
     super.initState();
   }
@@ -51,8 +47,9 @@ class _HomePageState extends State<HomePage> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {
-                  // TODO: re-design the error widget
-                  return ErrorWidget("Could not fetch countries");
+                  return const CustomErrorWidget(
+                      text:
+                          "Une erreur est survenue lorsque nous avons essayé d'afficher les informations. Veuillez réessayer plus tard");
                 } else {
                   return HomeMaster(countries: snapshot.data!);
                 }

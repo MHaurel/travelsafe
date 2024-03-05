@@ -45,8 +45,9 @@ class _NewMessageTextFieldState extends State<NewMessageTextField> {
                       children: [
                         InkWell(
                           onTap: () {
-                            if (_formKey.currentState!.validate())
+                            if (_formKey.currentState!.validate()) {
                               widget.onTap();
+                            }
                           },
                           child: const Icon(
                             Icons.keyboard_return,

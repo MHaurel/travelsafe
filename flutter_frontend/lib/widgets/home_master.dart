@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
-import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/dialogs/dialog_filter.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
-import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 import 'package:flutter_frontend/widgets/last_news_preview.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 
@@ -164,7 +162,7 @@ class _HomeMasterState extends State<HomeMaster> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Left col with legend
-          Expanded(flex: 2, child: Text("gauche")
+          const Expanded(flex: 2, child: Text("gauche")
               // child: SizedBox(
               //   // width: MediaQuery.of(context).size.width * 0.2,
               //   height: double.infinity,
@@ -193,13 +191,15 @@ class _HomeMasterState extends State<HomeMaster> {
                             Theme.of(context).textTheme.titleMedium!.fontSize,
                         fontWeight: FontWeight.bold),
                   ),
-                  LastNewsPreview(),
+                  const LastNewsPreview(),
                   Row(
                     children: [
                       Text("Utiliser mes critères",
                           style: Theme.of(context).textTheme.bodyMedium),
                       const SizedBox(width: 30),
-                      CriteriaSwitch(onChanged: ((a) => print(a)))
+                      CriteriaSwitch(
+                          onChanged: ((a) =>
+                              {})) // TODO: code the function to apply criterias
                     ],
                   ),
                   CountryList(
@@ -211,7 +211,7 @@ class _HomeMasterState extends State<HomeMaster> {
           ),
 
           // Right col with ads
-          Expanded(
+          const Expanded(
             flex: 2,
             child: Text("droite"),
             // child: SizedBox(

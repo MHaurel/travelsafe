@@ -3,17 +3,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
-import 'package:flutter_frontend/models/country.dart';
-import 'package:flutter_frontend/models/criteria.dart';
 import 'package:flutter_frontend/models/message.dart';
-import 'package:flutter_frontend/models/risk.dart';
-import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
-import 'package:flutter_frontend/widgets/base/custom_text_field.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
-import 'package:flutter_frontend/widgets/base/primary_button.dart';
-import 'package:flutter_frontend/widgets/base/secondary_button.dart';
 import 'package:flutter_frontend/widgets/messages_list.dart';
 
 class CollaborativeSpace extends StatefulWidget {
@@ -27,7 +20,7 @@ class CollaborativeSpace extends StatefulWidget {
 
 class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   late Future<List<Message>> _messages;
-  TextEditingController _newMessageController = TextEditingController();
+  TextEditingController newMessageController = TextEditingController();
   bool _isInputNewMessageShown = false;
 
   Future<List<Message>> _fetchMessages() async {
@@ -70,7 +63,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
       return true;
     } else {
       // TODO: manage cases
-      print("An error occured when trying to create a message.");
+      // print("An error occured when trying to create a message.");
       return false;
     }
   }
@@ -78,7 +71,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   void _onNewMessageSubmit() async {
     // poste un nouveau message en appelant l'API
     bool isMessageDone =
-        await _addMessage(_newMessageController.text, 10, widget.countryIndex);
+        await _addMessage(newMessageController.text, 10, widget.countryIndex);
     if (isMessageDone) {
       // toggle la variable d'état
       _toggleInputMessageShown();
@@ -111,7 +104,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                         _isInputNewMessageShown
                             ? NewMessageTextField(
                                 hintText: "Ecrire votre commentaire...",
-                                controller: _newMessageController,
+                                controller: newMessageController,
                                 onTap: _onNewMessageSubmit,
                                 hide: _toggleInputMessageShown,
                               )

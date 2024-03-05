@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/reaction.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
-import 'package:flutter_frontend/widgets/message_widget.dart';
 import 'package:flutter_frontend/widgets/reaction_display.dart';
 
 class ReactionList extends StatefulWidget {
@@ -32,24 +32,24 @@ class _ReactionListState extends State<ReactionList> {
   }
 
   void _onReactionTapped(Reaction reaction) {
-    print("tapped on ${reaction.emoji.name}");
-    print(Icons.thumb_up);
+    // print("tapped on ${reaction.emoji.name}");
+    // print(Icons.thumb_up);
   }
 
   void _onReactionAdd() {
     // TODO:
-    print("Asking to add a new reaction");
+    // print("Asking to add a new reaction");
   }
 
   Map<dynamic, dynamic> _countReactions(List<Reaction> reactions) {
     Map<dynamic, dynamic> reactionsMapCount = {};
 
-    reactions.forEach((element) {
+    for (var element in reactions) {
       if (!reactionsMapCount.keys.contains(element.emoji.icon)) {
         reactionsMapCount[element.emoji.icon] = 0;
       }
       reactionsMapCount[element.emoji.icon] += 1;
-    });
+    }
 
     return reactionsMapCount;
   }
@@ -67,11 +67,11 @@ class _ReactionListState extends State<ReactionList> {
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              // TODO: re-design the error widget
-              return ErrorWidget("Could not fetch messages");
+              return const CustomErrorWidget(
+                  text:
+                      "Une erreur est survenue. Veuillez réessayer plus tard.");
             } else {
               // Calculate the occurences of each reaction
-              // FIXME: remove, this, we don't need the reactions variable anymore
               _reactionsMapCount = _countReactions(snapshot.data!);
 
               return Padding(
@@ -89,14 +89,14 @@ class _ReactionListState extends State<ReactionList> {
                           return ReactionDisplay(
                               leading: Text(_reactionsMapCount[
                                       _reactionsMapCount.keys.toList()[index]]
-                                  .toString()), // FIXME:
+                                  .toString()),
                               icon: _reactionsMapCount.keys.toList()[index],
                               onTap: () =>
                                   _onReactionTapped(snapshot.data![index]));
                         },
                       ),
                       ReactionDisplay(
-                          leading: Icon(Icons.emoji_emotions),
+                          leading: const Icon(Icons.emoji_emotions),
                           icon: Icons.add,
                           onTap: _onReactionAdd)
                     ],

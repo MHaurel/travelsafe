@@ -8,17 +8,17 @@ class LastInfoCardLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _timeElapsed = lastInfo.timeElapsed < 24
+    int timeElapsed = lastInfo.timeElapsed < 24
         ? lastInfo.timeElapsed
         : lastInfo.timeElapsed ~/ 24;
-    String _timeUnit = lastInfo.timeElapsed < 24 ? "h" : "j";
+    String timeUnit = lastInfo.timeElapsed < 24 ? "h" : "j";
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: (16.0)),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Color(0XFFD7D7D7)),
+            border: Border.all(color: const Color(0XFFD7D7D7)),
           ),
           width: MediaQuery.of(context).size.width * 0.8,
           child: Padding(
@@ -47,7 +47,7 @@ class LastInfoCardLarge extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        Text("$_timeElapsed $_timeUnit",
+                        Text("$timeElapsed $timeUnit",
                             style: Theme.of(context).textTheme.bodyMedium)
                       ],
                     )

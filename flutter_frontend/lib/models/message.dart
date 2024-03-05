@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:intl/intl.dart';

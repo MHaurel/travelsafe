@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
-import 'package:flutter_frontend/widgets/base/custom_text_field.dart';
-import 'package:flutter_frontend/widgets/base/password_input.dart';
-import 'package:flutter_frontend/widgets/base/primary_button.dart';
 import 'package:flutter_frontend/widgets/signup_form.dart';
 import 'package:provider/provider.dart';
 
@@ -53,28 +50,28 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
             child: CustomTextButton(
                 text: "Accueil",
-                textColor: Color(0xFF07020D),
+                textColor: const Color(0xFF07020D),
                 onPressed: () => _goToHome(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
             child: CustomTextButton(
                 text: "Dernières Informations",
-                textColor: Color(0xFF07020D),
+                textColor: const Color(0xFF07020D),
                 onPressed: () => _goToLastInfo(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
             child: CustomTextButton(
                 text: "Contact",
-                textColor: Color(0xFF07020D),
+                textColor: const Color(0xFF07020D),
                 onPressed: _onPressed),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
             child: CustomTextButton(
                 text: "Aide",
-                textColor: Color(0xFF07020D),
+                textColor: const Color(0xFF07020D),
                 onPressed: _onPressed),
           ),
         ],
@@ -88,40 +85,39 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   borderRadius: BorderRadius.circular(90),
                   child: Container(
                       color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.5),
+                      child: const Padding(
+                        padding: EdgeInsets.all(3.5),
                         child: CircleAvatar(
+                          backgroundColor: Color(0xFF326B69),
+                          foregroundColor: Color(0xFFFFFFFF),
                           child: Icon(
                             Icons.person_rounded,
                             color: Color(0xFFFFFFFF),
                           ),
-                          backgroundColor: Color(0xFF326B69),
-                          foregroundColor: Color(0xFFFFFFFF),
                         ),
                       )),
                 )))
       ],
-      backgroundColor: Color(0xFFA8D6AC),
+      backgroundColor: const Color(0xFFA8D6AC),
     );
   }
 
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
 
   void _showRegisterModal(BuildContext context) {
-    TextEditingController _lastNameController = TextEditingController();
-    TextEditingController _firstNameController = TextEditingController();
-    TextEditingController _mailController = TextEditingController();
-    TextEditingController _passwordController = TextEditingController();
-    TextEditingController _confirmPasswordController = TextEditingController();
+    TextEditingController lastNameController = TextEditingController();
+    TextEditingController firstNameController = TextEditingController();
+    TextEditingController mailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
 
-    void _onSignup(BuildContext context) async {
+    void onSignup(User user) async {
       Map<String, dynamic> params = {
-        "first_name": _firstNameController.text,
-        "last_name": _lastNameController.text,
-        "email": _mailController.text,
-        "password": _passwordController.text,
+        "first_name": firstNameController.text,
+        "last_name": lastNameController.text,
+        "email": mailController.text,
+        "password": passwordController.text,
       };
 
       Dio dio = Dio();
@@ -131,76 +127,71 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
       if (response.statusCode == 201) {
         // update the user provider from the data obtained
-        User user = Provider.of<User>(context,
-            listen: false); // ? listen: false solved the issue
         user.user = data;
 
         // Navigate to profile FIXME: show criteria filling modal
         _goToProfile(context);
       } else {
         // TODO: Manage cases (account already exists, no connection, ...)
-        print("An error happened when trying so register the user.");
+        // print("An error happened when trying so register the user.");
       }
     }
 
-    void _displayLogin() {
-      print("Asking to login...");
+    void displayLogin() {
+      // print("Asking to login...");
       // TODO:
       // close this popup
       // show login dialog
     }
 
     // Shows the modal for the user to signup
-
-    // TODO: add the cross at the top right hand corner
     showDialog(
         context: context,
         builder: (context) {
           return SizedBox(
-            width: MediaQuery.of(context).size.width *
-                0.4, // FIXME: check if this works
+            width: MediaQuery.of(context).size.width * 0.4,
             child: AlertDialog(
               surfaceTintColor: Colors.white,
               content: Stack(alignment: Alignment.topRight, children: [
-                Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Inscription",
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Inscription",
+                        style: Theme.of(context).textTheme.headlineMedium),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 32.0),
+                      child: Container(
+                        height: 5,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(8)),
                       ),
-                      SignUpForm(
-                          onSignup: () => _onSignup(context),
-                          lastNameController: _lastNameController,
-                          firstNameController: _firstNameController,
-                          mailController: _mailController,
-                          passwordController: _passwordController,
-                          confirmPasswordController:
-                              _confirmPasswordController),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
+                    ),
+                    SignUpForm(
+                        onSignup: () {
+                          User user = Provider.of<User>(context);
+                          onSignup(user);
+                        },
+                        lastNameController: lastNameController,
+                        firstNameController: firstNameController,
+                        mailController: mailController,
+                        passwordController: passwordController,
+                        confirmPasswordController: confirmPasswordController),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 32.0),
+                      child: Container(
+                        height: 5,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(8)),
                       ),
-                      CustomTextButton(
-                          text: "Déjà un compte ?",
-                          textColor: Colors.black54,
-                          onPressed: _displayLogin)
-                    ],
-                  ),
+                    ),
+                    CustomTextButton(
+                        text: "Déjà un compte ?",
+                        textColor: Colors.black54,
+                        onPressed: displayLogin)
+                  ],
                 ),
                 IconButton(
                     onPressed: () => Navigator.of(context).pop(),

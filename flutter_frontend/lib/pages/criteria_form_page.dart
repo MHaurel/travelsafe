@@ -22,69 +22,68 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    String? errorText;
 
     int step = 7;
     List<int> grades = [3, 3, 3, 3, 3, 3, 3, 3];
-    List<String> allergiaTypes = [];
+    // List<String> allergiaTypes = []; // TODO: use this
 
-    void _onGradeChanged(double grade) {
+    void onGradeChanged(double grade) {
       grades[step] = grade as int;
     }
 
     List<Step> steps = [
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance du respect des droits des femmes et des enfants.",
           isAllergy: false,
           criteriaName: "Respect du droit des femmes et des enfants"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance de la sécurité du pays.",
           isAllergy: false,
           criteriaName: "Sécurité du pays"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des risques sanitaires du pays.",
           isAllergy: false,
           criteriaName: "Risques sanitaires du pays"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance du climat sociopolitique du pays.",
           isAllergy: false,
           criteriaName: "Climat sociopolitique du pays"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des conséquences liées au changement climatique dans le pays visité.",
           isAllergy: false,
           criteriaName:
               "Conséquences liées au changement climatique dans le pays visité"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des us et coutumes du pays.",
           isAllergy: false,
           criteriaName: "Us et coutumes du pays"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance du respect des droits LGBTQ+.",
           isAllergy: false,
           criteriaName: "Respect des droits LGBTQ+"),
       Step(
-          onGradeChanged: _onGradeChanged,
+          onGradeChanged: onGradeChanged,
           title:
               "Vous allez maintenant renseigner l'importance des allergies alimentaires dans le pays.",
           isAllergy: true,
           criteriaName: "Allergies alimentaires dans le pays"),
     ];
 
-    void _showStepperDialog() {
+    void showStepperDialog() {
       showDialog(
         context: context,
         builder: (context) {
@@ -99,7 +98,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                       if (step > 0) {
                         step--;
                         Navigator.of(context).pop();
-                        _showStepperDialog();
+                        showStepperDialog();
                       }
                     });
                   },
@@ -108,12 +107,6 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                 StepperIndicator(stepIndex: step),
                 PrimaryButton(
                   onPressed: () async {
-                    // call the api to update (or to create it)
-                    int userId =
-                        14; // FIXME: recuperate it dynamically when registration will be done
-                    // print(
-                    //     "${steps[step].criteriaName} with grade: ${grades[step]}");
-
                     String token =
                         "c29ec1e733d7fd6283fab3b94a18984d95a390b8"; // TODO: fetch the real token
 
@@ -126,20 +119,16 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                       "grade": grades[step],
                       "types": [] // TODO: will be different for allergy dialog
                     };
-                    print(body);
                     final response = await dio.post(
                         "$baseUrl/accounts/criteria",
                         data: jsonEncode(body));
 
-                    print(response.statusCode);
-
                     // if successful
                     if (response.statusCode == 201) {
-                      errorText = null;
                       if (step < (steps.length - 1)) {
                         step++;
                         Navigator.of(context).pop();
-                        _showStepperDialog();
+                        showStepperDialog();
                       } else {
                         Navigator.of(context).pop();
 
@@ -149,22 +138,18 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                         if (response.statusCode == 200) {
                           user.user = response.data;
                           user.token_ = token;
-                          // return true;
                         } else {
                           // TODO: deal with the error (display the message)
-                          print(
-                              "An error ocurred when trying to retrieve the user");
-                          // return false;
+                          // print(
+                          //     "An error ocurred when trying to retrieve the user");
                         }
 
                         Navigator.of(context).pushReplacementNamed("/profile");
                       }
                       setState(() {});
                     } else {
-                      setState(() {
-                        errorText =
-                            "Une erreur est survenue, merci de remplir vos critères plus tard.";
-                      });
+                      // print(
+                      //     "Une erreur est survenue, merci de remplir vos critères plus tard.");
                       // TODO: find another way to do that
                     }
 
@@ -181,7 +166,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
       );
     }
 
-    void _showBaseDialog() {
+    void showBaseDialog() {
       showDialog(
           barrierDismissible: false,
           context: context,
@@ -196,7 +181,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                       PrimaryButton(
                         onPressed: () {
                           Navigator.of(context).pop();
-                          _showStepperDialog();
+                          showStepperDialog();
                         },
                         text: "Commencer",
                       ),
@@ -224,7 +209,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-            onPressed: _showStepperDialog,
+            onPressed: showBaseDialog,
             child: Text("Renseigner les critères",
                 style: Theme.of(context).textTheme.bodyMedium)),
       ),
@@ -250,26 +235,22 @@ class Step extends StatefulWidget {
 }
 
 class _StepState extends State<Step> {
-  double _value = 3;
   int _allergiaCount = 1;
-  List<TextEditingController> _controllers = [TextEditingController()];
+  final List<TextEditingController> _controllers = [TextEditingController()];
   // TODO: determine how to make the request for every controller.
 
   void _onChanged(double value) {
-    setState(() {
-      _value = value;
-    });
     widget.onGradeChanged(value);
   }
 
-  bool _isOneControllerEmpty(List<TextEditingController> controllers) {
-    for (int i = 0; i <= controllers.length; i++) {
-      if (controllers[i].text == "") {
-        return true;
-      }
-    }
-    return false;
-  }
+  // bool _isOneControllerEmpty(List<TextEditingController> controllers) {
+  //   for (int i = 0; i <= controllers.length; i++) {
+  //     if (controllers[i].text == "") {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   void _addAllergiaType() {
     // if (!_isOneControllerEmpty(_controllers)) {
@@ -365,7 +346,7 @@ class Dot extends StatelessWidget {
         height: 10,
         width: 10,
         decoration: BoxDecoration(
-            color: active ? Color(0xFF478B85) : Color(0xFFD7D7D7),
+            color: active ? const Color(0xFF478B85) : const Color(0xFFD7D7D7),
             borderRadius: BorderRadius.circular(80)),
       ),
     );

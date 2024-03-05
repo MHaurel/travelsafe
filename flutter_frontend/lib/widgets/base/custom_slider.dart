@@ -35,7 +35,7 @@ class _CustomSliderState extends State<CustomSlider> {
                 _value = v;
               });
             }),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [Text("Pas important"), Text("Très important")],
         )

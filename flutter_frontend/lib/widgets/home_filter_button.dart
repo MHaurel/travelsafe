@@ -18,7 +18,7 @@ class HomeFilterButton extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                Icon(Icons.keyboard_arrow_down)
+                const Icon(Icons.keyboard_arrow_down)
               ],
             )),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/pages/country_page.dart';
-import 'package:flutter_frontend/pages/criteria_form_page.dart';
 import 'package:flutter_frontend/pages/home_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
@@ -62,8 +61,9 @@ class MainApp extends StatelessWidget {
                   fontSize: 10,
                   fontWeight: FontWeight.w400),
             ),
-            colorScheme:
-                ColorScheme.fromSeed(seedColor: const Color(0xFF478B85)),
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: const Color(0xFF478B85),
+                error: const Color(0xffB3261E)),
             outlinedButtonTheme: OutlinedButtonThemeData(
                 style: ButtonStyle(
               shape: MaterialStateProperty.all(const RoundedRectangleBorder(

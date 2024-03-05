@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/criteria.dart';
-import 'package:flutter_frontend/models/risk.dart';
 
 class User extends ChangeNotifier {
   int? id;

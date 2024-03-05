@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/widgets/base/text_field_removable.dart';
 
 class AllergiaInputList extends StatelessWidget {
   const AllergiaInputList(

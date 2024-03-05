@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 
@@ -37,11 +38,11 @@ class _LastNewsPreviewState extends State<LastNewsPreview> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
-            // TODO: re-design the error widget
-            return ErrorWidget("Could not fetch countries");
+            return const CustomErrorWidget(
+                text: "Une erreur est survenue. Veuillez réessayer plus tard.");
           } else {
             if (snapshot.data!.isEmpty) {
-              return SizedBox(); // There are no last news => return an empty widget
+              return const SizedBox(); // There are no last news => return an empty widget
             }
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

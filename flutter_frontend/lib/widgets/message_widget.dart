@@ -15,7 +15,7 @@ class MessageWidget extends StatefulWidget {
 class _MessageWidgetState extends State<MessageWidget> {
   void _onMessageAnswer() {
     // TODO: code the function
-    print("Asking to answer message");
+    // print("Asking to answer message");
   }
 
   @override

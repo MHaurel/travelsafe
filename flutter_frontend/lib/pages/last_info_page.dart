@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
@@ -76,10 +77,9 @@ class _LastInfoPageState extends State<LastInfoPage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           if (snapshot.hasError) {
-                            print(snapshot.error);
-                            // TODO: re-design the error widget
-                            return ErrorWidget(
-                                "Could not fetch last information");
+                            return const CustomErrorWidget(
+                                text:
+                                    "Une erreur est survenue lorsque nous avons essayé d'afficher ces informations. Veuillez réessayer plus tard.");
                           } else {
                             return LastInfoList(lastInfos: snapshot.data!);
                           }
@@ -87,11 +87,6 @@ class _LastInfoPageState extends State<LastInfoPage> {
                           return const Loader();
                         }
                       })
-                  // ListView.builder(
-                  //   scrollDirection: Axis.vertical,
-                  //   padding: const EdgeInsets.all(8.0),
-
-                  // )
                 ],
               ),
             ),

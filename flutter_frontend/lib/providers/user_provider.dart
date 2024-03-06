@@ -35,7 +35,6 @@ class UserProvider extends ChangeNotifier {
       Map<String, dynamic> jsonUser = response.data;
       jsonUser['access'] = _user.accessToken;
       jsonUser['refresh'] = _user.refreshToken;
-      print(jsonUser);
       _user = User.fromJson(jsonUser);
     } else {
       print("An error occured when trying to retrieve the user");
@@ -81,4 +80,9 @@ class UserProvider extends ChangeNotifier {
   bool isSignedIn() => _user.accessToken != null;
 
   User get user => _user;
+
+  set user(User u) {
+    _user = u;
+    notifyListeners();
+  }
 }

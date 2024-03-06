@@ -4,11 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/message.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
 import 'package:flutter_frontend/widgets/messages_list.dart';
+import 'package:provider/provider.dart';
 
 class CollaborativeSpace extends StatefulWidget {
   const CollaborativeSpace({super.key, required this.countryIndex});
@@ -25,8 +27,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   bool _isInputNewMessageShown = false;
 
   Future<List<Message>> _fetchMessages() async {
+    // Dio dio = context.watch<UserProvider>().dio;
     Dio dio = Dio();
-
     final response = await dio.get("$baseUrl/messages/${widget.countryIndex}");
 
     List<Message> messages = [];
@@ -47,15 +49,14 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   }
 
   Future<bool> _addMessage(String content, int userId, int countryId) async {
+    Dio dio = Provider.of<UserProvider>(context, listen: false).dio;
+
     Map<String, dynamic> body = {
       "content": content,
       "user": userId,
       "country": countryId
     };
 
-    Dio dio = Dio();
-    dio.options.headers["Authorization"] =
-        "Token c29ec1e733d7fd6283fab3b94a18984d95a390b8";
     final response =
         await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
 
@@ -71,8 +72,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
 
   void _onNewMessageSubmit() async {
     // poste un nouveau message en appelant l'API
-    bool isMessageDone =
-        await _addMessage(newMessageController.text, 10, widget.countryIndex);
+    bool isMessageDone = await _addMessage(newMessageController.text, 10,
+        widget.countryIndex); // TODO: fetch the id of the user
     if (isMessageDone) {
       // toggle la variable d'état
       _toggleInputMessageShown();

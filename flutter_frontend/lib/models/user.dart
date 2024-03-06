@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/criteria.dart';
 
 class User {

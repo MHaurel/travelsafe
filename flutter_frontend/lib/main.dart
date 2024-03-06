@@ -90,7 +90,7 @@ class MainApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: "/",
           routes: {
-            "/": (context) => TestPage(),
+            "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(
                   countryIndex: 1,
                 ),

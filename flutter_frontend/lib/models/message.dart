@@ -13,8 +13,13 @@ class Message {
   Message(this.id, this.content, this.dateCreated, this.country, this.user);
 
   factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(json['id'], json['content'], DateTime.parse(json['date']),
-        Country.fromJson(json['country']), User.fromJson(json['user']));
+    return Message(
+      json['id'],
+      json['content'],
+      DateTime.parse(json['date']),
+      Country.fromJson(json['country']),
+      User.fromJson(json['user']),
+    );
   }
 
   String get properDate {

@@ -41,9 +41,7 @@ class CountryCard extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                  width: 100,
-                  child: Hero(tag: "countryName", child: Text(country.name)))
+              SizedBox(width: 100, child: Text(country.name))
             ],
           ),
           SizedBox(

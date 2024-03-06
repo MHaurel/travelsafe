@@ -2,6 +2,7 @@ from criteria.serializers import CriteriaSerializer
 from accounts.serializers import UserSerializer
 from rest_framework import generics, status, response, authentication, permissions
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from accounts.permissions import IsOwner
 
@@ -23,7 +24,7 @@ class RetrieveUser(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
@@ -81,7 +82,7 @@ class LogoutView(generics.GenericAPIView):
 class AddCriteriaView(generics.CreateAPIView):
     serializer_class = CriteriaSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def post(self, request, *args, **kwargs):

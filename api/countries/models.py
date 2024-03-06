@@ -42,4 +42,4 @@ class Country(models.Model):
         Risk, on_delete=models.CASCADE, related_name="country_risk_food", null=True)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.id) + " - " + self.name

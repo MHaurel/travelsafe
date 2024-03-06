@@ -1,4 +1,6 @@
 from rest_framework import generics, authentication, permissions, response, status, views
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 
@@ -29,7 +31,7 @@ class ListChildrenMessages(generics.ListAPIView):
 
 
 class MessageCreateAPIView(views.APIView):
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
@@ -43,7 +45,10 @@ class MessageCreateAPIView(views.APIView):
             # Use get_object_or_404 to raise a 404 error if the objects don't exist
             user = get_object_or_404(User, pk=user_id)
             country = get_object_or_404(Country, pk=country_id)
-            parent = get_object_or_404(Message, pk=parent_id)
+            if parent_id:
+                parent = Message.objects.get(pk=parent_id)
+            else:
+                parent = None
 
             # Pass user and country instances directly to save method
             serializer.save(user=user, country=country, parent=parent)
@@ -57,7 +62,7 @@ class DeleteMessage(generics.DestroyAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
@@ -65,7 +70,7 @@ class CreateReaction(generics.CreateAPIView):
     queryset = Reaction.objects.all()
     serializer_class = ReactionSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
@@ -97,7 +102,7 @@ class DeleteReaction(generics.DestroyAPIView):
     queryset = Reaction.objects.all()
     serializer_class = ReactionSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 

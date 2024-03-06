@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/criteria.dart';
 
-class User extends ChangeNotifier {
+class User {
   int? id;
   String? email;
   String? firstName;
@@ -16,7 +16,8 @@ class User extends ChangeNotifier {
   Criteria? criteriaSecurity;
   Criteria? criteriaFood;
 
-  String? token;
+  String? accessToken;
+  String? refreshToken;
 
   User(
       this.id,
@@ -31,7 +32,8 @@ class User extends ChangeNotifier {
       this.criteriaSanitary,
       this.criteriaSecurity,
       this.criteriaFood,
-      this.token);
+      this.accessToken,
+      this.refreshToken);
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -47,15 +49,14 @@ class User extends ChangeNotifier {
         Criteria.fromJsonOrNull(json['criteria_sanitary']),
         Criteria.fromJsonOrNull(json['criteria_security']),
         Criteria.fromJsonOrNull(json['criteria_allergy']),
-        json['token']);
+        json['access'],
+        json['refresh']);
   }
 
   @override
   String toString() {
     return "$firstName $lastName";
   }
-
-  bool get isUserNull => id == null;
 
   set user(Map<String, dynamic> json) {
     id = json['id'];
@@ -72,36 +73,8 @@ class User extends ChangeNotifier {
     criteriaSanitary = Criteria.fromJsonOrNull(json['criteria_sanitary']);
     criteriaSecurity = Criteria.fromJsonOrNull(json['criteria_security']);
     criteriaFood = Criteria.fromJsonOrNull(json['criteria_allergy']);
-    null;
-
-    // update the widgets using the provider of this model.
-    notifyListeners();
-  }
-
-  set token_(String newToken) {
-    token = newToken;
-
-    notifyListeners();
-  }
-
-  void nullify() {
-    id = null;
-    email = null;
-    firstName = null;
-    lastName = null;
-
-    criteriaWomenChildren = null;
-    criteriaLgbt = null;
-    criteriaCustoms = null;
-    criteriaClimate = null;
-    criteriaSociopolitical = null;
-    criteriaSanitary = null;
-    criteriaSecurity = null;
-    criteriaFood = null;
-
-    token = null;
-
-    notifyListeners();
+    accessToken = json['access'];
+    refreshToken = json['refresh'];
   }
 
   String get fullName => "$firstName $lastName";

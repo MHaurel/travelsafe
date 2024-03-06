@@ -137,7 +137,7 @@ class _CriteriaFormPageState extends State<CriteriaFormPage> {
                         final response = await dio.get("$baseUrl/accounts");
                         if (response.statusCode == 200) {
                           user.user = response.data;
-                          user.token_ = token;
+                          // user.token_ = token; // TODO:
                         } else {
                           // TODO: deal with the error (display the message)
                           // print(

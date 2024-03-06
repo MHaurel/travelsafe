@@ -1,21 +1,58 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/message.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
+import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
 import 'package:flutter_frontend/widgets/reaction_list.dart';
 
 class MessageWidget extends StatefulWidget {
-  const MessageWidget({super.key, required this.message});
+  const MessageWidget(
+      {super.key, required this.message, required this.countryIndex});
 
   final Message message;
+  final int countryIndex;
 
   @override
   State<MessageWidget> createState() => _MessageWidgetState();
 }
 
 class _MessageWidgetState extends State<MessageWidget> {
-  void _onMessageAnswer() {
-    // TODO: code the function
-    // print("Asking to answer message");
+  bool _isInputMessageShown = false;
+  final TextEditingController _newMessageController = TextEditingController();
+
+  void _toggleInputMessageShown() {
+    // Display text field below
+    setState(() {
+      _isInputMessageShown = !_isInputMessageShown;
+    });
+  }
+
+  void _onAnswerSubmit() async {
+    // Send the message to the API
+
+    Map<String, dynamic> body = {
+      "content": _newMessageController.text,
+      "user": 14,
+      "country": widget.countryIndex,
+      "parent": widget.message.id
+    };
+
+    print(body);
+
+    // // TODO: code the function
+    // Dio dio = Dio();
+    // //! set headers with user token
+    // final response =
+    //     await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
+
+    // if (response.statusCode == 201) {
+    //   // success
+    // } else {
+    //   // fail
+    // }
   }
 
   @override
@@ -76,9 +113,25 @@ class _MessageWidgetState extends State<MessageWidget> {
               CustomTextButton(
                   text: "Répondre...",
                   textColor: Colors.black,
-                  onPressed: _onMessageAnswer)
+                  onPressed: _toggleInputMessageShown)
             ],
-          )
+          ),
+          _isInputMessageShown
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: NewMessageTextField(
+                        hintText: "Ecrire votre commentaire...",
+                        controller: _newMessageController,
+                        onTap: _onAnswerSubmit,
+                        hide: _toggleInputMessageShown,
+                      ),
+                    )
+                  ],
+                )
+              : const SizedBox()
         ],
       ),
     );

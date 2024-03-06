@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/message.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
@@ -92,8 +93,9 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              // TODO: re-design the error widget
-              return ErrorWidget("Could not fetch messages");
+              return const CustomErrorWidget(
+                  text:
+                      "Nous n'avons pas réussi à afficher les messages. Veuillez réessayer plus tard.");
             } else {
               return snapshot.data!.isNotEmpty
                   ? Column(
@@ -112,7 +114,10 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                                 onPressed: _toggleInputMessageShown,
                                 text: "Ajouter un message",
                                 icon: Icons.add),
-                        MessagesList(messages: snapshot.data!)
+                        MessagesList(
+                          messages: snapshot.data!,
+                          countryIndex: widget.countryIndex,
+                        )
                       ],
                     )
                   : Text("Aucun message n'a encore été publié.",

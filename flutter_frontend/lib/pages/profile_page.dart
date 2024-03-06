@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
 
   void navigateHomeIfUserUndefined(BuildContext context, User user) {
     // TODO: protected route: redefine this
-    if (user.isUserNull) Navigator.of(context).pushReplacementNamed("/");
+    // if (user.isUserNull) Navigator.of(context).pushReplacementNamed("/");
   }
 
   Future<void> _updateUser(User user) async {
@@ -69,7 +69,7 @@ class ProfilePage extends StatelessWidget {
     if (response.statusCode == 200) {
       // User user = Provider.of<User>(context, listen: false);
       user.user = response.data;
-      user.token_ = token;
+      // user.token_ = token; TODO:
       return true;
     } else {
       // TODO: deal with the error (display the message)
@@ -134,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                               if (done) {
                                 // ignore: use_build_context_synchronously
                                 Navigator.of(context).pop();
-                                user.nullify();
+                                //  TODO: user.nullify();
                                 // ignore: use_build_context_synchronously
                                 Navigator.pushReplacementNamed(context, "/");
                               }
@@ -155,7 +155,7 @@ class ProfilePage extends StatelessWidget {
 
   Future<bool> _deleteUser(User user) async {
     Dio dio = Dio();
-    dio.options.headers["Authorization"] = "Token ${user.token}";
+    dio.options.headers["Authorization"] = "Token ${user.accessToken}";
     final response = await dio.delete("$baseUrl/accounts/${user.id}");
 
     if (response.statusCode == 204) {
@@ -176,7 +176,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             Text('Profile', style: Theme.of(context).textTheme.headlineMedium),
-            Text("${user.fullName} - Token: ${user.token}"),
+            Text("${user.fullName} - Token: ${user.accessToken}"),
             PrimaryButton(
                 onPressed: () => _login(user),
                 text: "Se connecter avec un utilisateur prédéfini"),

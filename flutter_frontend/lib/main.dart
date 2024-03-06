@@ -4,12 +4,21 @@ import 'package:flutter_frontend/pages/country_page.dart';
 import 'package:flutter_frontend/pages/home_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
+import 'package:flutter_frontend/pages/test_page.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+
+final log = Logger("Logger");
 
 void main() {
   initializeDateFormatting('fr_FR', null);
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
 
   runApp(const MainApp());
 }
@@ -20,9 +29,8 @@ class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => User(null, null, null, null, null, null, null, null,
-          null, null, null, null, null),
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => UserProvider())],
       child: MaterialApp(
           title: 'TravelSafe',
           theme: ThemeData(
@@ -82,7 +90,7 @@ class MainApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           initialRoute: "/",
           routes: {
-            "/": (context) => const HomePage(),
+            "/": (context) => TestPage(),
             "/country": (context) => const CountryPage(
                   countryIndex: 1,
                 ),

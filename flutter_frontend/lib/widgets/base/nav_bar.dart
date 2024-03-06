@@ -15,7 +15,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
   void _onAvatarTapped(BuildContext context, User user) {
     // If the user is not defined : trigger the registering modal, else navigate to profile
-    user.isUserNull ? _showRegisterModal(context) : _goToProfile(context);
+    // TODO: user.isUserNull ? _showRegisterModal(context) : _goToProfile(context);
   }
 
   void _goToProfile(BuildContext context) {

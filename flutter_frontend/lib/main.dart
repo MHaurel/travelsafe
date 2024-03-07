@@ -4,7 +4,7 @@ import 'package:flutter_frontend/pages/country_page.dart';
 import 'package:flutter_frontend/pages/home_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
-import 'package:flutter_frontend/pages/test_page.dart';
+//import 'package:flutter_frontend/pages/test_page.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/dialogs/dialog_filter.dart';
@@ -176,6 +177,7 @@ class _HomeMasterState extends State<HomeMaster> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //Pubs(),
                   Text("Accueil",
                       style: Theme.of(context).textTheme.headlineMedium),
                   SearchField(

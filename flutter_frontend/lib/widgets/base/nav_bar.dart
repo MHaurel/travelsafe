@@ -7,6 +7,7 @@ import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/signup_form.dart';
+import 'package:flutter_frontend/widgets/connexion.dart';
 import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
@@ -135,6 +136,95 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
           });
     }
 
+//Connexion
+    void showConnexionModal() {
+      TextEditingController mailController = TextEditingController();
+      TextEditingController passwordController = TextEditingController();
+
+      void onConnexionup() async {
+        Map<String, dynamic> params = {
+          "email": mailController.text,
+          "password": passwordController.text,
+        };
+        // A MODIFIER pour faire l'appel à l'API
+
+        //Dio dio = context.watch<UserProvider>().dio;
+        //final response =
+        //await dio.post("$baseUrl/accounts", data: jsonEncode(params));
+        //final data = response.data;
+
+        //if (response.statusCode == 201) {
+        // update the user provider from the data obtained
+        //Provider.of<UserProvider>(context, listen: false).user =
+        //User.fromJson(data);
+        // user.user = data;
+
+        // Navigate to profile FIXME: show criteria filling modal
+        // Navigator.of(context).pushNamed("/profile");
+        //} else {
+        // TODO: Manage cases (account already exists, no connection, ...)
+        // print("An error happened when trying so register the user.");
+        // }
+      }
+
+      showDialog(
+          context: context,
+          builder: (context) {
+            return SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: AlertDialog(
+                surfaceTintColor: Colors.white,
+                content: Stack(alignment: Alignment.topRight, children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Connexion",
+                          style: Theme.of(context).textTheme.headlineMedium),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32.0),
+                        child: Container(
+                          height: 5,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      ConnexionForm(
+                          onConnexionup: () {
+                            // User user = Provider.of<User>(context);
+
+                            onConnexionup();
+                          },
+                          mailController: mailController,
+                          passwordController: passwordController),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32.0),
+                        child: Container(
+                          height: 5,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      CustomTextButton(
+                          text: "Pas de compte?",
+                          textColor: Colors.black54,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            showRegisterModal();
+                          })
+                    ],
+                  ),
+                  IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(Icons.close))
+                ]),
+              ),
+            );
+          });
+    }
+
     return AppBar(
       leadingWidth: 200,
       leading: Padding(
@@ -183,7 +273,7 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                       Provider.of<UserProvider>(context, listen: false)
                               .isSignedIn()
                           ? Navigator.of(context).pushNamed("/profile")
-                          : showRegisterModal()
+                          : showConnexionModal(),
                     },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(90),

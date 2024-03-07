@@ -108,7 +108,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                         MessagesList(messages: snapshot.data!)
                       ],
                     )
-                  : Text("Aucun message n'a encore été publié.", style: Theme.of(context).textTheme.bodyLarge );
+                  : Text("Aucun message n'a encore été publié.",
+                      style: Theme.of(context).textTheme.bodyLarge);
             }
           } else {
             return const Center(

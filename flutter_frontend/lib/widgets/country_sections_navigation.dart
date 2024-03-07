@@ -11,12 +11,11 @@ class CountrySectionsNavigation extends StatelessWidget {
     'Droits des femmes et enfants',
     'Droit LGBT+',
     'Allergènes'
-    'Us et coutumes',
+        'Us et coutumes',
     'Climat',
     'Conditions sanitaires',
     'Espace collaboratif',
-  ];  //a modifier avec les Risk des country.dart 
-
+  ]; //a modifier avec les Risk des country.dart
 
   void _scrollToSection() {
     // You can change the yOffset value according to your layout
@@ -31,9 +30,10 @@ class CountrySectionsNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
-      child : StickyHeader(
+      child: StickyHeader(
         header: Column(
           children: <Widget>[
+            // TODO: list view
             for (int i = 0; i < _sections.length; i++)
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -43,7 +43,7 @@ class CountrySectionsNavigation extends StatelessWidget {
                     text: _sections[i],
                   ),
                 ],
-            ),
+              ),
           ],
         ),
         content: SizedBox(
@@ -52,29 +52,29 @@ class CountrySectionsNavigation extends StatelessWidget {
         ),
       ),
     );
-          //       ),
-          //       ElevatedButton(
-          //       onPressed: _scrollToSection,
-          //       child: Text('Scroll To Section'),
-          //     ),
-          //   ),
-          //   Center(
-          //     child: Container(
-          //       height: 300,
-          //       width: 300,
-          //       color: Colors.blue,
-          //       child: Center(
-          //         child: Text(
-          //           'Section to scroll to',
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          //   SizedBox(height: 100), // Placeholder space to demonstrate scrolling
-          // ],
+    //       ),
+    //       ElevatedButton(
+    //       onPressed: _scrollToSection,
+    //       child: Text('Scroll To Section'),
+    //     ),
+    //   ),
+    //   Center(
+    //     child: Container(
+    //       height: 300,
+    //       width: 300,
+    //       color: Colors.blue,
+    //       child: Center(
+    //         child: Text(
+    //           'Section to scroll to',
+    //           style: TextStyle(
+    //             color: Colors.white,
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    //   SizedBox(height: 100), // Placeholder space to demonstrate scrolling
+    // ],
     //   ),
     // );
   }

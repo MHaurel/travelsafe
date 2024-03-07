@@ -4,6 +4,7 @@ import 'package:flutter_frontend/pages/home_page.dart';
 import 'package:flutter_frontend/pages/criteria_form_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
+import 'package:flutter_frontend/pages/test_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,32 +22,37 @@ class MainApp extends StatelessWidget {
         theme: ThemeData(
           textTheme: TextTheme(
             headlineLarge: GoogleFonts.oswald(
-              color: Color(0xFF07020D), fontSize: 64, fontWeight: FontWeight.w400
-            ),
+                color: Color(0xFF07020D),
+                fontSize: 64,
+                fontWeight: FontWeight.w400),
             headlineMedium: GoogleFonts.oswald(
-              color: Color(0xFF07020D), fontSize: 32, fontWeight: FontWeight.w400
-            ),
-
+                color: Color(0xFF07020D),
+                fontSize: 32,
+                fontWeight: FontWeight.w400),
             titleLarge: GoogleFonts.poppins(
-              color: Color(0xFF07020D), fontSize: 32, fontWeight: FontWeight.w400
-            ),
+                color: Color(0xFF07020D),
+                fontSize: 32,
+                fontWeight: FontWeight.w400),
             titleMedium: GoogleFonts.poppins(
-              color: Color(0xFF07020D), fontSize: 16, fontWeight: FontWeight.w400
-            ),
+                color: Color(0xFF07020D),
+                fontSize: 16,
+                fontWeight: FontWeight.w400),
             titleSmall: GoogleFonts.poppins(
-              color: Color(0xFF07020D), fontSize: 12, fontWeight: FontWeight.w400
-            ),
-
+                color: Color(0xFF07020D),
+                fontSize: 12,
+                fontWeight: FontWeight.w400),
             bodyLarge: GoogleFonts.montserrat(
-              color: Color(0xFF07020D), fontSize: 16, fontWeight: FontWeight.w400
-            ),
+                color: Color(0xFF07020D),
+                fontSize: 16,
+                fontWeight: FontWeight.w400),
             bodyMedium: GoogleFonts.montserrat(
-              color: Color(0xFF07020D), fontSize: 12, fontWeight: FontWeight.w400
-            ),
+                color: Color(0xFF07020D),
+                fontSize: 12,
+                fontWeight: FontWeight.w400),
             bodySmall: GoogleFonts.montserrat(
-              color: Color(0xFF07020D), fontSize: 10, fontWeight: FontWeight.w400
-            ),
-
+                color: Color(0xFF07020D),
+                fontSize: 10,
+                fontWeight: FontWeight.w400),
           ),
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF478B85)),
           outlinedButtonTheme: OutlinedButtonThemeData(
@@ -66,7 +72,7 @@ class MainApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         // home: const HomePage(),
-        initialRoute: "/",
+        initialRoute: "/country",
         routes: {
           "/": (context) => const HomePage(),
           "/country": (context) => const CountryPage(

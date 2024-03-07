@@ -20,7 +20,7 @@ class _MessageWidgetState extends State<MessageWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
         children: [
           Stack(alignment: Alignment.bottomRight, children: [
@@ -45,13 +45,15 @@ class _MessageWidgetState extends State<MessageWidget> {
                             width: 20,
                           ),
                           Text(
-                              "${widget.message.user.firstName} ${widget.message.user.lastName}", style: Theme.of(context).textTheme.bodyMedium)
+                              "${widget.message.user.firstName} ${widget.message.user.lastName}",
+                              style: Theme.of(context).textTheme.bodyMedium)
                         ],
                       ),
                       const SizedBox(
                         height: 4,
                       ),
-                      Text(widget.message.content, style: Theme.of(context).textTheme.bodyMedium)
+                      Text(widget.message.content,
+                          style: Theme.of(context).textTheme.bodyMedium)
                     ],
                   ),
                 ),
@@ -62,7 +64,8 @@ class _MessageWidgetState extends State<MessageWidget> {
           Row(
             children: [
               Text(
-                  "${widget.message.dateCreated.day}/${widget.message.dateCreated.month}/${widget.message.dateCreated.year}", style: Theme.of(context).textTheme.bodyMedium),
+                  "${widget.message.dateCreated.day}/${widget.message.dateCreated.month}/${widget.message.dateCreated.year}",
+                  style: Theme.of(context).textTheme.bodyMedium),
               const SizedBox(
                 width: 20,
               ),

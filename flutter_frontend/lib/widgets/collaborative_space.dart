@@ -27,7 +27,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   bool _isInputNewMessageShown = false;
 
   Future<List<Message>> _fetchMessages() async {
-    // Dio dio = context.watch<UserProvider>().dio;
+    // Dio dio = context.watch<UserProvider>().dio; // TODO: inspect this
     Dio dio = Dio();
     final response = await dio.get("$baseUrl/messages/${widget.countryIndex}");
 

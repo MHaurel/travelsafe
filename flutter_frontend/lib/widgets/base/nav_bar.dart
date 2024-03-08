@@ -193,7 +193,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                       ConnexionForm(
                           onConnexionup: () {
                             // User user = Provider.of<User>(context);
-
                             onConnexionup();
                           },
                           mailController: mailController,

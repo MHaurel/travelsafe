@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/user.dart';
+import 'package:flutter_frontend/pages/criteria_display.dart';
+import 'package:flutter_frontend/pages/profile_display.dart';
+import 'package:flutter_frontend/pages/subscriptions_display.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
 import 'package:flutter_frontend/widgets/base/primary_button.dart';
@@ -11,8 +13,32 @@ import 'package:flutter_frontend/widgets/base/secondary_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  int _index = 0;
+  final List<Widget> _widgetOptions = [
+    const ProfileDisplay(),
+    const CriteriaDisplay(),
+    const SubscriptionsDisplay(),
+  ];
+
+  final List<String> _drawerTilesName = [
+    'Informations',
+    'Critères',
+    'Abonnements'
+  ];
+
+  @override
+  void initState() {
+    context.read<UserProvider>().login("maximelebest@gmail.com", "admin");
+    super.initState();
+  }
 
   void navigateHomeIfUserUndefined(BuildContext context, User user) {
     // TODO: protected route: redefine this
@@ -130,14 +156,43 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavBar(appBar: AppBar()),
-      body: Center(
-        child: Column(
-          children: [
-            Text('Profile', style: Theme.of(context).textTheme.headlineMedium),
-            Text(
-                "${context.watch<UserProvider>().user.fullName} - Token: ${context.watch<UserProvider>().user.accessToken}"),
-          ],
-        ),
+      body: Row(
+        children: [
+          Drawer(
+            shape: Border(
+                right: BorderSide(
+                    color: Theme.of(context).primaryColor, width: 4)),
+            backgroundColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            child: ListView.builder(
+              itemCount: _drawerTilesName.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: ListTile(
+                  title: Text(_drawerTilesName[index]),
+                  tileColor: _index == index
+                      ? const Color(0xffA8D6AC)
+                      : Colors.transparent,
+                  onTap: () => setState(() {
+                    _index = index;
+                  }),
+                ),
+              ),
+              padding: EdgeInsets.zero,
+            ),
+          ),
+          Expanded(
+            child: _widgetOptions[_index],
+            // child: Column(
+            //   children: [
+            //     Text('Profile',
+            //         style: Theme.of(context).textTheme.headlineMedium),
+            //     Text(
+            //         "${context.watch<UserProvider>().user.fullName} - Token: ${context.watch<UserProvider>().user.accessToken}"),
+            //   ],
+            // ),
+          ),
+        ],
       ),
     );
   }

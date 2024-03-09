@@ -50,7 +50,6 @@ class _SignupDialogState extends State<SignupDialog> {
 
         Navigator.of(context).pop();
         Navigator.of(context).pushNamed("/profile");
-        // TODO: get tokens
         // TODO: show dialog
       } else {
         // TODO: Manage cases (account already exists, no connection, ...)

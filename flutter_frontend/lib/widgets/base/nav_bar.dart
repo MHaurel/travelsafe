@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
+import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
+import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
 import 'package:flutter_frontend/widgets/signup_form.dart';
 import 'package:flutter_frontend/widgets/connexion.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +16,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
 
   const NavBar({super.key, required this.appBar});
-
-  void _goToProfile(BuildContext context) {
-    Navigator.of(context).pushNamed("/profile");
-  }
 
   void _goToHome(BuildContext context) {
     Navigator.of(context).pushNamed("/");
@@ -31,199 +29,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showRegisterModal() {
-      TextEditingController lastNameController = TextEditingController();
-      TextEditingController firstNameController = TextEditingController();
-      TextEditingController mailController = TextEditingController();
-      TextEditingController passwordController = TextEditingController();
-      TextEditingController confirmPasswordController = TextEditingController();
-
-      void onSignup() async {
-        Map<String, dynamic> params = {
-          "first_name": firstNameController.text,
-          "last_name": lastNameController.text,
-          "email": mailController.text,
-          "password": passwordController.text,
-        };
-
-        Dio dio = context.watch<UserProvider>().dio;
-        final response =
-            await dio.post("$baseUrl/accounts", data: jsonEncode(params));
-        final data = response.data;
-
-        if (response.statusCode == 201) {
-          // update the user provider from the data obtained
-          Provider.of<UserProvider>(context, listen: false).user =
-              User.fromJson(data);
-          // user.user = data;
-
-          // Navigate to profile FIXME: show criteria filling modal
-          Navigator.of(context).pushNamed("/profile");
-        } else {
-          // TODO: Manage cases (account already exists, no connection, ...)
-          // print("An error happened when trying so register the user.");
-        }
-      }
-
-      void displayLogin() {
-        // print("Asking to login...");
-        // TODO:
-        // close this popup
-        // show login dialog
-        // context.read<UserProvider>().login("maximelebest@gmail.com", "admin");
-        Provider.of<UserProvider>(context, listen: false)
-            .login("maximelebest@gmail.com", "admin");
-        Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed("/profile");
-      }
-
-      // Shows the modal for the user to signup
-      showDialog(
-          context: context,
-          builder: (context) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: AlertDialog(
-                surfaceTintColor: Colors.white,
-                content: Stack(alignment: Alignment.topRight, children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Inscription",
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                      SignUpForm(
-                          onSignup: () {
-                            // User user = Provider.of<User>(context);
-
-                            onSignup();
-                          },
-                          lastNameController: lastNameController,
-                          firstNameController: firstNameController,
-                          mailController: mailController,
-                          passwordController: passwordController,
-                          confirmPasswordController: confirmPasswordController),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                      CustomTextButton(
-                          text: "Déjà un compte ?",
-                          textColor: Colors.black54,
-                          onPressed: displayLogin)
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close))
-                ]),
-              ),
-            );
-          });
-    }
-
-//Connexion
-    void showConnexionModal() {
-      TextEditingController mailController = TextEditingController();
-      TextEditingController passwordController = TextEditingController();
-
-      void onConnexionup() async {
-        Map<String, dynamic> params = {
-          "email": mailController.text,
-          "password": passwordController.text,
-        };
-        // A MODIFIER pour faire l'appel à l'API
-
-        //Dio dio = context.watch<UserProvider>().dio;
-        //final response =
-        //await dio.post("$baseUrl/accounts", data: jsonEncode(params));
-        //final data = response.data;
-
-        //if (response.statusCode == 201) {
-        // update the user provider from the data obtained
-        //Provider.of<UserProvider>(context, listen: false).user =
-        //User.fromJson(data);
-        // user.user = data;
-
-        // Navigate to profile FIXME: show criteria filling modal
-        // Navigator.of(context).pushNamed("/profile");
-        //} else {
-        // TODO: Manage cases (account already exists, no connection, ...)
-        // print("An error happened when trying so register the user.");
-        // }
-      }
-
-      showDialog(
-          context: context,
-          builder: (context) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: AlertDialog(
-                surfaceTintColor: Colors.white,
-                content: Stack(alignment: Alignment.topRight, children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Connexion",
-                          style: Theme.of(context).textTheme.headlineMedium),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                      ConnexionForm(
-                          onConnexionup: () {
-                            // User user = Provider.of<User>(context);
-                            onConnexionup();
-                          },
-                          mailController: mailController,
-                          passwordController: passwordController),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 32.0),
-                        child: Container(
-                          height: 5,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor,
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                      ),
-                      CustomTextButton(
-                          text: "Pas de compte?",
-                          textColor: Colors.black54,
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            showRegisterModal();
-                          })
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close))
-                ]),
-              ),
-            );
-          });
-    }
-
     return AppBar(
       leadingWidth: 200,
       leading: Padding(
@@ -272,7 +77,9 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                       Provider.of<UserProvider>(context, listen: false)
                               .isSignedIn()
                           ? Navigator.of(context).pushNamed("/profile")
-                          : showConnexionModal(),
+                          : showDialog(
+                              context: context,
+                              builder: (context) => const ConnexionDialog())
                     },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(90),

@@ -36,7 +36,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    context.read<UserProvider>().login("maximelebest@gmail.com", "admin");
     super.initState();
   }
 
@@ -183,14 +182,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           Expanded(
             child: _widgetOptions[_index],
-            // child: Column(
-            //   children: [
-            //     Text('Profile',
-            //         style: Theme.of(context).textTheme.headlineMedium),
-            //     Text(
-            //         "${context.watch<UserProvider>().user.fullName} - Token: ${context.watch<UserProvider>().user.accessToken}"),
-            //   ],
-            // ),
           ),
         ],
       ),

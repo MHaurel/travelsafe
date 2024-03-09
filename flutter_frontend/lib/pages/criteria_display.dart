@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/criteria.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
+import 'package:flutter_frontend/widgets/criteria_list_item.dart';
 import 'package:provider/provider.dart';
 
 enum CriteriaSortType {
@@ -36,7 +37,10 @@ class _CriteriaDisplayState extends State<CriteriaDisplay> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Critères"),
+        Text(
+          "Critères",
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
         Expanded(
           child: Padding(
             padding:
@@ -131,52 +135,40 @@ class _CriteriaDisplayState extends State<CriteriaDisplay> {
                         .watch<UserProvider>()
                         .user
                         .criteriaWomenChildren,
-                    typeIndex: null)
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria: context.watch<UserProvider>().user.criteriaLgbt,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria:
+                        context.watch<UserProvider>().user.criteriaCustoms,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria:
+                        context.watch<UserProvider>().user.criteriaClimate,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria: context
+                        .watch<UserProvider>()
+                        .user
+                        .criteriaSociopolitical,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria:
+                        context.watch<UserProvider>().user.criteriaSanitary,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria:
+                        context.watch<UserProvider>().user.criteriaSecurity,
+                    typeIndex: null),
+                CriteriaListItem(
+                    criteria: context.watch<UserProvider>().user.criteriaFood,
+                    typeIndex: null), // TODO: add types
               ],
             ),
           ),
         )
       ],
     );
-  }
-}
-
-class CriteriaListItem extends StatelessWidget {
-  const CriteriaListItem(
-      {super.key, required this.criteria, required this.typeIndex});
-
-  final Criteria? criteria;
-  final int? typeIndex;
-
-  @override
-  Widget build(BuildContext context) {
-    return criteria == null
-        ? const SizedBox()
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Color(0xffA8D6AC), width: 2)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Text(criteria!.name),
-                  )),
-              typeIndex == null
-                  ? const SizedBox()
-                  : Text(criteria!.types[typeIndex!].name),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Color(0xffA8D6AC), width: 2)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
-                    child: Text(criteria!.grade.toString()),
-                  )),
-            ],
-          );
   }
 }

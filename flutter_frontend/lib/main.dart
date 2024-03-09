@@ -15,10 +15,6 @@ final log = Logger("Logger");
 
 void main() {
   initializeDateFormatting('fr_FR', null);
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
 
   runApp(const MainApp());
 }
@@ -26,7 +22,6 @@ void main() {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -88,7 +83,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/profile",
+          initialRoute: "/",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

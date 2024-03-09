@@ -6,11 +6,11 @@ import 'package:flutter_frontend/widgets/base/primary_button.dart';
 class ConnexionForm extends StatefulWidget {
   const ConnexionForm(
       {super.key,
-      required this.onConnexionup,
+      required this.onConnexion,
       required this.mailController,
       required this.passwordController});
 
-  final Function() onConnexionup;
+  final Function() onConnexion;
   final TextEditingController mailController;
   final TextEditingController passwordController;
 
@@ -21,11 +21,9 @@ class ConnexionForm extends StatefulWidget {
 class _ConnexionFormState extends State<ConnexionForm> {
   final _formKey = GlobalKey<FormState>();
 
-
-    
-@override
+  @override
   Widget build(BuildContext context) {
-      bool isEmailValid(String value) {
+    bool isEmailValid(String value) {
       String regExp =
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
       return RegExp(regExp).hasMatch(value);
@@ -54,7 +52,7 @@ class _ConnexionFormState extends State<ConnexionForm> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: PasswordInput( 
+              child: PasswordInput(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Le mot de passe ne peut être vide.";
@@ -72,7 +70,7 @@ class _ConnexionFormState extends State<ConnexionForm> {
                   PrimaryButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.onConnexionup(); 
+                          widget.onConnexion();
                         }
                       },
                       text: "Se connecter")

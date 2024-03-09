@@ -11,7 +11,7 @@ class UserProvider extends ChangeNotifier {
       connectTimeout: const Duration(milliseconds: 5000),
       receiveTimeout: const Duration(milliseconds: 3000)));
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     Response response = await _dio
         .post("/token/", data: {"email": email, "password": password});
 
@@ -21,11 +21,10 @@ class UserProvider extends ChangeNotifier {
       initWithUser(); // Init the dio with the access token of the user
 
       retrieveUser();
-    } else {
-      print("An error has occured when trying to log the user.");
+      return true;
     }
 
-    // notifyListeners();
+    return false;
   }
 
   Future<void> retrieveUser() async {

@@ -18,7 +18,7 @@ class Message(models.Model):
         User, on_delete=models.CASCADE, related_name="message_user")
 
     def __str__(self) -> str:
-        return f"[ID:{self.pk}] {self.user}: {self.content}"
+        return f"[ID:{self.pk}] {self.user}: {self.content} - with parent: {self.parent}"
 
 
 class Emoji(models.Model):

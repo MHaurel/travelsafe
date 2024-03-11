@@ -9,6 +9,7 @@ import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
+import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
 import 'package:flutter_frontend/widgets/messages_list.dart';
 import 'package:provider/provider.dart';
 
@@ -89,44 +90,53 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _messages,
-        builder: ((context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              return const CustomErrorWidget(
-                  text:
-                      "Nous n'avons pas réussi à afficher les messages. Veuillez réessayer plus tard.");
-            } else {
-              return snapshot.data!.isNotEmpty
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Espace collaboratif",
-                            style: Theme.of(context).textTheme.headlineMedium),
-                        _isInputNewMessageShown
-                            ? NewMessageTextField(
-                                hintText: "Ecrire votre commentaire...",
-                                controller: newMessageController,
-                                onTap: _onNewMessageSubmit,
-                                hide: _toggleInputMessageShown,
-                              )
-                            : CustomIconButton(
-                                onPressed: _toggleInputMessageShown,
-                                text: "Ajouter un message",
-                                icon: Icons.add),
-                        MessagesList(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Espace collaboratif",
+            style: Theme.of(context).textTheme.headlineMedium),
+        _isInputNewMessageShown
+            ? NewMessageTextField(
+                hintText: "Ecrire votre commentaire...",
+                controller: newMessageController,
+                onTap: _onNewMessageSubmit,
+                hide: _toggleInputMessageShown,
+              )
+            : CustomIconButton(
+                onPressed: () {
+                  if (Provider.of<UserProvider>(context, listen: false)
+                      .isSignedIn()) {
+                    _toggleInputMessageShown();
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const ConnexionDialog());
+                  }
+                },
+                text: "Ajouter un message",
+                icon: Icons.add),
+        FutureBuilder(
+            future: _messages,
+            builder: ((context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasError) {
+                  return const CustomErrorWidget(
+                      text:
+                          "Nous n'avons pas réussi à afficher les messages. Veuillez réessayer plus tard.");
+                } else {
+                  return snapshot.data!.isNotEmpty
+                      ? MessagesList(
                           messages: snapshot.data!,
                           countryIndex: widget.countryIndex,
                         )
-                      ],
-                    )
-                  : Text("Aucun message n'a encore été publié.",
-                      style: Theme.of(context).textTheme.bodyLarge);
-            }
-          } else {
-            return const Loader();
-          }
-        }));
+                      : Text("Aucun message n'a encore été publié.",
+                          style: Theme.of(context).textTheme.bodyLarge);
+                }
+              } else {
+                return const Loader();
+              }
+            })),
+      ],
+    );
   }
 }

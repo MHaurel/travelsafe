@@ -41,6 +41,7 @@ class MessageCreateAPIView(views.APIView):
             user_id = request.data.get('user')
             country_id = request.data.get('country')
             parent_id = request.data.get('parent')
+            print(parent_id)
 
             # Use get_object_or_404 to raise a 404 error if the objects don't exist
             user = get_object_or_404(User, pk=user_id)

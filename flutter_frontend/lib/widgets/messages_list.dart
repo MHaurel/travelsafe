@@ -15,7 +15,10 @@ class MessagesList extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: messages.length,
-      itemBuilder: (context, index) => MessageWidget(message: messages[index]),
+      itemBuilder: (context, index) => MessageWidget(
+        message: messages[index],
+        countryIndex: countryIndex,
+      ),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
 import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
 import 'package:flutter_frontend/widgets/last_two_news_preview_for_country.dart';
@@ -25,7 +27,6 @@ class CountryPage extends StatefulWidget {
 }
 
 class _CountryPageState extends State<CountryPage> {
-  late int _countryIndex;
   late Future<Country> _country;
 
   @override

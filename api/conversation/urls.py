@@ -5,8 +5,8 @@ from conversation import views
 urlpatterns = [
     path("messages/<int:pk>", views.ListMessagesForCountry.as_view(),
          name="list-messages-for-country"),
-    #     path("messages/create/<int:pk>", views.CreateMessageForCountry.as_view(),
-    #     name="create-messages-for-country"),
+    path("messages/children/<int:pk>",
+         views.ListChildrenMessages.as_view(), name="list-children-messages"),
     path("messages/delete/<int:pk>",
          views.DeleteMessage.as_view(), name="delete-message"),
     path("reaction/create/<int:pk>",

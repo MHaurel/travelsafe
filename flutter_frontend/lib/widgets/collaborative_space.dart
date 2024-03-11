@@ -1,16 +1,16 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
-import 'package:flutter_frontend/models/country.dart';
-import 'package:flutter_frontend/models/criteria.dart';
 import 'package:flutter_frontend/models/message.dart';
-import 'package:flutter_frontend/models/risk.dart';
-import 'package:flutter_frontend/models/user.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
+import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
-import 'package:flutter_frontend/widgets/base/custom_text_field.dart';
-import 'package:flutter_frontend/widgets/base/primary_button.dart';
-import 'package:flutter_frontend/widgets/base/secondary_button.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
+import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
 import 'package:flutter_frontend/widgets/messages_list.dart';
+import 'package:provider/provider.dart';
 
 class CollaborativeSpace extends StatefulWidget {
   const CollaborativeSpace({super.key, required this.countryIndex});
@@ -23,10 +23,12 @@ class CollaborativeSpace extends StatefulWidget {
 
 class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   late Future<List<Message>> _messages;
+  TextEditingController newMessageController = TextEditingController();
+  bool _isInputNewMessageShown = false;
 
   Future<List<Message>> _fetchMessages() async {
+    // Dio dio = context.watch<UserProvider>().dio; // TODO: inspect this
     Dio dio = Dio();
-
     final response = await dio.get("$baseUrl/messages/${widget.countryIndex}");
 
     List<Message> messages = [];
@@ -41,48 +43,48 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
     super.initState();
   }
 
-  void _addMessage(String? content, int? userId, int? countryId) {
-    // TODO: code function
-    print("Content of the message: $content");
+  void _updateMessages() {
+    _messages = _fetchMessages();
+    setState(() {});
   }
 
-  void _showAddMessageDialog(BuildContext context) {
-    TextEditingController controller = TextEditingController();
+  Future<bool> _addMessage(String content, int userId, int countryId) async {
+    Dio dio = Provider.of<UserProvider>(context, listen: false).dio;
 
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          actions: [
-            SecondaryButton(
-                onPressed: () => Navigator.of(context).pop(), text: "Annuler"),
-            PrimaryButton(
-                onPressed: () => _addMessage(controller.text, null, null),
-                text: "Poster un message")
-          ],
-          content: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Contenu de votre message",
-                    style: Theme.of(context).textTheme.bodyLarge),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomTextField(
-                  label: "Message",
-                  hintText: "Lorem ipsum dolor sit amet...",
-                  controller: controller,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 8,
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    Map<String, dynamic> body = {
+      "content": content,
+      "user": userId,
+      "country": countryId
+    };
+
+    final response =
+        await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
+
+    if (response.statusCode == 201) {
+      _updateMessages();
+      return true;
+    } else {
+      // TODO: manage cases
+      // print("An error occured when trying to create a message.");
+      return false;
+    }
+  }
+
+  void _onNewMessageSubmit() async {
+    // poste un nouveau message en appelant l'API
+    bool isMessageDone = await _addMessage(newMessageController.text, 10,
+        widget.countryIndex); // TODO: fetch the id of the user
+    if (isMessageDone) {
+      // toggle la variable d'état
+      _toggleInputMessageShown();
+    } else {}
+  }
+
+  void _toggleInputMessageShown() {
+    // TODO: redirect user to connection/register if not logged in
+    setState(() {
+      _isInputNewMessageShown = !_isInputNewMessageShown;
+    });
   }
 
   @override
@@ -92,8 +94,9 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
         builder: ((context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              // TODO: re-design the error widget
-              return ErrorWidget("Could not fetch messages");
+              return const CustomErrorWidget(
+                  text:
+                      "Nous n'avons pas réussi à afficher les messages. Veuillez réessayer plus tard.");
             } else {
               return snapshot.data!.isNotEmpty
                   ? Column(
@@ -101,30 +104,28 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                       children: [
                         Text("Espace collaboratif",
                             style: Theme.of(context).textTheme.headlineMedium),
-                        CustomIconButton(
-                            onPressed: () => _showAddMessageDialog(context),
-                            text: "Ajouter un message",
-                            icon: Icons.add),
-                        MessagesList(messages: snapshot.data!)
+                        _isInputNewMessageShown
+                            ? NewMessageTextField(
+                                hintText: "Ecrire votre commentaire...",
+                                controller: newMessageController,
+                                onTap: _onNewMessageSubmit,
+                                hide: _toggleInputMessageShown,
+                              )
+                            : CustomIconButton(
+                                onPressed: _toggleInputMessageShown,
+                                text: "Ajouter un message",
+                                icon: Icons.add),
+                        MessagesList(
+                          messages: snapshot.data!,
+                          countryIndex: widget.countryIndex,
+                        )
                       ],
                     )
                   : Text("Aucun message n'a encore été publié.",
                       style: Theme.of(context).textTheme.bodyLarge);
             }
           } else {
-            return const Center(
-              child: Column(children: [
-                SizedBox(
-                  width: 60,
-                  height: 60,
-                  child: CircularProgressIndicator(),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Text('Awaiting result...'),
-                ),
-              ]),
-            );
+            return const Loader();
           }
         }));
   }

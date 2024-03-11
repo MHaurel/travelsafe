@@ -3,6 +3,7 @@ from subs.serializers import SubscriptionSerializer
 from subs.models import Subscription
 from rest_framework import generics, authentication, permissions, status, response
 from django.shortcuts import get_object_or_404
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.contrib.auth import get_user_model
 
@@ -15,7 +16,7 @@ class CreateSubscription(generics.CreateAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
@@ -40,7 +41,7 @@ class DeleteSubscription(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
 
@@ -48,7 +49,7 @@ class ListSubscription(generics.ListAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
 
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):

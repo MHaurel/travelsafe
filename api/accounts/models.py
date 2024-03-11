@@ -98,7 +98,7 @@ class CustomUser(AbstractBaseUser):
         return self.email
 
     def __str__(self):
-        return self.email
+        return str(self.id) + " - " + self.email
 
     def has_perm(self, perm, obj=None):
         return self.is_staff

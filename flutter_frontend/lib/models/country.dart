@@ -8,7 +8,6 @@ class Country {
   String name;
   DateTime lastEdition;
 
-  // TODO: add the risks (ignoring them for the moment)
   Risk? riskWomenChildren;
   Risk? riskLgbt;
   Risk? riskCustoms;

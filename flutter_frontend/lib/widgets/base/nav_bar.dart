@@ -1,16 +1,23 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/consts.dart';
+import 'package:flutter_frontend/handlers.dart';
+import 'package:flutter_frontend/models/user.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
+import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
+import 'package:flutter_frontend/widgets/signup_form.dart';
+import 'package:flutter_frontend/widgets/connexion.dart';
+import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
-  
+
   const NavBar({super.key, required this.appBar});
 
-  void _goToProfile(){
-    // TODO:
-  }
-
-  void _goToHome(BuildContext context){
+  void _goToHome(BuildContext context) {
     Navigator.of(context).pushNamed("/");
   }
 
@@ -19,7 +26,6 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   void _onPressed() {}
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,33 +41,67 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Accueil", textColor: Color(0xFF07020D), onPressed: () => _goToHome(context)),
+            child: CustomTextButton(
+                text: "Accueil",
+                textColor: const Color(0xFF07020D),
+                onPressed: () => _goToHome(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Dernières Informations", textColor: Color(0xFF07020D), onPressed: () => _goToLastInfo(context)),
+            child: CustomTextButton(
+                text: "Dernières Informations",
+                textColor: const Color(0xFF07020D),
+                onPressed: () => _goToLastInfo(context)),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Contact", textColor: Color(0xFF07020D), onPressed: _onPressed),
+            child: CustomTextButton(
+                text: "Contact",
+                textColor: const Color(0xFF07020D),
+                onPressed: _onPressed),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: (16.0)),
-            child: CustomTextButton(text: "Aide", textColor: Color(0xFF07020D), onPressed: _onPressed),
+            child: CustomTextButton(
+                text: "Aide",
+                textColor: const Color(0xFF07020D),
+                onPressed: _onPressed),
           ),
         ],
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 64.0),
-          child: InkWell(onTap: _goToProfile, child: ClipRRect(borderRadius: BorderRadius.circular(90), child: Container(color: Colors.white, child: Padding(padding: const EdgeInsets.all(3.5), child: CircleAvatar(child: Icon(Icons.person_rounded, color: Color(0xFFFFFFFF),), backgroundColor: Color(0xFF326B69), foregroundColor: Color(0xFFFFFFFF),),)),))
-        )
+            padding: const EdgeInsets.only(right: 64.0),
+            child: InkWell(
+                onTap: () => {
+                      Provider.of<UserProvider>(context, listen: false)
+                              .isSignedIn()
+                          ? Navigator.of(context).pushNamed("/profile")
+                          : showDialog(
+                              context: context,
+                              builder: (context) => const ConnexionDialog())
+                    },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(90),
+                  child: Container(
+                      color: Colors.white,
+                      child: const Padding(
+                        padding: EdgeInsets.all(3.5),
+                        child: CircleAvatar(
+                          backgroundColor: Color(0xFF326B69),
+                          foregroundColor: Color(0xFFFFFFFF),
+                          child: Icon(
+                            Icons.person_rounded,
+                            color: Color(0xFFFFFFFF),
+                          ),
+                        ),
+                      )),
+                )))
       ],
-      backgroundColor: Color(0xFFA8D6AC),
+      backgroundColor: const Color(0xFFA8D6AC),
     );
   }
-  
+
   @override
-  // TODO: implement preferredSize
-  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
 }

@@ -9,8 +9,8 @@ class Criteria {
   Criteria(this.id, this.name, this.grade, this.types);
 
   factory Criteria.fromJson(Map<String, dynamic> json) {
-    List<CriteriaType> _types = [];
-    json['types'].forEach((t) => _types.add(CriteriaType.fromJson(t)));
+    List<CriteriaType> types = [];
+    json['types'].forEach((t) => types.add(CriteriaType.fromJson(t)));
 
     return Criteria(json['id'], json['name'], json['grade'], json['types']);
   }

@@ -13,4 +13,9 @@ class LastInfo {
     return LastInfo(json['id'], json['title'], json['content'],
         DateTime.parse(json['date']), Country.fromJson(json['country']));
   }
+
+  int get timeElapsed {
+    DateTime now = DateTime.now().toUtc();
+    return now.difference(createdAt).inHours;
+  }
 }

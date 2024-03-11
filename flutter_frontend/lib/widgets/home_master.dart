@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
-import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
+import 'package:flutter_frontend/widgets/dialogs/dialog_filter.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
-import 'package:flutter_frontend/widgets/last_info_card_small.dart';
+import 'package:flutter_frontend/widgets/last_news_preview.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 import 'package:flutter_frontend/widgets/risk_level_legend.dart';
 
@@ -68,66 +69,161 @@ class _HomeMasterState extends State<HomeMaster> {
     });
   }
 
+  void _applyFilters(Map<String, dynamic> filters) {
+    List<Country> countries = widget.countries;
+    List<Country> filteredCountries = countries;
+    if (filters['riskWomenChildren']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskWomenChildren != null) {
+          return element.riskWomenChildren!.level >=
+              int.parse(filters['riskWomenChildren']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskLgbt']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskLgbt != null) {
+          return element.riskLgbt!.level >=
+              int.parse(filters['riskLgbt']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskCustoms']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskCustoms != null) {
+          return element.riskCustoms!.level >=
+              int.parse(filters['riskCustoms']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskClimate']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskClimate != null) {
+          return element.riskClimate!.level >=
+              int.parse(filters['riskClimate']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSociopolitical']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSociopolitical != null) {
+          return element.riskSociopolitical!.level >=
+              int.parse(filters['riskSociopolitical']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSanitary']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSanitary != null) {
+          return element.riskSanitary!.level >=
+              int.parse(filters['riskSanitary']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskSecurity']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskSecurity != null) {
+          return element.riskSecurity!.level >=
+              int.parse(filters['riskSecurity']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    if (filters['riskFood']['filtered']) {
+      filteredCountries = filteredCountries.where((element) {
+        if (element.riskFood != null) {
+          return element.riskFood!.level >=
+              int.parse(filters['riskFood']['controller'].text);
+        }
+        return false;
+      }).toList();
+    }
+    setState(() {
+      _visibleCountries = filteredCountries;
+    });
+  }
+
   void _onFilterPressed() {
-    // TODO:
-    print("Filter pressed");
+    showDialog(
+        context: context,
+        builder: (context) => DialogFilter(
+              applyFilters: _applyFilters,
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
-    Country country = Country(1, "Afghanistan", DateTime.now(), null, null, null, null, null, null, null, null);
+    return SingleChildScrollView(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // Left col with legend
+          const Expanded(flex: 2, child: Text("gauche")
+              // child: SizedBox(
+              //   // width: MediaQuery.of(context).size.width * 0.2,
+              //   height: double.infinity,
+              // ),
+              ),
 
-    LastInfo lastInfo1 = LastInfo(1, "L'Afghanistan n'est plus", "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.", DateTime.now(), country);
-    LastInfo lastInfo2 = LastInfo(1, "L'Afghanistan n'est plus", "Le pays fait face à une guerre civile persistante et à une forte instabilité politique. Le risque d’attentat terroriste y est élevé.", DateTime.now(), country);
-
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        // Left col with legend
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.2,
-          height: double.infinity,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Accueil", style: Theme.of(context).textTheme.headlineMedium),
-              SearchField(
-                  onChanged: _onSearchChanged, controller: _searchController),
-              HomeFilterButton(onPressed: _onFilterPressed),
-               Text("Dernières informations", style : TextStyle(
-                fontFamily: Theme.of(context).textTheme.titleMedium!.fontFamily,
-                fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
-                fontWeight: FontWeight.bold),),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            flex: 6,
+            child: SizedBox(
+              // width: MediaQuery.of(context).size.width * 0.5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  LastInfoCardSmall(lastInfo: lastInfo1),
-                  LastInfoCardSmall(lastInfo: lastInfo2,)
+                  // Pubs(),
+                  Text("Accueil",
+                      style: Theme.of(context).textTheme.headlineMedium),
+                  SearchField(
+                      onChanged: _onSearchChanged,
+                      controller: _searchController),
+                  HomeFilterButton(onPressed: _onFilterPressed),
+                  Text(
+                    "Dernières informations",
+                    style: TextStyle(
+                        fontFamily:
+                            Theme.of(context).textTheme.titleMedium!.fontFamily,
+                        fontSize:
+                            Theme.of(context).textTheme.titleMedium!.fontSize,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const LastNewsPreview(),
+                  Row(
+                    children: [
+                      Text("Utiliser mes critères",
+                          style: Theme.of(context).textTheme.bodyMedium),
+                      const SizedBox(width: 30),
+                      CriteriaSwitch(
+                          onChanged: ((a) =>
+                              {})) // TODO: code the function to apply criterias
+                    ],
+                  ),
+                  CountryList(
+                      countries: _visibleCountries,
+                      onOrderChanged: _onOrderChanged)
                 ],
               ),
-              Row(
-                children: [
-                  Text("Utiliser mes critères", style: Theme.of(context).textTheme.bodyMedium),
-                  const SizedBox(width: 30),
-                  CriteriaSwitch(onChanged: ((a) => print(a)))
-                ],
-              ),
-              CountryList(
-                  countries: _visibleCountries, onOrderChanged: _onOrderChanged)
-            ],
+            ),
           ),
-        ),
 
-        // Right col with ads
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.2,
-          height: double.infinity,
-        )
-      ],
+          // Right col with ads
+          const Expanded(
+            flex: 2,
+            child: Text("droite"),
+            // child: SizedBox(
+            //   // width: MediaQuery.of(context).size.width * 0.2,
+            //   height: double.infinity,
+            // ),
+          )
+        ],
+      ),
     );
   }
 }

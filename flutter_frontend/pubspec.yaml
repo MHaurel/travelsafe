@@ -71,6 +71,10 @@ flutter:
     - assets/images/navbar_logo.png
     - assets/images/navbar_logo_2x.png
     - assets/images/cascade.jpg
+    - assets/images/montagne.jpg
+    - assets/images/images.jpeg
+    - assets/images/lac.jpg
+    - assets/images/palmier.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -7,6 +7,7 @@ import 'package:flutter_frontend/widgets/dialogs/dialog_filter.dart';
 import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/last_news_preview.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
+import 'package:flutter_frontend/widgets/risk_level_legend.dart';
 
 class HomeMaster extends StatefulWidget {
   const HomeMaster({

@@ -1,27 +1,29 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
+import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/last_info.dart';
-<<<<<<< HEAD
-=======
-import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
-import 'package:flutter_frontend/widgets/base/loader.dart';
->>>>>>> main
+import 'package:flutter_frontend/widgets/last_info_card_large.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 
-class LastNewsPreview extends StatefulWidget {
-  const LastNewsPreview({super.key});
+class LastTwoNewsPreviewForCountry extends StatefulWidget {
+  const LastTwoNewsPreviewForCountry({super.key, required this.country});
+
+  final Country country;
 
   @override
-  State<LastNewsPreview> createState() => _LastNewsPreviewState();
+  State<LastTwoNewsPreviewForCountry> createState() =>
+      _LastTwoNewsPreviewForCountryState();
 }
 
-class _LastNewsPreviewState extends State<LastNewsPreview> {
+class _LastTwoNewsPreviewForCountryState
+    extends State<LastTwoNewsPreviewForCountry> {
   late Future<List<LastInfo>> _lastNews;
 
   Future<List<LastInfo>> _fetchLastNews() async {
     Dio dio = Dio();
-    final response = await dio.get("$baseUrl/news/last");
+    final response = await dio.get(
+        "$baseUrl/news/last"); // TODO: change this to match the country passed in parameter
 
     List<LastInfo> lastNews = [];
     response.data.forEach((ln) => lastNews.add(LastInfo.fromJson(ln)));
@@ -41,32 +43,31 @@ class _LastNewsPreviewState extends State<LastNewsPreview> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasError) {
-<<<<<<< HEAD
             // TODO: re-design the error widget
             return ErrorWidget("Could not fetch countries");
           } else {
             if (snapshot.data!.isEmpty) {
               return SizedBox(); // There are no last news => return an empty widget
-=======
-            return const CustomErrorWidget(
-                text: "Une erreur est survenue. Veuillez réessayer plus tard.");
-          } else {
-            if (snapshot.data!.isEmpty) {
-              return const SizedBox(); // There are no last news => return an empty widget
->>>>>>> main
             }
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            return Column(
               children: [
-                LastInfoCardSmall(lastInfo: snapshot.data!.first),
-                snapshot.data?.last != null
-                    ? LastInfoCardSmall(lastInfo: snapshot.data!.last)
-                    : const SizedBox(),
+                Text(
+                  "Dernières informations",
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LastInfoCardLarge(lastInfo: snapshot.data!.first),
+                    snapshot.data?.last != null
+                        ? LastInfoCardLarge(lastInfo: snapshot.data!.last)
+                        : const SizedBox(),
+                  ],
+                ),
               ],
             );
           }
         } else {
-<<<<<<< HEAD
           return const Center(
             child: Column(children: [
               SizedBox(
@@ -80,9 +81,6 @@ class _LastNewsPreviewState extends State<LastNewsPreview> {
               ),
             ]),
           );
-=======
-          return const Loader();
->>>>>>> main
         }
       },
     );

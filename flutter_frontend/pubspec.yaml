@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^2.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -40,6 +41,7 @@ dependencies:
   device_info_plus: ^9.1.2
   flutter_staggered_animations: ^1.1.1
   google_fonts: ^6.1.0
+  sticky_headers: "^0.3.0"
   intl: ^0.19.0
   provider: ^6.1.2
   logging: ^1.2.0
@@ -54,7 +56,25 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.1"
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/logo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -70,6 +90,10 @@ flutter:
     - assets/images/logo.png
     - assets/images/navbar_logo.png
     - assets/images/navbar_logo_2x.png
+    - assets/images/RiskLevel1.svg
+    - assets/images/RiskLevel2.svg
+    - assets/images/RiskLevel3.svg
+    - assets/images/RiskLevel4.svg
     - assets/images/cascade.jpg
     - assets/images/montagne.jpg
     - assets/images/images.jpeg

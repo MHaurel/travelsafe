@@ -11,16 +11,11 @@ class MessagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.8,
-      // child: Text(messages.length.toString()),
-      child: ListView.builder(
-        itemCount: messages.length,
-        itemBuilder: (context, index) => MessageWidget(
-          message: messages[index],
-          countryIndex: countryIndex,
-        ),
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: messages.length,
+      itemBuilder: (context, index) => MessageWidget(message: messages[index]),
     );
   }
 }

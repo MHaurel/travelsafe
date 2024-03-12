@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   User _user = User(null, null, null, null, null, null, null, null, null, null,
       null, null, null, null);
+  List<Subscription> _subscriptions = [];
 
   final Dio _dio = Dio(BaseOptions(
       baseUrl: "http://127.0.0.1:8000/api",
@@ -21,8 +24,11 @@ class UserProvider extends ChangeNotifier {
       initWithUser(); // Init the dio with the access token of the user
 
       retrieveUser();
+      _subscriptions = await _getSubs();
       return true;
     }
+
+    notifyListeners();
 
     return false;
   }
@@ -69,6 +75,49 @@ class UserProvider extends ChangeNotifier {
     })));
   }
 
+  Future<List<Subscription>> _getSubs() async {
+    Response response = await _dio.get("/subscription/");
+
+    List<Subscription> subs = [];
+    response.data.forEach((s) => subs.add(Subscription.fromJson(s)));
+    return subs;
+  }
+
+  bool isSubbed(Country country) {
+    for (var s in _subscriptions) {
+      if (s.country.name == country.name) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  unsubscribe(int countryIndex) async {
+    Subscription subToDelete = _subscriptions
+        .firstWhere((element) => element.country.id == countryIndex);
+
+    Response response =
+        await _dio.delete("/subscription/delete/${subToDelete.id}");
+
+    if (response.statusCode == 204) {
+      _subscriptions
+          .removeWhere((element) => element.country.id == countryIndex);
+      _subscriptions.remove(subToDelete);
+      notifyListeners();
+    }
+  }
+
+  subscribe(int countryIndex) async {
+    Response response = await _dio.post("/subscription/create/$countryIndex");
+
+    if (response.statusCode == 201) {
+      Subscription newSub = Subscription.fromJson(response.data);
+      _subscriptions.add(newSub);
+
+      notifyListeners();
+    }
+  }
+
   Dio get dio => _dio;
 
   signOut() {
@@ -84,4 +133,6 @@ class UserProvider extends ChangeNotifier {
     _user = u;
     notifyListeners();
   }
+
+  List<Subscription> get subscriptions => _subscriptions;
 }

@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_outlined_icon_button.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class SubscriptionsList extends StatelessWidget {
-  const SubscriptionsList(
-      {super.key, required this.subs, required this.deleteSub});
+  const SubscriptionsList({super.key, required this.subs});
 
   final List<Subscription> subs;
-  final Function(Dio dio, int id) deleteSub;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +25,21 @@ class SubscriptionsList extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(subs[index].country.level.toString()), // TODO: svg
+                        SvgPicture.asset(
+                          "assets/images/RiskLevel${subs[index].country.level}.svg",
+                          width: 24,
+                          height: 24,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
                         Text(subs[index].country.name)
                       ],
                     ),
                     CustomOutlinedIconButton(
-                        onPressed: () => deleteSub(
-                            Provider.of<UserProvider>(context, listen: false)
-                                .dio,
-                            subs[index].id),
+                        onPressed: () => context
+                            .read<UserProvider>()
+                            .unsubscribe(subs[index].country.id),
                         text: "Abonné",
                         icon: Icons.check)
                   ],

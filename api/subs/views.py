@@ -20,21 +20,18 @@ class CreateSubscription(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        country_pk = self.kwargs.get('pk')
-        country = get_object_or_404(Country, pk=country_pk)
+        serializer = SubscriptionSerializer(data=request.data)
+        if serializer.is_valid():
 
-        user = self.request.user
+            country_pk = self.kwargs.get('pk')
+            country = get_object_or_404(Country, pk=country_pk)
 
-        data = {
-            "user": user.id, 'country': country.pk
-        }
+            user = self.request.user
 
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
+            serializer.save(user=user, country=country)
 
-        self.perform_create(serializer)
-
-        return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+            return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+        return response.Response(serializer.errors, status=status)
 
 
 class DeleteSubscription(generics.DestroyAPIView):

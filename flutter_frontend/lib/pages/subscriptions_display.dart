@@ -70,24 +70,9 @@ class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
               CriteriaSwitch(onChanged: _onChanged)
             ],
           ),
-          FutureBuilder(
-              future: _subs,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    return const CustomErrorWidget(
-                        text:
-                            "Nous avons rencontré un problème lors de l'affichage des abonnements. Veuillez réessayer plus tard.");
-                  } else {
-                    return SubscriptionsList(
-                      subs: snapshot.data!,
-                      deleteSub: _deleteSub,
-                    );
-                  }
-                } else {
-                  return const Loader();
-                }
-              })
+          SubscriptionsList(
+            subs: context.watch<UserProvider>().subscriptions,
+          )
         ],
       ),
     );

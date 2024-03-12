@@ -13,6 +13,9 @@ class ConnexionDialog extends StatelessWidget {
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
+    mailController.text = "maximelebest@gmail.com";
+    passwordController.text = "admin";
+
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       child: AlertDialog(
@@ -42,7 +45,7 @@ class ConnexionDialog extends StatelessWidget {
 
                     if (isLoggedIn) {
                       Navigator.of(context).pop(); // Closing the dialog
-                      Navigator.of(context).pushReplacementNamed("/profile");
+                      // Navigator.of(context).pushReplacementNamed("/profile");
                     } else {}
                   },
                   mailController: mailController,

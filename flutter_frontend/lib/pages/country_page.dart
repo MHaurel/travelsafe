@@ -6,15 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
 import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
+import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
+import 'package:flutter_frontend/widgets/dialogs/unsubscribe_dialog.dart';
 import 'package:flutter_frontend/widgets/last_two_news_preview_for_country.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
 import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
+import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class CountryPage extends StatefulWidget {
@@ -43,6 +47,10 @@ class _CountryPageState extends State<CountryPage> {
 
   void _subscribe() {
     //TODO: code function + icon change
+  }
+
+  void _unsubscribe() {
+    // TODO: code function
   }
 
   Future<Country> _fetchCountry() async {
@@ -85,11 +93,33 @@ class _CountryPageState extends State<CountryPage> {
                     onPressed: () => _download(country),
                     text: "Télécharger",
                     icon: Icons.download),
-                SizedBox(width: 8), //to add the white space between the buttons
-                CustomIconButton(
-                    onPressed: () => _subscribe(),
-                    text: "S'abonner",
-                    icon: Icons.notifications),
+                const SizedBox(
+                    width: 8), //to add the white space between the buttons
+                Provider.of<UserProvider>(context, listen: true)
+                        .isSubbed(country)
+                    ? CustomIconButton(
+                        onPressed: () => showDialog(
+                            context: context,
+                            builder: (context) => UnsubscribeDialog(
+                                  countryIndex: country.id,
+                                )),
+                        text: "Se désabonner",
+                        icon: Icons.notifications_off)
+                    : CustomIconButton(
+                        onPressed: () {
+                          // If the user is not connected : show login dialog
+                          if (Provider.of<UserProvider>(context, listen: false)
+                              .isSignedIn()) {
+                            Provider.of<UserProvider>(context, listen: false)
+                                .subscribe(country.id);
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) => const ConnexionDialog());
+                          }
+                        },
+                        text: "S'abonner",
+                        icon: Icons.notification_add),
               ],
             ),
           ),

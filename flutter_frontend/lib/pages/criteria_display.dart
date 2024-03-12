@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/criteria.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
+import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_list_item.dart';
+import 'package:flutter_frontend/widgets/dialogs/fill_criteria_dialog.dart';
+import 'package:flutter_frontend/widgets/dialogs/home_criteria_dialog.dart';
 import 'package:provider/provider.dart';
 
 enum CriteriaSortType {
@@ -25,11 +28,11 @@ class CriteriaDisplay extends StatefulWidget {
 class _CriteriaDisplayState extends State<CriteriaDisplay> {
   CriteriaSortType _sort = CriteriaSortType.none;
 
-  void onOrderChanged(CriteriaSortType sort) {
+  void onOrderChanged(CriteriaSortType st) {
     setState(() {
-      _sort = sort;
+      _sort = st;
     });
-    // TODO: update the sort
+    // TODO:
   }
 
   @override
@@ -167,7 +170,13 @@ class _CriteriaDisplayState extends State<CriteriaDisplay> {
               ],
             ),
           ),
-        )
+        ),
+        CustomIconButton(
+            onPressed: () => showDialog(
+                context: context,
+                builder: (context) => const HomeCriteriaDialog()),
+            text: "Ajouter un critère",
+            icon: Icons.add)
       ],
     );
   }

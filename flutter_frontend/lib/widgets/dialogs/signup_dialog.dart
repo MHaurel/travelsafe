@@ -6,6 +6,7 @@ import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
+import 'package:flutter_frontend/widgets/dialogs/home_criteria_dialog.dart';
 import 'package:flutter_frontend/widgets/signup_form.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,8 @@ class _SignupDialogState extends State<SignupDialog> {
 
         Navigator.of(context).pop();
         Navigator.of(context).pushNamed("/profile");
-        // TODO: show dialog
+        showDialog(
+            context: context, builder: (context) => HomeCriteriaDialog());
       } else {
         // TODO: Manage cases (account already exists, no connection, ...)
         // print("An error happened when trying so register the user.");
@@ -79,8 +81,6 @@ class _SignupDialogState extends State<SignupDialog> {
               ),
               SignUpForm(
                   onSignup: () {
-                    // User user = Provider.of<User>(context);
-
                     onSignup();
                   },
                   lastNameController: lastNameController,

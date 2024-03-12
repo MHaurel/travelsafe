@@ -41,7 +41,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void navigateHomeIfUserUndefined(BuildContext context, User user) {
     // TODO: protected route: redefine this
-    // if (user.isUserNull) Navigator.of(context).pushReplacementNamed("/");
   }
 
   Future<void> _updateUser(Dio dio, User user) async {
@@ -61,6 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+// TODO: move the process below inside the provider
   void _showDeleteDialog(BuildContext context, User user) {
     showDialog(
         context: context,

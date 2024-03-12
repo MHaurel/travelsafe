@@ -85,15 +85,17 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                   borderRadius: BorderRadius.circular(90),
                   child: Container(
                       color: Colors.white,
-                      child: const Padding(
-                        padding: EdgeInsets.all(3.5),
+                      child: Padding(
+                        padding: const EdgeInsets.all(3.5),
                         child: CircleAvatar(
-                          backgroundColor: Color(0xFF326B69),
-                          foregroundColor: Color(0xFFFFFFFF),
-                          child: Icon(
-                            Icons.person_rounded,
-                            color: Color(0xFFFFFFFF),
-                          ),
+                          backgroundColor: const Color(0xFF326B69),
+                          foregroundColor: const Color(0xFFFFFFFF),
+                          child: context.watch<UserProvider>().isSignedIn()
+                              ? Image.asset("assets/images/avatar.png")
+                              : const Icon(
+                                  Icons.person_rounded,
+                                  color: Color(0xFFFFFFFF),
+                                ),
                         ),
                       )),
                 )))

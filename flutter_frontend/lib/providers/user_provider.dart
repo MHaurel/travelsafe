@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
@@ -13,6 +15,13 @@ class UserProvider extends ChangeNotifier {
       baseUrl: "http://127.0.0.1:8000/api",
       connectTimeout: const Duration(milliseconds: 5000),
       receiveTimeout: const Duration(milliseconds: 3000)));
+
+  logout() {
+    _user = User(null, null, null, null, null, null, null, null, null, null,
+        null, null, null, null);
+
+    notifyListeners();
+  }
 
   Future<bool> login(String email, String password) async {
     Response response = await _dio
@@ -115,6 +124,20 @@ class UserProvider extends ChangeNotifier {
       _subscriptions.add(newSub);
 
       notifyListeners();
+    }
+  }
+
+  Future<bool> addCriteria(Map<String, dynamic> body) async {
+    Response response =
+        await _dio.post("/accounts/criteria", data: jsonEncode(body));
+
+    if (response.statusCode == 201) {
+      retrieveUser();
+
+      notifyListeners();
+      return true;
+    } else {
+      return false;
     }
   }
 

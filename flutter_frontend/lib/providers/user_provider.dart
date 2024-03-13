@@ -42,6 +42,26 @@ class UserProvider extends ChangeNotifier {
     return false;
   }
 
+  Future<bool> signup(
+      String email, String password, String firstName, String lastName) async {
+    Map<String, dynamic> body = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "email": email,
+      "password": password,
+    };
+
+    Response response =
+        await _dio.post("/accounts/create", data: jsonEncode(body));
+
+    if (response.statusCode == 201) {
+      login(email, password);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> retrieveUser() async {
     Response response = await _dio.get("/accounts");
 

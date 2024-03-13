@@ -18,6 +18,8 @@ class SignupDialog extends StatefulWidget {
 }
 
 class _SignupDialogState extends State<SignupDialog> {
+  String errorMsg = "";
+
   @override
   Widget build(BuildContext context) {
     TextEditingController lastNameController = TextEditingController();
@@ -26,36 +28,34 @@ class _SignupDialogState extends State<SignupDialog> {
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPasswordController = TextEditingController();
 
-    TextEditingController errorController = TextEditingController();
-
     void onSignup() async {
-      Map<String, dynamic> params = {
-        "first_name": firstNameController.text,
-        "last_name": lastNameController.text,
-        "email": mailController.text,
-        "password": passwordController.text,
-      };
+      bool hasWorked = await context.read<UserProvider>().signup(
+          mailController.text,
+          passwordController.text,
+          firstNameController.text,
+          lastNameController.text);
 
-      Dio dio = Provider.of<UserProvider>(context, listen: false).dio;
-      final response =
-          await dio.post("/accounts/create", data: jsonEncode(params));
-      final data = response.data;
-
-      if (response.statusCode == 201) {
+      if (hasWorked) {
+        setState(() {
+          errorMsg = "";
+        });
         // update the user provider from the data obtained
-        Provider.of<UserProvider>(context, listen: false).user =
-            User.fromJson(data);
+        // Provider.of<UserProvider>(context, listen: false).user =
+        //     User.fromJson(data);
 
-        Provider.of<UserProvider>(context, listen: false)
-            .login(mailController.text, passwordController.text);
+        // Provider.of<UserProvider>(context, listen: false)
+        //     .login(mailController.text, passwordController.text);
 
         Navigator.of(context).pop();
         Navigator.of(context).pushNamed("/profile");
         showDialog(
-            context: context, builder: (context) => HomeCriteriaDialog());
+            context: context, builder: (context) => const HomeCriteriaDialog());
       } else {
         // TODO: Manage cases (account already exists, no connection, ...)
         // print("An error happened when trying so register the user.");
+        setState(() {
+          errorMsg = "Le compte existe déjà ou un problème est survenu.";
+        });
       }
     }
 
@@ -88,6 +88,10 @@ class _SignupDialogState extends State<SignupDialog> {
                   mailController: mailController,
                   passwordController: passwordController,
                   confirmPasswordController: confirmPasswordController),
+              Text(
+                errorMsg,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: Container(

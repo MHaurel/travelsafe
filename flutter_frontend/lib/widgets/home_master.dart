@@ -161,15 +161,17 @@ class _HomeMasterState extends State<HomeMaster> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Left col with legend
-          const Expanded(flex: 2, child: Text("gauche")
-              // child: SizedBox(
-              //   // width: MediaQuery.of(context).size.width * 0.2,
-              //   height: double.infinity,
-              // ),
-              ),
+          Padding(
+            padding: const EdgeInsets.only(left: 74.0, right: 108.5),
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: const RiskLevelLegend(),
+            ),
+          ),
 
           Expanded(
             flex: 6,
@@ -214,14 +216,27 @@ class _HomeMasterState extends State<HomeMaster> {
           ),
 
           // Right col with ads
-          const Expanded(
-            flex: 2,
-            child: Text("droite"),
-            // child: SizedBox(
-            //   // width: MediaQuery.of(context).size.width * 0.2,
-            //   height: double.infinity,
-            // ),
-          )
+          Padding(
+            padding: const EdgeInsets.only(left: 62.5, right: 42),
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: const Column(
+                children: [
+                  Pub(),
+                  Pub(),
+                  Pub(),
+                ],
+              ),
+            ),
+          ),
+          // const Expanded(
+          //   flex: 2,
+          //   child: Text("droite"),
+          //   // child: SizedBox(
+          //   //   // width: MediaQuery.of(context).size.width * 0.2,
+          //   //   height: double.infinity,
+          //   // ),
+          // )
         ],
       ),
     );

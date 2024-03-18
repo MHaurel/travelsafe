@@ -57,7 +57,7 @@ class MainApp extends StatelessWidget {
                   fontWeight: FontWeight.w400),
               bodyMedium: GoogleFonts.montserrat(
                   color: const Color(0xFF07020D),
-                  fontSize: 12,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400),
               bodySmall: GoogleFonts.montserrat(
                   color: const Color(0xFF07020D),

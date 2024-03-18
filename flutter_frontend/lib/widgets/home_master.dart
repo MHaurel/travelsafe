@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
@@ -68,6 +69,84 @@ class _HomeMasterState extends State<HomeMaster> {
 
     setState(() {
       _visibleCountries = sortedCountries;
+    });
+  }
+
+  void _onCriteriaSwitchChanged(bool b) {
+    if (b) {
+      _applyCriterias();
+    } else {
+      setState(() {
+        _visibleCountries = widget.countries;
+      });
+    }
+  }
+
+  void _applyCriterias() {
+    List<Country> filteredCountries = widget.countries;
+
+    User user = context.read<UserProvider>().user;
+
+    if (user.criteriaWomenChildren != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskWomenChildren!.level >=
+              user.criteriaWomenChildren!.grade)
+          .toList();
+    }
+
+    if (user.criteriaLgbt != null) {
+      filteredCountries = filteredCountries
+          .where(
+              (element) => element.riskLgbt!.level >= user.criteriaLgbt!.grade)
+          .toList();
+    }
+
+    if (user.criteriaCustoms != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskCustoms!.level >= user.criteriaCustoms!.grade)
+          .toList();
+    }
+
+    if (user.criteriaClimate != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskClimate!.level >= user.criteriaClimate!.grade)
+          .toList();
+    }
+
+    if (user.criteriaSociopolitical != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskSociopolitical!.level >=
+              user.criteriaSociopolitical!.grade)
+          .toList();
+    }
+
+    if (user.criteriaSanitary != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskSanitary!.level >= user.criteriaSanitary!.grade)
+          .toList();
+    }
+
+    if (user.criteriaSecurity != null) {
+      filteredCountries = filteredCountries
+          .where((element) =>
+              element.riskSecurity!.level >= user.criteriaSecurity!.grade)
+          .toList();
+    }
+
+    if (user.criteriaFood != null) {
+      filteredCountries = filteredCountries
+          .where(
+              (element) => element.riskFood!.level >= user.criteriaFood!.grade)
+          .toList();
+    }
+
+    setState(() {
+      _visibleCountries = filteredCountries;
     });
   }
 
@@ -205,8 +284,7 @@ class _HomeMasterState extends State<HomeMaster> {
                             Text("Utiliser mes critères",
                                 style: Theme.of(context).textTheme.bodyMedium),
                             const SizedBox(width: 30),
-                            CriteriaSwitch(onChanged: ((a) => {}))
-                            // TODO: code the function to apply criterias
+                            CriteriaSwitch(onChanged: _onCriteriaSwitchChanged)
                           ],
                         )
                       : const SizedBox(),

@@ -64,7 +64,7 @@ class _CountryPageState extends State<CountryPage> {
 
   Hero _buildTitle(Country country, BuildContext context) {
     return Hero(
-      tag: "countryName",
+      tag: "hero-${country.name}",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,

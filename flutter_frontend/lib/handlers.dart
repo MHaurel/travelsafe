@@ -66,7 +66,7 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
   ));
 
   if (isMobile) {
-    final file = File("${country.name}.pdf");
+    final file = File("TravelSafe - ${country.name}.pdf");
     await file.writeAsBytes(await pdf.save());
   } else {
     var savedFile = await pdf.save();
@@ -74,7 +74,7 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
     html.AnchorElement(
         href:
             "data:application/octet-stream;charset=utf-16le;base64,${base64.encode(fileInts)}")
-      ..setAttribute("download", "${country.name}.pdf")
+      ..setAttribute("download", "TravelSafe - ${country.name}.pdf")
       ..click();
   }
 

@@ -83,7 +83,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/news",
+          initialRoute: "/",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

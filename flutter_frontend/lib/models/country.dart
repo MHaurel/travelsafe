@@ -1,4 +1,5 @@
 import 'package:flutter_frontend/models/risk.dart';
+import 'package:intl/intl.dart';
 
 // ignore: constant_identifier_names
 const INDEF = "Risque indéfini";
@@ -129,6 +130,12 @@ class Country {
       return INDEF;
     }
     return riskFood!.description;
+  }
+
+  String get properDateCreated {
+    Intl.defaultLocale = "fr";
+    String formattedDate = DateFormat('dd/MM/yyyy').format(lastEdition);
+    return formattedDate;
   }
 
   @override

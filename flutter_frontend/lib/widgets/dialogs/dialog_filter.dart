@@ -65,7 +65,7 @@ class _DialogFilterState extends State<DialogFilter> {
     return AlertDialog(
       content: Stack(alignment: Alignment.topRight, children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.4,
+          width: MediaQuery.of(context).size.width * 0.6,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

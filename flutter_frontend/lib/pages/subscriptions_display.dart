@@ -67,7 +67,9 @@ class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
               const SizedBox(
                 width: 16,
               ),
-              CriteriaSwitch(onChanged: _onChanged)
+              CriteriaSwitch(
+                onChanged: _onChanged,
+              )
             ],
           ),
           SubscriptionsList(

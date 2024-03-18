@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/last_info_list.dart';
+import 'package:provider/provider.dart';
 
 class LastInfoPage extends StatefulWidget {
   const LastInfoPage({super.key});
@@ -17,6 +19,7 @@ class LastInfoPage extends StatefulWidget {
 
 class _LastInfoPageState extends State<LastInfoPage> {
   late Future<List<LastInfo>> _lastInfos;
+  bool isFilteredBySubs = false;
 
   Future<List<LastInfo>> _fetchLastInfos() async {
     Dio dio = Dio();
@@ -33,10 +36,6 @@ class _LastInfoPageState extends State<LastInfoPage> {
     _lastInfos = _fetchLastInfos();
 
     super.initState();
-  }
-
-  void _onChanged(bool b) {
-    // TODO:
   }
 
   @override
@@ -65,13 +64,6 @@ class _LastInfoPageState extends State<LastInfoPage> {
                   Text(
                       "Vous pouvez également choisir d’utiliser vos abonnements afin de ne voir que les pays qui répondent à vos attentes.",
                       style: Theme.of(context).textTheme.bodyLarge),
-                  Row(
-                    children: [
-                      Text('Utiliser mes abonnements',
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      CriteriaSwitch(onChanged: _onChanged),
-                    ],
-                  ),
                   FutureBuilder(
                       future: _lastInfos,
                       builder: (context, snapshot) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/country.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/country_list.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_frontend/widgets/home_filter_button.dart';
 import 'package:flutter_frontend/widgets/last_news_preview.dart';
 import 'package:flutter_frontend/widgets/search_field.dart';
 import 'package:flutter_frontend/widgets/risk_level_legend.dart';
+import 'package:provider/provider.dart';
 
 class HomeMaster extends StatefulWidget {
   const HomeMaster({
@@ -197,16 +199,17 @@ class _HomeMasterState extends State<HomeMaster> {
                         fontWeight: FontWeight.bold),
                   ),
                   const LastNewsPreview(),
-                  Row(
-                    children: [
-                      Text("Utiliser mes critères",
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      const SizedBox(width: 30),
-                      CriteriaSwitch(
-                          onChanged: ((a) =>
-                              {})) // TODO: code the function to apply criterias
-                    ],
-                  ),
+                  context.watch<UserProvider>().isAtLeastOneCriteriaFilled()
+                      ? Row(
+                          children: [
+                            Text("Utiliser mes critères",
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            const SizedBox(width: 30),
+                            CriteriaSwitch(onChanged: ((a) => {}))
+                            // TODO: code the function to apply criterias
+                          ],
+                        )
+                      : const SizedBox(),
                   CountryList(
                       countries: _visibleCountries,
                       onOrderChanged: _onOrderChanged)

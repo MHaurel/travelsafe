@@ -34,6 +34,7 @@ class UserProvider extends ChangeNotifier {
 
       retrieveUser();
       _subscriptions = await _getSubs();
+      notifyListeners();
       return true;
     }
 
@@ -159,6 +160,17 @@ class UserProvider extends ChangeNotifier {
     } else {
       return false;
     }
+  }
+
+  bool isAtLeastOneCriteriaFilled() {
+    return (_user.criteriaClimate != null ||
+        _user.criteriaCustoms != null ||
+        _user.criteriaFood != null ||
+        _user.criteriaLgbt != null ||
+        _user.criteriaSanitary != null ||
+        _user.criteriaSecurity != null ||
+        _user.criteriaSociopolitical != null ||
+        _user.criteriaWomenChildren != null);
   }
 
   Dio get dio => _dio;

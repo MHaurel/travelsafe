@@ -8,6 +8,7 @@ import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
+import 'package:flutter_frontend/widgets/dialogs/home_criteria_dialog.dart';
 import 'package:flutter_frontend/widgets/signup_form.dart';
 import 'package:flutter_frontend/widgets/connexion.dart';
 import 'package:provider/provider.dart';

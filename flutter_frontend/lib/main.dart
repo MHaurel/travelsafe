@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/pages/country_page.dart';
 import 'package:flutter_frontend/pages/home_page.dart';
 import 'package:flutter_frontend/pages/last_info_page.dart';
@@ -83,7 +82,7 @@ class MainApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          initialRoute: "/profile",
+          initialRoute: "/",
           routes: {
             "/": (context) => const HomePage(),
             "/country": (context) => const CountryPage(

@@ -76,7 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (value == null || value.isEmpty) {
                     return "L'adresse e-mail ne peut être vide";
                   } else if (!isEmailValid(value)) {
-                    return "Vous devez entrer une adresse mail valide";
+                    return "Veuillez entrer une adresse mail valide";
                   }
                   return null;
                 },

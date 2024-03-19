@@ -148,6 +148,19 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> updateUser(Map<String, dynamic> body) async {
+    Response response =
+        await _dio.put("/accounts/${_user.id}", data: jsonEncode(body));
+
+    if (response.statusCode == 200) {
+      retrieveUser();
+
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> addCriteria(Map<String, dynamic> body) async {
     Response response =
         await _dio.post("/accounts/criteria", data: jsonEncode(body));

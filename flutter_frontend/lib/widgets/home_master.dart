@@ -261,7 +261,6 @@ class _HomeMasterState extends State<HomeMaster> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Pubs(),
                   Text("Accueil",
                       style: Theme.of(context).textTheme.headlineMedium),
                   SearchField(

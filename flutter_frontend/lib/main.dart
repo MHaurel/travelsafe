@@ -9,11 +9,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 final log = Logger("Logger");
 
-void main() {
+void main() async {
   initializeDateFormatting('fr_FR', null);
+  await dotenv.load(fileName: ".env");
 
   runApp(const MainApp());
 }

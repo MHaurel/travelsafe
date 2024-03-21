@@ -9,6 +9,7 @@ import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
+import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
 import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
@@ -45,17 +46,8 @@ class _CountryPageState extends State<CountryPage> {
     await downloadCountrySheet(country, isMobile);
   }
 
-  void _subscribe() {
-    //TODO: code function + icon change
-  }
-
-  void _unsubscribe() {
-    // TODO: code function
-  }
-
   Future<Country> _fetchCountry() async {
     Dio dio = Dio();
-    // TODO: switch to named route
     final response = await dio.get("$baseUrl/country/${widget.countryIndex}/");
 
     Country country = Country.fromJson(response.data);
@@ -126,15 +118,10 @@ class _CountryPageState extends State<CountryPage> {
         ],
       ),
     );
-
-    // TODO: in the case of an error
-    // return const Hero(
-    // //       tag: "countryName", child: Text("An error has occyured"));
   }
 
   @override
   Widget build(BuildContext context) {
-    // _countryIndex = ModalRoute.of(context)!.settings.arguments as int;
     return Scaffold(
         appBar: NavBar(
           appBar: AppBar(),
@@ -146,9 +133,9 @@ class _CountryPageState extends State<CountryPage> {
               builder: ((context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasError) {
-                    // TODO: re-design the error widget
-                    return ErrorWidget(
-                        "Could not fetch country with index: ${widget.countryIndex}");
+                    return const CustomErrorWidget(
+                        text:
+                            "Impossible de récupérer les informations concernant le pays.");
                   } else {
                     List<Map<String, dynamic>> countrySections = [
                       {
@@ -210,25 +197,52 @@ class _CountryPageState extends State<CountryPage> {
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: StickyHeader(
                                   header: _buildTitle(snapshot.data!, context),
-                                  content: ListView.builder(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: countrySections.length,
-                                    itemBuilder: (context, index) {
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(countrySections[index]['title'],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .titleMedium),
-                                          Text(countrySections[index]['value'])
-                                        ],
-                                      );
-                                    },
+                                  content: Column(
+                                    children: [
+                                      LastTwoNewsPreviewForCountry(
+                                          country: snapshot.data!),
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: countrySections.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  countrySections[index]
+                                                      ['title'],
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .titleMedium!
+                                                              .fontWeight,
+                                                      fontSize:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .titleMedium!
+                                                              .fontSize,
+                                                      fontFamily:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .titleMedium!
+                                                              .fontFamily,
+                                                      color: const Color(
+                                                          0xff478B85))),
+                                              Text(countrySections[index]
+                                                  ['value']),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -236,7 +250,20 @@ class _CountryPageState extends State<CountryPage> {
                                 countryIndex: snapshot.data!.id,
                               ),
                             ]),
-                          ))
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 62.5, right: 42),
+                        child: Container(
+                          alignment: Alignment.topCenter,
+                          child: const Column(
+                            children: [
+                              Pub(),
+                              Pub(),
+                              Pub(),
+                            ],
+                          ),
+                        ),
+                      ),
                     ]);
                   }
                 } else {

@@ -133,8 +133,6 @@ class _HomeMasterState extends State<HomeMaster> {
       }
     }
 
-    print(filteredCountries.length);
-
     if (user.criteriaLgbt != null) {
       if (user.criteriaLgbt!.grade > 1) {
         if (user.criteriaLgbt!.grade == 5) {
@@ -174,8 +172,6 @@ class _HomeMasterState extends State<HomeMaster> {
         }
       }
     }
-
-    print(filteredCountries.length);
 
     if (user.criteriaCustoms != null) {
       if (user.criteriaCustoms!.grade > 1) {
@@ -217,8 +213,6 @@ class _HomeMasterState extends State<HomeMaster> {
       }
     }
 
-    print(filteredCountries.length);
-
     if (user.criteriaClimate != null) {
       if (user.criteriaClimate!.grade > 1) {
         if (user.criteriaClimate!.grade == 5) {
@@ -258,8 +252,6 @@ class _HomeMasterState extends State<HomeMaster> {
         }
       }
     }
-
-    print(filteredCountries.length);
 
     if (user.criteriaSociopolitical != null) {
       if (user.criteriaSociopolitical!.grade > 1) {
@@ -301,8 +293,6 @@ class _HomeMasterState extends State<HomeMaster> {
       }
     }
 
-    print(filteredCountries.length);
-
     if (user.criteriaSanitary != null) {
       if (user.criteriaSanitary!.grade > 1) {
         if (user.criteriaSanitary!.grade == 5) {
@@ -342,8 +332,6 @@ class _HomeMasterState extends State<HomeMaster> {
         }
       }
     }
-
-    print(filteredCountries.length);
 
     if (user.criteriaSecurity != null) {
       if (user.criteriaSecurity!.grade > 1) {
@@ -385,8 +373,6 @@ class _HomeMasterState extends State<HomeMaster> {
       }
     }
 
-    print(filteredCountries.length);
-
     if (user.criteriaFood != null) {
       if (user.criteriaFood!.grade > 1) {
         if (user.criteriaFood!.grade == 5) {
@@ -426,8 +412,6 @@ class _HomeMasterState extends State<HomeMaster> {
         }
       }
     }
-
-    print(filteredCountries.length);
 
     setState(() {
       _visibleCountries = filteredCountries;

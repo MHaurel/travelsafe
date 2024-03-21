@@ -9,7 +9,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 // ignore: constant_identifier_names
-const INDEF = "Risque indéfini";
+const INDEF = "Aucune information de contre-indications";
 
 class Country {
   int id;
@@ -65,9 +65,6 @@ class Country {
       riskSecurity,
       riskFood
     ];
-
-    // int sum = risks.fold(
-    //     0, (previousValue, element) => previousValue + element!.level);
 
     int sum = 0;
     int notNullNb = 0;
@@ -161,41 +158,6 @@ class Country {
 
     final pw.Image logoImage =
         await makeLogo(isMobile); // ? taking too long -> reduce image size
-
-    // doc.addPage(
-    //   pw.MultiPage(
-    //     maxPages: 100,
-    //     orientation: pw.PageOrientation.portrait,
-    //     pageFormat: PdfPageFormat.a4,
-    //     build: (pw.Context context) => [
-    //       pw.Partitions(
-    //         children: [
-    //           pw.Partition(
-    //             child: pw.Column(
-    //               crossAxisAlignment: pw.CrossAxisAlignment.start,
-    //               children: <pw.Widget>[
-    //                 logoImage,
-    //                 pw.Text(name, style: const pw.TextStyle(fontSize: 25)),
-    //                 pw.Text(DateFormat("dd/MM/yyyy hh:mm")
-    //                     .format(DateTime.now().toLocal())
-    //                     .toString()),
-    //               ],
-    //             ),
-    //           ),
-    //           pw.Partition(
-    //             child: pw.Column(
-    //               children: [
-    //                 pw.Text("Us et coutumes",
-    //                     style: const pw.TextStyle(fontSize: 20)),
-    //                 pw.Text(socipoliticalDescription),
-    //               ],
-    //             ),
-    //           )
-    //         ],
-    //       ),
-    //     ],
-    //   ),
-    // );
 
     doc.addPage(pw.Page(
       pageFormat: PdfPageFormat.a4,
@@ -326,37 +288,6 @@ class Country {
       },
     ));
 
-    // doc.addPage(pw.Page(
-    //   pageFormat: PdfPageFormat.a4,
-    //   build: (context) => [
-    //     pw.Text(name, style: const pw.TextStyle(fontSize: 25)),
-    //     pw.Text(DateFormat("dd/MM/yyyy hh:mm")
-    //         .format(DateTime.now().toLocal())
-    //         .toString()),
-    //     pw.Text("Conditions des femmes et des enfants",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(womenChildrenDescription),
-    //     pw.Text("Respect des droits LGBT",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(lgbtDescription),
-    //     pw.Text("Us et coutumes", style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(customsDescription),
-    //     pw.Text("Conditions météorologiques",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(climateDescription),
-    //     pw.Text("Climat sociopolitique",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(socipoliticalDescription),
-    //     pw.Text("Conditions sanitaires",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(sanitaryDescription),
-    //     pw.Text("Sécurité du pays", style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(securityDescription),
-    //     pw.Text("Risques liés à la nourriture",
-    //         style: const pw.TextStyle(fontSize: 20)),
-    //     pw.Text(foodDescription),
-    //   ],
-    // ));
     final savedFile = await doc.save();
     List<int> fileInts = List.from(savedFile);
     html.AnchorElement(

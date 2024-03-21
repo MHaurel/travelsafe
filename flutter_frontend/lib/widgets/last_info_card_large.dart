@@ -20,7 +20,7 @@ class LastInfoCardLarge extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: const Color(0XFFD7D7D7)),
           ),
-          width: MediaQuery.of(context).size.width * 0.8,
+          width: MediaQuery.of(context).size.width * 0.3,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

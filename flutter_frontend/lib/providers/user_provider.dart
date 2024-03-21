@@ -14,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   List<Subscription> _subscriptions = [];
 
   final Dio _dio = Dio(BaseOptions(
-      baseUrl: baseUrl, // dotenv.env['API_BASEPATH']!
+      baseUrl: "http://5.196.4.100/api", // dotenv.env['API_BASEPATH']!
       connectTimeout: const Duration(milliseconds: 5000),
       receiveTimeout: const Duration(milliseconds: 3000)));
 

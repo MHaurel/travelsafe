@@ -83,15 +83,11 @@ class _HomeMasterState extends State<HomeMaster> {
   }
 
   void _applyCriterias() {
-    print("apply criterias");
     List<Country> filteredCountries = widget.countries;
 
     User user = context.read<UserProvider>().user;
 
-    print(user.fullName);
-
     if (user.criteriaWomenChildren != null) {
-      print(user.criteriaWomenChildren!.grade);
       if (user.criteriaWomenChildren!.grade > 1) {
         // égal à 1 = on filtre pas
 

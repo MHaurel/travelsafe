@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/models/user.dart';
@@ -13,7 +14,7 @@ class UserProvider extends ChangeNotifier {
   List<Subscription> _subscriptions = [];
 
   final Dio _dio = Dio(BaseOptions(
-      baseUrl: "http://127.0.0.1:8000/api", // dotenv.env['API_BASEPATH']!
+      baseUrl: baseUrl, // dotenv.env['API_BASEPATH']!
       connectTimeout: const Duration(milliseconds: 5000),
       receiveTimeout: const Duration(milliseconds: 3000)));
 

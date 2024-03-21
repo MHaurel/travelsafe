@@ -15,7 +15,7 @@ class FillCriteriaDialog extends StatefulWidget {
 }
 
 class _FillCriteriaDialogState extends State<FillCriteriaDialog> {
-  int step = 7;
+  int step = 0;
   String errorMsg = "";
   List<int> grades = [3, 3, 3, 3, 3, 3, 3, 3];
   List<TextEditingController> allergiaTypes = [];

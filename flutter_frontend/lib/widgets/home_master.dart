@@ -83,67 +83,351 @@ class _HomeMasterState extends State<HomeMaster> {
   }
 
   void _applyCriterias() {
+    print("apply criterias");
     List<Country> filteredCountries = widget.countries;
 
     User user = context.read<UserProvider>().user;
 
+    print(user.fullName);
+
     if (user.criteriaWomenChildren != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskWomenChildren!.level >=
-              user.criteriaWomenChildren!.grade)
-          .toList();
+      print(user.criteriaWomenChildren!.grade);
+      if (user.criteriaWomenChildren!.grade > 1) {
+        // égal à 1 = on filtre pas
+
+        if (user.criteriaWomenChildren!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskWomenChildren == null) {
+              return false;
+            }
+            return element.riskWomenChildren!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaWomenChildren!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskWomenChildren == null) {
+              return false;
+            }
+            return element.riskWomenChildren!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaWomenChildren!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskWomenChildren == null) {
+              return false;
+            }
+            return element.riskWomenChildren!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaWomenChildren!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskWomenChildren == null) {
+              return false;
+            }
+            return element.riskWomenChildren!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaLgbt != null) {
-      filteredCountries = filteredCountries
-          .where(
-              (element) => element.riskLgbt!.level >= user.criteriaLgbt!.grade)
-          .toList();
+      if (user.criteriaLgbt!.grade > 1) {
+        if (user.criteriaLgbt!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskLgbt == null) {
+              return false;
+            }
+            return element.riskLgbt!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaLgbt!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskLgbt == null) {
+              return false;
+            }
+            return element.riskLgbt!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaLgbt!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskLgbt == null) {
+              return false;
+            }
+            return element.riskLgbt!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaLgbt!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskLgbt == null) {
+              return false;
+            }
+            return element.riskLgbt!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaCustoms != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskCustoms!.level >= user.criteriaCustoms!.grade)
-          .toList();
+      if (user.criteriaCustoms!.grade > 1) {
+        if (user.criteriaCustoms!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskCustoms == null) {
+              return false;
+            }
+            return element.riskCustoms!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaCustoms!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskCustoms == null) {
+              return false;
+            }
+            return element.riskCustoms!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaCustoms!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskCustoms == null) {
+              return false;
+            }
+            return element.riskCustoms!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaCustoms!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskCustoms == null) {
+              return false;
+            }
+            return element.riskCustoms!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaClimate != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskClimate!.level >= user.criteriaClimate!.grade)
-          .toList();
+      if (user.criteriaClimate!.grade > 1) {
+        if (user.criteriaClimate!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskClimate == null) {
+              return false;
+            }
+            return element.riskClimate!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaClimate!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskClimate == null) {
+              return false;
+            }
+            return element.riskClimate!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaClimate!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskClimate == null) {
+              return false;
+            }
+            return element.riskClimate!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaClimate!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskClimate == null) {
+              return false;
+            }
+            return element.riskClimate!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaSociopolitical != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskSociopolitical!.level >=
-              user.criteriaSociopolitical!.grade)
-          .toList();
+      if (user.criteriaSociopolitical!.grade > 1) {
+        if (user.criteriaSociopolitical!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSociopolitical == null) {
+              return false;
+            }
+            return element.riskSociopolitical!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaSociopolitical!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSociopolitical == null) {
+              return false;
+            }
+            return element.riskSociopolitical!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaSociopolitical!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSociopolitical == null) {
+              return false;
+            }
+            return element.riskSociopolitical!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaSociopolitical!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSociopolitical == null) {
+              return false;
+            }
+            return element.riskSociopolitical!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaSanitary != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskSanitary!.level >= user.criteriaSanitary!.grade)
-          .toList();
+      if (user.criteriaSanitary!.grade > 1) {
+        if (user.criteriaSanitary!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSanitary == null) {
+              return false;
+            }
+            return element.riskSanitary!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaSanitary!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSanitary == null) {
+              return false;
+            }
+            return element.riskSanitary!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaSanitary!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSanitary == null) {
+              return false;
+            }
+            return element.riskSanitary!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaSanitary!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSanitary == null) {
+              return false;
+            }
+            return element.riskSanitary!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     if (user.criteriaSecurity != null) {
-      filteredCountries = filteredCountries
-          .where((element) =>
-              element.riskSecurity!.level >= user.criteriaSecurity!.grade)
-          .toList();
+      if (user.criteriaSecurity!.grade > 1) {
+        if (user.criteriaSecurity!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSecurity == null) {
+              return false;
+            }
+            return element.riskSecurity!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaSecurity!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSecurity == null) {
+              return false;
+            }
+            return element.riskSecurity!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaSecurity!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSecurity == null) {
+              return false;
+            }
+            return element.riskSecurity!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaSecurity!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskSecurity == null) {
+              return false;
+            }
+            return element.riskSecurity!.level <= 4;
+          }).toList();
+        }
+      }
     }
 
+    print(filteredCountries.length);
+
     if (user.criteriaFood != null) {
-      filteredCountries = filteredCountries
-          .where(
-              (element) => element.riskFood!.level >= user.criteriaFood!.grade)
-          .toList();
+      if (user.criteriaFood!.grade > 1) {
+        if (user.criteriaFood!.grade == 5) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskFood == null) {
+              return false;
+            }
+            return element.riskFood!.level <= 1;
+          }).toList();
+        }
+
+        if (user.criteriaFood!.grade == 4) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskFood == null) {
+              return false;
+            }
+            return element.riskFood!.level <= 2;
+          }).toList();
+        }
+
+        if (user.criteriaFood!.grade == 3) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskFood == null) {
+              return false;
+            }
+            return element.riskFood!.level <= 3;
+          }).toList();
+        }
+
+        if (user.criteriaFood!.grade == 2) {
+          filteredCountries = filteredCountries.where((element) {
+            if (element.riskFood == null) {
+              return false;
+            }
+            return element.riskFood!.level <= 4;
+          }).toList();
+        }
+      }
     }
+
+    print(filteredCountries.length);
 
     setState(() {
       _visibleCountries = filteredCountries;

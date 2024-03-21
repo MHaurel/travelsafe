@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/last_info.dart';
+import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/last_info_card_large.dart';
 import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 
@@ -68,19 +69,7 @@ class _LastTwoNewsPreviewForCountryState
             );
           }
         } else {
-          return const Center(
-            child: Column(children: [
-              SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              ),
-            ]),
-          );
+          return const Loader();
         }
       },
     );

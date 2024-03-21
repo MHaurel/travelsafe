@@ -13,8 +13,8 @@ class ConnexionDialog extends StatelessWidget {
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    mailController.text = "maximelebest@gmail.com";
-    passwordController.text = "admin";
+    // mailController.text = "maximelebest@gmail.com";
+    // passwordController.text = "admin";
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,

@@ -240,22 +240,7 @@ class _CountryPageState extends State<CountryPage> {
                     ]);
                   }
                 } else {
-                  return Center(
-                    child: Column(children: [
-                      const SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: CircularProgressIndicator(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 16),
-                        child: Text(
-                          'Awaiting result...',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                      ),
-                    ]),
-                  );
+                  return const Loader();
                 }
               })),
         ));

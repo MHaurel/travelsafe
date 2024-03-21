@@ -5,7 +5,7 @@ import 'package:flutter_frontend/pages/last_info_page.dart';
 import 'package:flutter_frontend/pages/profile_page.dart';
 //import 'package:flutter_frontend/pages/test_page.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -31,39 +31,47 @@ class MainApp extends StatelessWidget {
           title: 'TravelSafe',
           theme: ThemeData(
             dialogTheme: const DialogTheme(surfaceTintColor: Colors.white),
-            textTheme: TextTheme(
-              headlineLarge: GoogleFonts.oswald(
-                  color: const Color(0xFF07020D),
+            textTheme: const TextTheme(
+              headlineLarge: TextStyle(
+                  fontFamily: "Oswald",
+                  color: Color(0xFF07020D),
                   fontSize: 64,
                   fontWeight: FontWeight.w400),
-              headlineMedium: GoogleFonts.oswald(
-                  color: const Color(0xFF07020D),
+              headlineMedium: TextStyle(
+                  fontFamily: "Oswald",
+                  color: Color(0xFF07020D),
                   fontSize: 32,
                   fontWeight: FontWeight.w400),
-              titleLarge: GoogleFonts.poppins(
-                  color: const Color(0xFF07020D),
+              titleLarge: TextStyle(
+                  fontFamily: "Poppins",
+                  color: Color(0xFF07020D),
                   fontSize: 32,
                   fontWeight: FontWeight.w400),
-              titleMedium: GoogleFonts.poppins(
-                  color: const Color(0xFF07020D),
+              titleMedium: TextStyle(
+                  fontFamily: "Poppins",
+                  color: Color(0xFF07020D),
                   fontSize: 16,
                   fontWeight: FontWeight.w400),
-              titleSmall: GoogleFonts.poppins(
-                  color: const Color(0xFF07020D),
+              titleSmall: TextStyle(
+                  fontFamily: "Poppins",
+                  color: Color(0xFF07020D),
                   fontSize: 12,
                   fontWeight: FontWeight.w400),
-              bodyLarge: GoogleFonts.montserrat(
-                  color: const Color(0xFF07020D),
+              bodyLarge: TextStyle(
+                  fontFamily: "Montserrat",
+                  color: Color(0xFF07020D),
                   fontSize: 16,
-                  fontWeight: FontWeight.w400),
-              bodyMedium: GoogleFonts.montserrat(
-                  color: const Color(0xFF07020D),
+                  fontWeight: FontWeight.w600),
+              bodyMedium: TextStyle(
+                  fontFamily: "Montserrat",
+                  color: Color(0xFF07020D),
                   fontSize: 14,
-                  fontWeight: FontWeight.w400),
-              bodySmall: GoogleFonts.montserrat(
-                  color: const Color(0xFF07020D),
+                  fontWeight: FontWeight.w600),
+              bodySmall: TextStyle(
+                  fontFamily: "Montserrat",
+                  color: Color(0xFF07020D),
                   fontSize: 10,
-                  fontWeight: FontWeight.w400),
+                  fontWeight: FontWeight.w600),
             ),
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color(0xFF478B85),

@@ -37,10 +37,11 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
           child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          logoImage,
+          // logoImage,
           pw.Text(country.name, style: const pw.TextStyle(fontSize: 25)),
-          pw.Text(
-              DateFormat("dd/MM/yyyy hh:mm").format(DateTime.now()).toString()),
+          pw.Text(DateFormat("dd/MM/yyyy hh:mm")
+              .format(DateTime.now().toLocal())
+              .toString()),
           pw.Text("Conditions des femmes et des enfants",
               style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.womenChildrenDescription),
@@ -52,13 +53,16 @@ Future<void> downloadCountrySheet(Country country, bool isMobile) async {
           pw.Text("Conditions météorologiques",
               style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.climateDescription),
-          pw.Text("Sociopolitique", style: const pw.TextStyle(fontSize: 20)),
+          pw.Text("Climat sociopolitique",
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.socipoliticalDescription),
-          pw.Text("Sanitaires", style: const pw.TextStyle(fontSize: 20)),
+          pw.Text("Conditions sanitaires",
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.sanitaryDescription),
-          pw.Text("Sécurité", style: const pw.TextStyle(fontSize: 20)),
+          pw.Text("Sécurité du pays", style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.securityDescription),
-          pw.Text("Nourriture", style: const pw.TextStyle(fontSize: 20)),
+          pw.Text("Risques liés à la nourriture",
+              style: const pw.TextStyle(fontSize: 20)),
           pw.Text(country.foodDescription),
         ],
       ));

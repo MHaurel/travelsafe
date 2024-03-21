@@ -10,7 +10,6 @@ import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
 import 'package:flutter_frontend/widgets/base/primary_button.dart';
 import 'package:flutter_frontend/widgets/base/secondary_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -90,7 +89,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     Text("Cette action est irréversible",
-                        style: GoogleFonts.montserrat(
+                        style: TextStyle(
+                            fontFamily: "Montserrat",
                             color: Theme.of(context).textTheme.bodyLarge!.color,
                             fontSize:
                                 Theme.of(context).textTheme.bodyLarge!.fontSize,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/models/user.dart';
@@ -11,16 +12,24 @@ class UserProvider extends ChangeNotifier {
       null, null, null, null);
   List<Subscription> _subscriptions = [];
 
-  final Dio _dio = Dio(BaseOptions(
-      baseUrl: "http://127.0.0.1:8000/api", // dotenv.env['API_BASEPATH']!
+  Dio _dio = Dio(BaseOptions(
+      baseUrl: "${dotenv.env['API_BASEPATH']}",
       connectTimeout: const Duration(milliseconds: 5000),
       receiveTimeout: const Duration(milliseconds: 3000)));
 
   logout() {
     _user = User(null, null, null, null, null, null, null, null, null, null,
         null, null, null, null);
+    resetDio(); // Reset token is mandatory when logging out the user
 
     notifyListeners();
+  }
+
+  resetDio() {
+    _dio = Dio(BaseOptions(
+        baseUrl: "${dotenv.env['API_BASEPATH']}",
+        connectTimeout: const Duration(milliseconds: 5000),
+        receiveTimeout: const Duration(milliseconds: 3000)));
   }
 
   Future<String?> login(String email, String password) async {
@@ -56,6 +65,7 @@ class UserProvider extends ChangeNotifier {
         "password": password,
       };
       print(body);
+      print(_dio.options.headers);
 
       Response response =
           await _dio.post("/accounts/create", data: jsonEncode(body));

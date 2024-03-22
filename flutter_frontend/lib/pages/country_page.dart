@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
@@ -42,7 +43,8 @@ class _CountryPageState extends State<CountryPage> {
 
   Future<Country> _fetchCountry() async {
     Dio dio = Dio();
-    final response = await dio.get("$baseUrl/country/${widget.countryIndex}/");
+    final response = await dio
+        .get("${dotenv.env['API_BASEPATH']}/country/${widget.countryIndex}/");
 
     Country country = Country.fromJson(response.data);
     return country;

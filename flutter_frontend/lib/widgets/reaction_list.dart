@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/reaction.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
@@ -22,8 +23,8 @@ class _ReactionListState extends State<ReactionList> {
   Future<List<Reaction>> _fetchReactions() async {
     Dio dio = Dio();
 
-    final response =
-        await dio.get("$baseUrl/messages/reaction/${widget.messageId}");
+    final response = await dio.get(
+        "${dotenv.env['API_BASEPATH']}/messages/reaction/${widget.messageId}");
 
     List<Reaction> reactions = [];
     response.data.forEach((r) => reactions.add(Reaction.fromJson(r)));

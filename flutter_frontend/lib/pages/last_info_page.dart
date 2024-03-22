@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
@@ -21,7 +22,7 @@ class _LastInfoPageState extends State<LastInfoPage> {
   Future<List<LastInfo>> _fetchLastInfos() async {
     Dio dio = Dio();
 
-    final response = await dio.get("$baseUrl/news");
+    final response = await dio.get("${dotenv.env['API_BASEPATH']}/news");
 
     List<LastInfo> lastInfos = [];
     response.data.forEach((li) => lastInfos.add(LastInfo.fromJson(li)));

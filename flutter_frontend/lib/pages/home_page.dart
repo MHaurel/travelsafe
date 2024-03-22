@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<Country>> _fetchCountries() async {
     Dio dio = Dio();
-    final response = await dio.get("$baseUrl/countries/");
+    final response = await dio.get("${dotenv.env['API_BASEPATH']}/countries/");
 
     List<Country> countries = [];
     response.data.forEach((c) => countries.add(Country.fromJson(c)));

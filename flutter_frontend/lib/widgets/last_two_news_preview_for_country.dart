@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/last_info.dart';
@@ -23,7 +24,8 @@ class _LastTwoNewsPreviewForCountryState
 
   Future<List<LastInfo>> _fetchLastNews() async {
     Dio dio = Dio();
-    final response = await dio.get("$baseUrl/news/last/${widget.country.id}");
+    final response = await dio
+        .get("${dotenv.env['API_BASEPATH']}/news/last/${widget.country.id}");
 
     List<LastInfo> lastNews = [];
     response.data.forEach((ln) => lastNews.add(LastInfo.fromJson(ln)));

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
@@ -18,7 +19,7 @@ class _LastNewsPreviewState extends State<LastNewsPreview> {
 
   Future<List<LastInfo>> _fetchLastNews() async {
     Dio dio = Dio();
-    final response = await dio.get("$baseUrl/news/last");
+    final response = await dio.get("${dotenv.env['API_BASEPATH']}/news/last");
 
     List<LastInfo> lastNews = [];
     response.data.forEach((ln) => lastNews.add(LastInfo.fromJson(ln)));

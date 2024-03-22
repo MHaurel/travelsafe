@@ -15,14 +15,17 @@ class CountrySectionsNavigation extends StatelessWidget {
     'Climat',
     'Conditions sanitaires',
     'Espace collaboratif',
-  ]; //a modifier avec les Risk des country.dart
+  ];
+
+  CountrySectionsNavigation(
+      {super.key}); //a modifier avec les Risk des country.dart
 
   void _scrollToSection() {
     // You can change the yOffset value according to your layout
     double yOffset = 300.0;
     _scrollController.animateTo(
       yOffset,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
   }
@@ -33,7 +36,6 @@ class CountrySectionsNavigation extends StatelessWidget {
       child: StickyHeader(
         header: Column(
           children: <Widget>[
-            // TODO: list view
             for (int i = 0; i < _sections.length; i++)
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,

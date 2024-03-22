@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/message.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
@@ -49,16 +46,12 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   }
 
   Future<bool> _addMessage(String content, int userId, int countryId) async {
-    Dio dio = Provider.of<UserProvider>(context, listen: false).dio;
-
     Map<String, dynamic> body = {
       "content": content,
       "user": userId,
       "country": countryId
     };
 
-    // final response =
-    //     await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
     bool hasWorked = await context.read<UserProvider>().postMessage(body);
 
     if (hasWorked) {
@@ -127,6 +120,7 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
                       ? MessagesList(
                           messages: snapshot.data!,
                           countryIndex: widget.countryIndex,
+                          updateMessages: _updateMessages,
                         )
                       : Text("Aucun message n'a encore été publié.",
                           style: Theme.of(context).textTheme.bodyLarge);

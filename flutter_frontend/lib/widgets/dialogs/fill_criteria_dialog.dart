@@ -131,7 +131,9 @@ class _FillCriteriaDialogState extends State<FillCriteriaDialog> {
                   step++;
                 });
               } else {
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
+                // ignore: use_build_context_synchronously
                 Navigator.pushReplacementNamed(context, "/profile");
               }
             } else {
@@ -186,7 +188,7 @@ class _StepState extends State<Step> {
   }
 
   void _addAllergiaType() {
-    // TODO: call the above method
+    // !: call the above method
     setState(() {
       widget.allergiaControllers!.add(TextEditingController());
     });

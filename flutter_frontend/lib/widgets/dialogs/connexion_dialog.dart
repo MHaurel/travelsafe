@@ -56,6 +56,8 @@ class _ConnexionDialogState extends State<ConnexionDialog> {
                         setState(() {
                           errorMsg = "";
                         });
+
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context).pop(); // Closing the dialog
                       } else {
                         setState(() {

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/message.dart';
+import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';
+import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
 import 'package:flutter_frontend/widgets/reaction_list.dart';
+import 'package:provider/provider.dart';
 
 class MessageWidget extends StatefulWidget {
   const MessageWidget(
-      {super.key, required this.message, required this.countryIndex});
+      {super.key,
+      required this.message,
+      required this.countryIndex,
+      required this.updateMessages});
 
   final Message message;
   final int countryIndex;
+  final Function() updateMessages;
 
   @override
   State<MessageWidget> createState() => _MessageWidgetState();
@@ -20,39 +27,36 @@ class _MessageWidgetState extends State<MessageWidget> {
   final TextEditingController _newMessageController = TextEditingController();
 
   void _toggleInputMessageShown() {
-    // Display text field below
-    setState(() {
-      _isInputMessageShown = !_isInputMessageShown;
-    });
-  }
-
-  void _onAnswerSubmit() async {
-    // Send the message to the API
-
-    Map<String, dynamic> body = {
-      "content": _newMessageController.text,
-      "user": 14,
-      "country": widget.countryIndex,
-      "parent": widget.message.id
-    };
-
-    print(body);
-
-    // // TODO: code the function
-    // Dio dio = Dio();
-    // //! set headers with user token
-    // final response =
-    //     await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
-
-    // if (response.statusCode == 201) {
-    //   // success
-    // } else {
-    //   // fail
-    // }
+    if (context.read<UserProvider>().isSignedIn()) {
+      setState(() {
+        _isInputMessageShown = !_isInputMessageShown;
+      });
+    } else {
+      showDialog(
+          context: context, builder: (context) => const ConnexionDialog());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    void onAnswerSubmit() async {
+      // Send the message to the API
+      Map<String, dynamic> body = {
+        "content": _newMessageController.text,
+        "user": context.read<UserProvider>().user.id,
+        "country": widget.countryIndex,
+        "parent": widget.message.id
+      };
+
+      bool hasWorked = await context.read<UserProvider>().postMessage(body);
+
+      if (hasWorked) {
+        widget.updateMessages();
+      } else {
+        // !
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
@@ -117,11 +121,11 @@ class _MessageWidgetState extends State<MessageWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.9,
+                      width: MediaQuery.of(context).size.width * 0.5,
                       child: NewMessageTextField(
                         hintText: "Ecrire votre commentaire...",
                         controller: _newMessageController,
-                        onTap: _onAnswerSubmit,
+                        onTap: onAnswerSubmit,
                         hide: _toggleInputMessageShown,
                       ),
                     )

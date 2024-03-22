@@ -4,10 +4,14 @@ import 'package:flutter_frontend/widgets/message_widget.dart';
 
 class MessagesList extends StatelessWidget {
   const MessagesList(
-      {super.key, required this.messages, required this.countryIndex});
+      {super.key,
+      required this.messages,
+      required this.countryIndex,
+      required this.updateMessages});
 
   final List<Message> messages;
   final int countryIndex;
+  final Function() updateMessages;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class MessagesList extends StatelessWidget {
       itemBuilder: (context, index) => MessageWidget(
         message: messages[index],
         countryIndex: countryIndex,
+        updateMessages: updateMessages,
       ),
     );
   }

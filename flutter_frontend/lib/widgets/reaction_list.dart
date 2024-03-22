@@ -105,7 +105,6 @@ class _ReactionListState extends State<ReactionList> {
               );
             }
           } else {
-            // TODO: Determine ? Should we keep the loader or do nothing, just wait by displaying nothing ?
             return const Loader();
           }
         }));

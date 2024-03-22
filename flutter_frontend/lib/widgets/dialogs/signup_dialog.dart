@@ -36,8 +36,12 @@ class _SignupDialogState extends State<SignupDialog> {
           errorMsg = "";
         });
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
+        // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/profile");
+
+        // ignore: use_build_context_synchronously
         showDialog(
             context: context, builder: (context) => const HomeCriteriaDialog());
       } else {

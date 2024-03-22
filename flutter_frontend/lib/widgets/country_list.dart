@@ -40,7 +40,7 @@ class _CountryListState extends State<CountryList> {
                     fontWeight: FontWeight.bold),
               ),
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border:
                         Border(bottom: BorderSide(color: Color(0xff575757)))),
                 child: Row(

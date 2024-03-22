@@ -11,7 +11,7 @@ class MenuItem extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: ButtonStyle(
-        side: MaterialStateProperty.all(BorderSide(
+        side: MaterialStateProperty.all(const BorderSide(
           color: Colors.transparent,
           width: 1.0,
           strokeAlign: BorderSide.strokeAlignInside,

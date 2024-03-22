@@ -29,7 +29,7 @@ class _CriteriaDisplayState extends State<CriteriaDisplay> {
     setState(() {
       _sort = st;
     });
-    // TODO:
+    // FIXME: implement sorting for criterias
   }
 
   @override

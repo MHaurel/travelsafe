@@ -28,9 +28,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   bool _isInputNewMessageShown = false;
 
   Future<List<Message>> _fetchMessages() async {
-    // Dio dio = context.watch<UserProvider>().dio; // TODO: inspect this
-    Dio dio = Dio();
-    final response = await dio.get("$baseUrl/messages/${widget.countryIndex}");
+    Dio dio = context.read<UserProvider>().dio;
+    final response = await dio.get("/messages/${widget.countryIndex}");
 
     List<Message> messages = [];
     response.data.forEach((m) => messages.add(Message.fromJson(m)));
@@ -58,14 +57,15 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
       "country": countryId
     };
 
-    final response =
-        await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
+    // final response =
+    //     await dio.post("$baseUrl/messages/create/", data: jsonEncode(body));
+    bool hasWorked = await context.read<UserProvider>().postMessage(body);
 
-    if (response.statusCode == 201) {
+    if (hasWorked) {
       _updateMessages();
       return true;
     } else {
-      // TODO: manage cases
+      // !: manage cases
       // print("An error occured when trying to create a message.");
       return false;
     }
@@ -73,8 +73,8 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
 
   void _onNewMessageSubmit() async {
     // poste un nouveau message en appelant l'API
-    bool isMessageDone = await _addMessage(newMessageController.text, 10,
-        widget.countryIndex); // TODO: fetch the id of the user
+    bool isMessageDone = await _addMessage(newMessageController.text,
+        context.read<UserProvider>().user.id!, widget.countryIndex);
     if (isMessageDone) {
       // toggle la variable d'état
       _toggleInputMessageShown();
@@ -82,7 +82,6 @@ class _CollaborativeSpaceState extends State<CollaborativeSpace> {
   }
 
   void _toggleInputMessageShown() {
-    // TODO: redirect user to connection/register if not logged in
     setState(() {
       _isInputNewMessageShown = !_isInputNewMessageShown;
     });

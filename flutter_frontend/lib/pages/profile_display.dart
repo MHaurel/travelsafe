@@ -34,7 +34,7 @@ class _ProfileDisplayState extends State<ProfileDisplay> {
       mailController.text = context.watch<UserProvider>().user.email!;
     }
 
-    void _onEditInformation() {
+    void onEditInformation() {
       if (_formKey.currentState!.validate()) {
         if (lastNameController.text ==
                 Provider.of<UserProvider>(context, listen: false)
@@ -143,7 +143,7 @@ class _ProfileDisplayState extends State<ProfileDisplay> {
                       width: 20,
                     ),
                     CustomIconButton(
-                        onPressed: _onEditInformation,
+                        onPressed: onEditInformation,
                         text: "Valider les modifications",
                         icon: Icons.edit)
                   ],

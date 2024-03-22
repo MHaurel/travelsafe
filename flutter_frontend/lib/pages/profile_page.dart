@@ -39,27 +39,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void navigateHomeIfUserUndefined(BuildContext context, User user) {
-    // TODO: protected route: redefine this
+    // FIXME: later, make protected routes
   }
 
-  Future<void> _updateUser(Dio dio, User user) async {
-    Map<String, dynamic> body = {
-      "first_name": user.firstName,
-      "last_name": user.lastName,
-      "email": user.email
-    };
-
-    final response =
-        await dio.put("/accounts/${user.id}", data: jsonEncode(body));
-
-    if (response.statusCode == 200) {
-      // TODO: feedback
-    } else {
-      // TODO: feedback
-    }
-  }
-
-// TODO: move the process below inside the provider
+  // !: the function has been written but will be implement in a next version
   void _showDeleteDialog(BuildContext context, User user) {
     showDialog(
         context: context,
@@ -118,7 +101,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               if (done) {
                                 // ignore: use_build_context_synchronously
                                 Navigator.of(context).pop();
-                                //  TODO: user.nullify();
                                 // ignore: use_build_context_synchronously
                                 Navigator.pushReplacementNamed(context, "/");
                               }
@@ -145,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (response.statusCode == 204) {
       return true;
     } else {
-      // TODO: deal with the error (display the message)
+      // !: deal with the error (display the message)
       // print("An error ocurred when trying to retrieve the user");
       return false;
     }

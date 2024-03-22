@@ -297,15 +297,6 @@ class Country {
       ..click();
   }
 
-  pw.PageTheme _buildTheme() {
-    return pw.PageTheme(
-      pageFormat: PdfPageFormat.a4,
-      buildBackground: (context) => pw.FullPage(
-        ignoreMargins: true,
-      ),
-    );
-  }
-
   @override
   String toString() {
     return name;

@@ -28,16 +28,6 @@ class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
     return subs;
   }
 
-  void _deleteSub(Dio dio, int id) async {
-    Response response = await dio.delete("/subscription/delete/$id");
-
-    if (response.statusCode == 204) {
-      setState(() {
-        _subs = _fetchSubs(dio);
-      });
-    }
-  }
-
   @override
   void initState() {
     _subs = _fetchSubs(Provider.of<UserProvider>(context, listen: false).dio);

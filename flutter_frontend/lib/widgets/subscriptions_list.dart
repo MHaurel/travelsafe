@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';

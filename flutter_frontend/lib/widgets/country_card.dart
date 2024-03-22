@@ -1,7 +1,6 @@
 // import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/pages/country_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';

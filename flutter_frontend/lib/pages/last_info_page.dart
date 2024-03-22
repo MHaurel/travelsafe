@@ -2,13 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/last_info.dart';
-import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
-import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/last_info_list.dart';
-import 'package:provider/provider.dart';
 
 class LastInfoPage extends StatefulWidget {
   const LastInfoPage({super.key});

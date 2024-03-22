@@ -3,7 +3,6 @@ import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/allergia_input_list.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/custom_slider.dart';
-import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/base/primary_button.dart';
 import 'package:provider/provider.dart';
 

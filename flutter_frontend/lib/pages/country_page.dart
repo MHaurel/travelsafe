@@ -1,10 +1,6 @@
-import 'dart:math';
-import 'dart:io' show Platform;
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/consts.dart';
-import 'package:flutter_frontend/handlers.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';

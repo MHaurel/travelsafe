@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/country.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/models/user.dart';
@@ -41,7 +38,7 @@ class UserProvider extends ChangeNotifier {
       } else {
         return "Les informations de connexion ne sont pas valides ou un problème est survenu.";
       }
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return "Les informations de connexion ne sont pas valides ou un problème est survenu.";
     }
 
@@ -66,7 +63,7 @@ class UserProvider extends ChangeNotifier {
       } else {
         return "Un compte avec cette adresse mail existe déjà ou un problème est survenu..";
       }
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       return "Un compte avec cette adresse mail existe déjà ou un problème est survenu..";
     }
   }
@@ -79,9 +76,7 @@ class UserProvider extends ChangeNotifier {
       jsonUser['access'] = _user.accessToken;
       jsonUser['refresh'] = _user.refreshToken;
       _user = User.fromJson(jsonUser);
-    } else {
-      print("An error occured when trying to retrieve the user");
-    }
+    } else {}
 
     notifyListeners();
   }

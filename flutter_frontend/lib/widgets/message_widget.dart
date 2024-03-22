@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/consts.dart';
 import 'package:flutter_frontend/models/message.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/base/new_message_text_field.dart';

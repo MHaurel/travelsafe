@@ -1,8 +1,4 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
@@ -55,66 +51,69 @@ class _SignupDialogState extends State<SignupDialog> {
       width: MediaQuery.of(context).size.width * 0.4,
       child: AlertDialog(
         surfaceTintColor: Colors.white,
-        content: Stack(alignment: Alignment.topRight, children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text("Inscription",
-                  style: Theme.of(context).textTheme.headlineMedium),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
-                child: Container(
-                  height: 5,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(8)),
-                ),
-              ),
-              SignUpForm(
-                  onSignup: () {
-                    onSignup();
-                  },
-                  lastNameController: lastNameController,
-                  firstNameController: firstNameController,
-                  mailController: mailController,
-                  passwordController: passwordController,
-                  confirmPasswordController: confirmPasswordController),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    errorMsg,
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.error),
+        content: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Stack(alignment: Alignment.topRight, children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Inscription",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                  child: Container(
+                    height: 5,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(8)),
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
-                child: Container(
-                  height: 5,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(8)),
                 ),
-              ),
-              CustomTextButton(
-                  text: "Déjà un compte ?",
-                  textColor: Colors.black54,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    showDialog(
-                      context: context,
-                      builder: (context) => const ConnexionDialog(),
-                    );
-                  })
-            ],
-          ),
-          IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(Icons.close))
-        ]),
+                SignUpForm(
+                    onSignup: () {
+                      onSignup();
+                    },
+                    lastNameController: lastNameController,
+                    firstNameController: firstNameController,
+                    mailController: mailController,
+                    passwordController: passwordController,
+                    confirmPasswordController: confirmPasswordController),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      errorMsg,
+                      style:
+                          TextStyle(color: Theme.of(context).colorScheme.error),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32.0),
+                  child: Container(
+                    height: 5,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(8)),
+                  ),
+                ),
+                CustomTextButton(
+                    text: "Déjà un compte ?",
+                    textColor: Colors.black54,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      showDialog(
+                        context: context,
+                        builder: (context) => const ConnexionDialog(),
+                      );
+                    })
+              ],
+            ),
+            IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.close))
+          ]),
+        ),
       ),
     );
   }

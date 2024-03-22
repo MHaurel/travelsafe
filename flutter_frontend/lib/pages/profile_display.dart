@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_form_field.dart';

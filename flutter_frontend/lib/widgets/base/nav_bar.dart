@@ -1,16 +1,7 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/consts.dart';
-import 'package:flutter_frontend/handlers.dart';
-import 'package:flutter_frontend/models/user.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
 import 'package:flutter_frontend/widgets/base/custom_text_button.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
-import 'package:flutter_frontend/widgets/dialogs/home_criteria_dialog.dart';
-import 'package:flutter_frontend/widgets/signup_form.dart';
-import 'package:flutter_frontend/widgets/connexion.dart';
 import 'package:provider/provider.dart';
 
 class NavBar extends StatelessWidget implements PreferredSizeWidget {

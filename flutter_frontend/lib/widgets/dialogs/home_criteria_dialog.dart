@@ -42,6 +42,5 @@ class HomeCriteriaDialog extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge),
       ),
     );
-    ;
   }
 }

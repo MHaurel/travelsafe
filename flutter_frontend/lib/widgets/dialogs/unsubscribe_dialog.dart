@@ -27,18 +27,18 @@ class UnsubscribeDialog extends StatelessWidget {
                 child: Container(
                   height: 1,
                   decoration: BoxDecoration(
-                      color: Color(0xffD7D7D7),
+                      color: const Color(0xffD7D7D7),
                       borderRadius: BorderRadius.circular(8)),
                 ),
               ),
-              Text("Attention ! Vous allez vous désabonner de ce pays."),
-              Text("Êtes-vous sûr de ne plus vouloir suivre ce pays ?"),
+              const Text("Attention ! Vous allez vous désabonner de ce pays."),
+              const Text("Êtes-vous sûr de ne plus vouloir suivre ce pays ?"),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: Container(
                   height: 1,
                   decoration: BoxDecoration(
-                      color: Color(0xffD7D7D7),
+                      color: const Color(0xffD7D7D7),
                       borderRadius: BorderRadius.circular(8)),
                 ),
               ),
@@ -53,8 +53,6 @@ class UnsubscribeDialog extends StatelessWidget {
                   ),
                   PrimaryButton(
                       onPressed: () {
-                        // Provider.of<UserProvider>(context, listen: false)
-                        //     .unsubscribe(countryIndex);
                         context.read<UserProvider>().unsubscribe(countryIndex);
                         Navigator.of(context).pop();
                       },
@@ -69,6 +67,5 @@ class UnsubscribeDialog extends StatelessWidget {
         ]),
       ),
     );
-    ;
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter_frontend/models/last_info.dart';
 import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/last_info_card_large.dart';
-import 'package:flutter_frontend/widgets/last_info_card_small.dart';
 
 class LastTwoNewsPreviewForCountry extends StatefulWidget {
   const LastTwoNewsPreviewForCountry({super.key, required this.country});

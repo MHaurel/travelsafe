@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -25,43 +26,48 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> login(String email, String password) async {
-    Response response = await _dio
-        .post("/token/", data: {"email": email, "password": password});
+  Future<String?> login(String email, String password) async {
+    try {
+      Response response = await _dio
+          .post("/token/", data: {"email": email, "password": password});
+      if (response.statusCode == 200) {
+        _user.accessToken = response.data['access'];
+        _user.refreshToken = response.data['refresh'];
+        initWithUser(); // Init the dio with the access token of the user
 
-    if (response.statusCode == 200) {
-      _user.accessToken = response.data['access'];
-      _user.refreshToken = response.data['refresh'];
-      initWithUser(); // Init the dio with the access token of the user
-
-      retrieveUser();
-      _subscriptions = await _getSubs();
-      notifyListeners();
-      return true;
+        retrieveUser();
+        _subscriptions = await _getSubs();
+        notifyListeners();
+      } else {
+        return "Les informations de connexion ne sont pas valides ou un problème est survenu.";
+      }
+    } on Exception catch (e) {
+      return "Les informations de connexion ne sont pas valides ou un problème est survenu.";
     }
 
     notifyListeners();
-
-    return false;
   }
 
-  Future<bool> signup(
+  Future<String?> signup(
       String email, String password, String firstName, String lastName) async {
-    Map<String, dynamic> body = {
-      "first_name": firstName,
-      "last_name": lastName,
-      "email": email,
-      "password": password,
-    };
+    try {
+      Map<String, dynamic> body = {
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "password": password,
+      };
 
-    Response response =
-        await _dio.post("/accounts/create", data: jsonEncode(body));
+      Response response =
+          await _dio.post("/accounts/create", data: jsonEncode(body));
 
-    if (response.statusCode == 201) {
-      login(email, password);
-      return true;
-    } else {
-      return false;
+      if (response.statusCode == 201) {
+        login(email, password);
+      } else {
+        return "Un compte avec cette adresse mail existe déjà ou un problème est survenu..";
+      }
+    } on Exception catch (e) {
+      return "Un compte avec cette adresse mail existe déjà ou un problème est survenu..";
     }
   }
 

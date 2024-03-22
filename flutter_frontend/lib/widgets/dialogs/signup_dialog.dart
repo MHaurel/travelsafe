@@ -29,32 +29,24 @@ class _SignupDialogState extends State<SignupDialog> {
     TextEditingController confirmPasswordController = TextEditingController();
 
     void onSignup() async {
-      bool hasWorked = await context.read<UserProvider>().signup(
+      String? signupMessage = await context.read<UserProvider>().signup(
           mailController.text,
           passwordController.text,
           firstNameController.text,
           lastNameController.text);
 
-      if (hasWorked) {
+      if (signupMessage == null) {
         setState(() {
           errorMsg = "";
         });
-        // update the user provider from the data obtained
-        // Provider.of<UserProvider>(context, listen: false).user =
-        //     User.fromJson(data);
-
-        // Provider.of<UserProvider>(context, listen: false)
-        //     .login(mailController.text, passwordController.text);
 
         Navigator.of(context).pop();
         Navigator.of(context).pushNamed("/profile");
         showDialog(
             context: context, builder: (context) => const HomeCriteriaDialog());
       } else {
-        // TODO: Manage cases (account already exists, no connection, ...)
-        // print("An error happened when trying so register the user.");
         setState(() {
-          errorMsg = "Le compte existe déjà ou un problème est survenu.";
+          errorMsg = signupMessage;
         });
       }
     }
@@ -88,9 +80,15 @@ class _SignupDialogState extends State<SignupDialog> {
                   mailController: mailController,
                   passwordController: passwordController,
                   confirmPasswordController: confirmPasswordController),
-              Text(
-                errorMsg,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    errorMsg,
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32.0),

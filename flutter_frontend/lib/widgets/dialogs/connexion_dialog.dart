@@ -5,16 +5,23 @@ import 'package:flutter_frontend/widgets/connexion.dart';
 import 'package:flutter_frontend/widgets/dialogs/signup_dialog.dart';
 import 'package:provider/provider.dart';
 
-class ConnexionDialog extends StatelessWidget {
+class ConnexionDialog extends StatefulWidget {
   const ConnexionDialog({super.key});
+
+  @override
+  State<ConnexionDialog> createState() => _ConnexionDialogState();
+}
+
+class _ConnexionDialogState extends State<ConnexionDialog> {
+  String errorMsg = "";
 
   @override
   Widget build(BuildContext context) {
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    // mailController.text = "maximelebest@gmail.com";
-    // passwordController.text = "admin";
+    mailController.text = "maximelebest@gmail.com";
+    passwordController.text = "admin";
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
@@ -39,17 +46,33 @@ class ConnexionDialog extends StatelessWidget {
               ConnexionForm(
                   onConnexion: () async {
                     // User user = Provider.of<User>(context);
-                    bool isLoggedIn = await context
+                    String? loginMessage = await context
                         .read<UserProvider>()
                         .login(mailController.text, passwordController.text);
 
-                    if (isLoggedIn) {
+                    if (loginMessage == null) {
+                      setState(() {
+                        errorMsg = "";
+                      });
                       Navigator.of(context).pop(); // Closing the dialog
-                      // Navigator.of(context).pushReplacementNamed("/profile");
-                    } else {}
+                    } else {
+                      setState(() {
+                        errorMsg = loginMessage;
+                      });
+                    }
                   },
                   mailController: mailController,
                   passwordController: passwordController),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    errorMsg,
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error),
+                  ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 32.0),
                 child: Container(

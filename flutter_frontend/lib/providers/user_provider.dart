@@ -64,8 +64,6 @@ class UserProvider extends ChangeNotifier {
         "email": email,
         "password": password,
       };
-      print(body);
-      print(_dio.options.headers);
 
       Response response =
           await _dio.post("/accounts/create", data: jsonEncode(body));

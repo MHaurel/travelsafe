@@ -15,7 +15,7 @@ class CountryCard extends StatelessWidget {
   void _onDownloadCountrySheet() async {
     // bool isMobile = Platform.isAndroid || Platform.isIOS;
     // await downloadCountrySheet(country, false);
-    country.buildPdf(false); // TODO:
+    country.buildPdf(false);
   }
 
   void _goToCountry(BuildContext context, int index) {

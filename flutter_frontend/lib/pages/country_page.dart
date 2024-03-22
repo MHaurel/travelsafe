@@ -11,14 +11,12 @@ import 'package:flutter_frontend/widgets/base/custom_error_widget.dart';
 import 'package:flutter_frontend/widgets/base/loader.dart';
 import 'package:flutter_frontend/widgets/base/pub.dart';
 import 'package:flutter_frontend/widgets/collaborative_space.dart';
-import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
 import 'package:flutter_frontend/widgets/dialogs/connexion_dialog.dart';
 import 'package:flutter_frontend/widgets/dialogs/unsubscribe_dialog.dart';
 import 'package:flutter_frontend/widgets/last_two_news_preview_for_country.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_frontend/widgets/base/custom_icon_button.dart';
 import 'package:flutter_frontend/widgets/base/nav_bar.dart';
-import 'package:flutter_frontend/widgets/country_sections_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -43,7 +41,7 @@ class _CountryPageState extends State<CountryPage> {
   void _download(Country country) async {
     // bool isMobile = Platform.isAndroid || Platform.isIOS;
     bool isMobile = false;
-    await downloadCountrySheet(country, isMobile);
+    country.buildPdf(isMobile);
   }
 
   Future<Country> _fetchCountry() async {

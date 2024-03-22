@@ -204,9 +204,21 @@ class _StepState extends State<Step> {
             padding: const EdgeInsets.symmetric(vertical: 32.0),
             child: Column(
               children: [
-                Text(
-                  widget.title,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    const Icon(
+                      Icons.info_outline,
+                      size: 16,
+                    )
+                  ],
                 ),
                 widget.isAllergy
                     ? AllergiaInputList(

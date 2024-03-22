@@ -43,6 +43,7 @@ class UserProvider extends ChangeNotifier {
     }
 
     notifyListeners();
+    return null;
   }
 
   Future<String?> signup(
@@ -54,6 +55,7 @@ class UserProvider extends ChangeNotifier {
         "email": email,
         "password": password,
       };
+      print(body);
 
       Response response =
           await _dio.post("/accounts/create", data: jsonEncode(body));
@@ -66,6 +68,7 @@ class UserProvider extends ChangeNotifier {
     } on Exception catch (_) {
       return "Un compte avec cette adresse mail existe déjà ou un problème est survenu..";
     }
+    return null;
   }
 
   Future<void> retrieveUser() async {
@@ -140,7 +143,7 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  subscribe(int countryIndex) async {
+  Future<bool> subscribe(int countryIndex) async {
     Response response = await _dio.post("/subscription/create/$countryIndex");
 
     if (response.statusCode == 201) {
@@ -148,6 +151,10 @@ class UserProvider extends ChangeNotifier {
       _subscriptions.add(newSub);
 
       notifyListeners();
+
+      return true;
+    } else {
+      return false;
     }
   }
 

@@ -14,6 +14,7 @@ class SubscriptionsDisplay extends StatefulWidget {
 }
 
 class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
+  // ignore: unused_field
   late Future<List<Subscription>> _subs;
 
   void _onChanged(bool b) {

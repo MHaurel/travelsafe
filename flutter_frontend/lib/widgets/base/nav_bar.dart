@@ -73,23 +73,33 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
                               context: context,
                               builder: (context) => const ConnexionDialog())
                     },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(90),
-                  child: Container(
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.5),
-                        child: CircleAvatar(
-                          backgroundColor: const Color(0xFF326B69),
-                          foregroundColor: const Color(0xFFFFFFFF),
-                          child: context.watch<UserProvider>().isSignedIn()
-                              ? Image.asset("assets/images/avatar.png")
-                              : const Icon(
-                                  Icons.person_rounded,
-                                  color: Color(0xFFFFFFFF),
-                                ),
-                        ),
-                      )),
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(90),
+                      child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.5),
+                            child: CircleAvatar(
+                              backgroundColor: const Color(0xFF326B69),
+                              foregroundColor: const Color(0xFFFFFFFF),
+                              child: context.watch<UserProvider>().isSignedIn()
+                                  ? Image.asset("assets/images/avatar.png")
+                                  : const Icon(
+                                      Icons.person_rounded,
+                                      color: Color(0xFFFFFFFF),
+                                    ),
+                            ),
+                          )),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Text(context.watch<UserProvider>().isSignedIn()
+                        ? context.read<UserProvider>().user.fullName
+                        : "Se connecter")
+                  ],
                 )))
       ],
       backgroundColor: const Color(0xFFA8D6AC),

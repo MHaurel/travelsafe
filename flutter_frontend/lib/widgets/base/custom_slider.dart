@@ -21,6 +21,10 @@ class _CustomSliderState extends State<CustomSlider> {
 
   @override
   Widget build(BuildContext context) {
+    // setState(() {
+    //   _value = 3;
+    // });
+
     return Column(
       children: [
         Slider(

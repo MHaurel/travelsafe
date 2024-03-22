@@ -92,12 +92,23 @@ class _CountryPageState extends State<CountryPage> {
                         text: "Se désabonner",
                         icon: Icons.notifications_off)
                     : CustomIconButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // If the user is not connected : show login dialog
                           if (Provider.of<UserProvider>(context, listen: false)
                               .isSignedIn()) {
-                            Provider.of<UserProvider>(context, listen: false)
+                            bool hasWorked = await Provider.of<UserProvider>(
+                                    context,
+                                    listen: false)
                                 .subscribe(country.id);
+                            if (hasWorked) {
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    "Vous pouvez activer les alertes d'évènements par email dans l'onglet Abonnements de votre profil."),
+                                duration: Duration(seconds: 5),
+                              ));
+                            }
                           } else {
                             showDialog(
                                 context: context,
@@ -166,6 +177,12 @@ class _CountryPageState extends State<CountryPage> {
                       },
                     ];
 
+                    List<String> allDrawerSections = ["Dernières informations"];
+                    for (var cs in countrySections) {
+                      allDrawerSections.add(cs['title']);
+                    }
+                    allDrawerSections.add("Espace collaboratif");
+
                     return Row(children: [
                       Drawer(
                           shape: Border(
@@ -175,9 +192,9 @@ class _CountryPageState extends State<CountryPage> {
                           backgroundColor: Colors.transparent,
                           surfaceTintColor: Colors.transparent,
                           child: ListView.builder(
-                            itemCount: countrySections.length,
+                            itemCount: allDrawerSections.length,
                             itemBuilder: (context, index) => ListTile(
-                              title: Text(countrySections[index]['title']),
+                              title: Text(allDrawerSections[index]),
                               enabled: false,
                             ),
                           )),

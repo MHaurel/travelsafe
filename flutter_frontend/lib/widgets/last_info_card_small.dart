@@ -57,7 +57,7 @@ class LastInfoCardSmall extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(lastInfo.title,
+                    child: Text(lastInfo.content,
                         style: Theme.of(context).textTheme.bodyMedium),
                   ),
                 )

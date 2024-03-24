@@ -43,7 +43,7 @@ class LastInfoCardLarge extends StatelessWidget {
                                 .fontFamily,
                             fontSize:
                                 Theme.of(context).textTheme.bodyLarge!.fontSize,
-                            fontWeight: FontWeight.bold),
+                            fontWeight: FontWeight.w800),
                       ),
                       Row(
                         children: [
@@ -60,7 +60,7 @@ class LastInfoCardLarge extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text(lastInfo.title,
+                  Text(lastInfo.content,
                       style: Theme.of(context).textTheme.bodyLarge)
                 ],
               ),

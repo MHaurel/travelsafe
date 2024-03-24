@@ -1,6 +1,10 @@
 # travelsafe
 
-**/!\ Always pull the commits from GitHub before coding**
+People involved in this project:
+* Enora Arth
+* Maxime Haurel
+* Emma Meknaci
+* Marion Schmitt
 
 ## Installing & Running the backend
 
@@ -50,8 +54,3 @@ flutter run -d chrome
 **The app is running**
 
 ## Structure of the Flutter app
-
-* Assets are placed in the assets folder at the root of the app (images, fonts, videos, ...)
-* Components/widgets are placed in the lib/widgets folder
-* Pages are placed in the lib/pages folder
-* Only 1 file should be at the root of the lib folder: main.dart

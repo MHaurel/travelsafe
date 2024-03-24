@@ -12,11 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ["id", "first_name", "last_name", "email", "password", "criteria_women_children", "criteria_security",
+        fields = ["id", "first_name", "last_name", "email", "password", "mail_notifications", "criteria_women_children", "criteria_security",
                   "criteria_sanitary", "criteria_sociopolitical", "criteria_climate", "criteria_customs", "criteria_lgbt", "criteria_allergy"]
         extra_kwargs = {'password': {'write_only': True}}
         depth = 2
 
     def update(self, instance, validated_data):
-        print(validated_data)
         return super().update(instance, validated_data)

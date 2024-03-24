@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/models/subscription.dart';
 import 'package:flutter_frontend/providers/user_provider.dart';
+import 'package:flutter_frontend/widgets/base/custom_switch.dart';
 import 'package:flutter_frontend/widgets/criteria_switch.dart';
 import 'package:flutter_frontend/widgets/subscriptions_list.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
   late Future<List<Subscription>> _subs;
 
   void _onChanged(bool b) {
-    // FIXME: implement the notification preferences of the user
+    context.read<UserProvider>().toggleMailNotifications();
   }
 
   Future<List<Subscription>> _fetchSubs(Dio dio) async {
@@ -56,8 +57,9 @@ class _SubscriptionsDisplayState extends State<SubscriptionsDisplay> {
               const SizedBox(
                 width: 16,
               ),
-              CriteriaSwitch(
+              CustomSwitch(
                 onChanged: _onChanged,
+                active: context.watch<UserProvider>().user.mailNotifications!,
               )
             ],
           ),

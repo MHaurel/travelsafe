@@ -40,7 +40,6 @@ class CreateUser(generics.CreateAPIView):
     serializer_class = UserSerializer
 
     def perform_create(self, serializer):
-        print("create user")
         user = CustomUser.objects.create_user(
             email=serializer.validated_data['email'],
             password=serializer.validated_data['password'],
@@ -63,9 +62,6 @@ class LoginView(generics.CreateAPIView):
                 token, _ = Token.objects.get_or_create(user=user)
                 return response.Response({'token': token.key})
 
-            print("password: " + user.password)
-            print(user.check_password(password))
-
             return response.Response({'error': 'Invalid credentials'}, status=400)
         except:
             return response.Response({'error': 'Invalid credentials'}, status=400)
@@ -87,7 +83,6 @@ class AddCriteriaView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         # create the criteria
-        print(request.data)
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -111,11 +106,12 @@ class AddCriteriaView(generics.CreateAPIView):
         elif request.data.get("name") == "Allergies alimentaires dans le pays":
             request.user.criteria_allergy = new_criteria
         else:
-            print("Not existing")
+            # print("Not existing")
+            pass
 
         try:
             request.user.save()
             return response.Response({}, status=status.HTTP_201_CREATED)
         except:
-            print("Error")
+            # print("Error")
             return response.Response({}, status=status.HTTP_400_BAD_REQUEST)

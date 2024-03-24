@@ -5,6 +5,7 @@ class User {
   String? email;
   String? firstName;
   String? lastName;
+  bool? mailNotifications;
 
   Criteria? criteriaWomenChildren;
   Criteria? criteriaLgbt;
@@ -23,6 +24,7 @@ class User {
       this.email,
       this.firstName,
       this.lastName,
+      this.mailNotifications,
       this.criteriaWomenChildren,
       this.criteriaLgbt,
       this.criteriaCustoms,
@@ -40,6 +42,7 @@ class User {
         json['email'],
         json['first_name'],
         json['last_name'],
+        json['mail_notifications'],
         Criteria.fromJsonOrNull(json['criteria_women_children']),
         Criteria.fromJsonOrNull(json['criteria_lgbt']),
         Criteria.fromJsonOrNull(json['criteria_customs']),
@@ -62,6 +65,7 @@ class User {
     email = json['email'];
     firstName = json['first_name'];
     lastName = json['last_name'];
+    mailNotifications = json['mail_notifications'];
     criteriaWomenChildren =
         Criteria.fromJsonOrNull(json['criteria_women_children']);
     criteriaLgbt = Criteria.fromJsonOrNull(json['criteria_lgbt']);

@@ -9,7 +9,7 @@ import 'package:flutter_frontend/models/user.dart';
 
 class UserProvider extends ChangeNotifier {
   User _user = User(null, null, null, null, null, null, null, null, null, null,
-      null, null, null, null);
+      null, null, null, null, null);
   List<Subscription> _subscriptions = [];
 
   Dio _dio = Dio(BaseOptions(
@@ -19,8 +19,8 @@ class UserProvider extends ChangeNotifier {
 
   logout() {
     _user = User(null, null, null, null, null, null, null, null, null, null,
-        null, null, null, null);
-    resetDio(); // Reset token is mandatory when logging out the user
+        null, null, null, null, null);
+    resetDio(); // Reset dio is mandatory when logging out the user
 
     notifyListeners();
   }
@@ -149,6 +149,18 @@ class UserProvider extends ChangeNotifier {
       _subscriptions.remove(subToDelete);
       notifyListeners();
     }
+  }
+
+  Future<bool> toggleMailNotifications() async {
+    final Map<String, dynamic> body = {
+      "first_name": _user.firstName,
+      "last_name": _user.lastName,
+      "email": _user.email,
+      "mail_notifications": !_user.mailNotifications!
+    };
+
+    bool hasWorked = await updateUser(body);
+    return hasWorked;
   }
 
   Future<bool> subscribe(int countryIndex) async {

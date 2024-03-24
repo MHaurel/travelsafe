@@ -10,5 +10,4 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         depth = 4
 
         def create(self, validated_data):
-            print(validated_data)
             return super().create(validated_data)

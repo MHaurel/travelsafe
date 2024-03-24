@@ -25,7 +25,10 @@ class NavBar extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 200,
       leading: Padding(
         padding: const EdgeInsets.only(left: 64.0),
-        child: Image.asset("assets/images/navbar_logo_2x.png"),
+        child: InkWell(
+          onTap: () => Navigator.of(context).pushReplacementNamed("/"),
+          child: Image.asset("assets/images/navbar_logo_2x.png"),
+        ),
       ),
       centerTitle: true,
       title: Row(

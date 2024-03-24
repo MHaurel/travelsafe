@@ -49,6 +49,17 @@ class _CountryPageState extends State<CountryPage> {
     return country;
   }
 
+  String getTooltip(Country country) {
+    final Map<int, String> tooltips = {
+      1: "Prudence normale",
+      2: "Grande prudence",
+      3: "Eviter si possible",
+      4: "Eviter tout voyage"
+    };
+
+    return tooltips[country.level]!;
+  }
+
   Widget _buildTitle(Country country, BuildContext context) {
     return Container(
       color: Colors.white,
@@ -58,8 +69,8 @@ class _CountryPageState extends State<CountryPage> {
         children: [
           Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(0.0),
+              Tooltip(
+                message: getTooltip(country),
                 child: SvgPicture.asset(
                     "assets/images/RiskLevel${country.level}.svg",
                     width: 100,

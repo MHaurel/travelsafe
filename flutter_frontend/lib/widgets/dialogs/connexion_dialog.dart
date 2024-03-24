@@ -20,9 +20,6 @@ class _ConnexionDialogState extends State<ConnexionDialog> {
     TextEditingController mailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    mailController.text = "maximelebest@gmail.com";
-    passwordController.text = "admin";
-
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       child: AlertDialog(

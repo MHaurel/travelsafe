@@ -7,7 +7,7 @@ User = get_user_model()
 
 class Message(models.Model):
     # ! : a message cannot exceed 255 characters
-    content = models.CharField(max_length=255)
+    content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey(
         'self', on_delete=models.CASCADE, null=True, blank=True, related_name="replies")
